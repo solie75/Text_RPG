@@ -3,6 +3,9 @@
 #include "CKeyManager.h"
 #include "CTimeManager.h"
 
+CGameInstance::CGameInstance() {};
+CGameInstance::~CGameInstance() {};
+
 void CGameInstance::GameInstInit()
 {
 	CTimeManager::GetInst()->TimeManagerInit();
