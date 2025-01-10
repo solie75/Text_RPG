@@ -134,10 +134,16 @@
   <ItemGroup>
     <ClCompile Include="CBattleManager.cpp" />
     <ClCompile Include="CBossDungeonStage.cpp" />
+    <ClCompile Include="CBossMonsterFactory.cpp" />
+    <ClCompile Include="CBossMonster.cpp" />
     <ClCompile Include="CDungeonStage.cpp" />
     <ClCompile Include="CGameInstance.cpp" />
+    <ClCompile Include="CGoblin.cpp" />
+    <ClCompile Include="CGoblinFactory.cpp" />
     <ClCompile Include="CKeyManager.cpp" />
     <ClCompile Include="CNormalDungeonStage.cpp" />
+    <ClCompile Include="COrc.cpp" />
+    <ClCompile Include="COrcFactory.cpp" />
     <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CResourceManager.cpp" />
     <ClCompile Include="CScriptManager.cpp" />
@@ -147,6 +153,8 @@
     <ClCompile Include="CStageManager.cpp" />
     <ClCompile Include="CStartStage.cpp" />
     <ClCompile Include="CTimeManager.cpp" />
+    <ClCompile Include="CTroll.cpp" />
+    <ClCompile Include="CTrollFactory.cpp" />
     <ClCompile Include="CVillageStage.cpp" />
     <ClCompile Include="extern.cpp" />
     <ClCompile Include="pch.cpp">
@@ -159,10 +167,18 @@
   <ItemGroup>
     <ClInclude Include="CBattleManager.h" />
     <ClInclude Include="CBossDungeonStage.h" />
+    <ClInclude Include="CBossMonsterFactory.h" />
+    <ClInclude Include="CBossMonster.h" />
     <ClInclude Include="CDungeonStage.h" />
     <ClInclude Include="CGameInstance.h" />
+    <ClInclude Include="CGoblin.h" />
+    <ClInclude Include="CGoblinFactory.h" />
     <ClInclude Include="CKeyManager.h" />
+    <ClInclude Include="CMonster.h" />
+    <ClInclude Include="CMonsterFactory.h" />
     <ClInclude Include="CNormalDungeonStage.h" />
+    <ClInclude Include="COrc.h" />
+    <ClInclude Include="COrcFactory.h" />
     <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CResourceManager.h" />
     <ClInclude Include="CScriptManager.h" />
@@ -173,6 +189,8 @@
     <ClInclude Include="CStageManager.h" />
     <ClInclude Include="CStartStage.h" />
     <ClInclude Include="CTimeManager.h" />
+    <ClInclude Include="CTroll.h" />
+    <ClInclude Include="CTrollFactory.h" />
     <ClInclude Include="CVillageStage.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="global.h" />

@@ -134,6 +134,30 @@
     <ClCompile Include="CGameInstance.cpp">
       <Filter>Source Files\6.Module</Filter>
     </ClCompile>
+    <ClCompile Include="CGoblin.cpp">
+      <Filter>Source Files\3.Object\2.Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="COrc.cpp">
+      <Filter>Source Files\3.Object\2.Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CTroll.cpp">
+      <Filter>Source Files\3.Object\2.Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CGoblinFactory.cpp">
+      <Filter>Source Files\1.Manager\6.SpawnManager</Filter>
+    </ClCompile>
+    <ClCompile Include="COrcFactory.cpp">
+      <Filter>Source Files\1.Manager\6.SpawnManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CTrollFactory.cpp">
+      <Filter>Source Files\1.Manager\6.SpawnManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CBossMonster.cpp">
+      <Filter>Source Files\3.Object\2.Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CBossMonsterFactory.cpp">
+      <Filter>Source Files\1.Manager\6.SpawnManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CSingleton.h">
@@ -199,6 +223,36 @@
     </ClInclude>
     <ClInclude Include="CGameInstance.h">
       <Filter>Source Files\6.Module</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonster.h">
+      <Filter>Source Files\3.Object\2.Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CGoblin.h">
+      <Filter>Source Files\3.Object\2.Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="COrc.h">
+      <Filter>Source Files\3.Object\2.Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CTroll.h">
+      <Filter>Source Files\3.Object\2.Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterFactory.h">
+      <Filter>Source Files\1.Manager\6.SpawnManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CGoblinFactory.h">
+      <Filter>Source Files\1.Manager\6.SpawnManager</Filter>
+    </ClInclude>
+    <ClInclude Include="COrcFactory.h">
+      <Filter>Source Files\1.Manager\6.SpawnManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CTrollFactory.h">
+      <Filter>Source Files\1.Manager\6.SpawnManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CBossMonsterFactory.h">
+      <Filter>Source Files\1.Manager\6.SpawnManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CBossMonster.h">
+      <Filter>Source Files\3.Object\2.Monster</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
