@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\0.Header">
+      <UniqueIdentifier>{c2222056-8be3-4044-bfce-c8cb6ab55eff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\1.Manager">
+      <UniqueIdentifier>{0cc783b3-86de-4725-8dfb-4885a421a0e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\2.Stage">
+      <UniqueIdentifier>{76330cd5-b306-45b7-ab2e-0e3d8c118031}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\3.Object">
+      <UniqueIdentifier>{24473c15-f0e9-4332-a63f-0a033526e86b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\4.Resource">
+      <UniqueIdentifier>{efda39cc-a5d8-4ae6-9e6f-adb2eae37fe0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\5.Component">
+      <UniqueIdentifier>{b85c1381-3374-4a1d-8ad9-48b70262ab32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\6.Module">
+      <UniqueIdentifier>{2482ad5e-458d-4ab7-b23b-f0d8bf5ce62e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\1.Manager\1.KeyManager">
+      <UniqueIdentifier>{7d27904a-b6af-43f9-8f1d-129ca0281748}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\1.Manager\2.TimeManager">
+      <UniqueIdentifier>{0285cd73-8510-4a42-82b3-379375eb04da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\1.Manager\3.StageManager">
+      <UniqueIdentifier>{ba5391c9-3b43-4a25-a8d0-40f504892012}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\1.Manager\4.ResourceManager">
+      <UniqueIdentifier>{640fd573-9a18-46ea-a94c-d6eb0ec94319}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\1.Manager\5.ScriptManager">
+      <UniqueIdentifier>{f7c6759d-bf94-4df2-94fc-e50cdfd42fa8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\1.Manager\8.ShopManager">
+      <UniqueIdentifier>{d0a50a84-24e9-4434-95d7-d6694af07f7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\1.Manager\7.BattleManager">
+      <UniqueIdentifier>{8463ab25-6378-4adc-94d4-9f5d3d8ece6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\1.Manager\6.SpawnManager">
+      <UniqueIdentifier>{9ab5cbd1-f41f-4e83-8f4e-9e126b41739a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\2.Stage\1.StartStage">
+      <UniqueIdentifier>{b2afb61c-faf0-4ffc-9c79-56455dd0b4ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\2.Stage\2.DungeonStage">
+      <UniqueIdentifier>{28ddabda-7bf7-4d5b-946d-c16a3ff83572}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\2.Stage\3.VillageStage">
+      <UniqueIdentifier>{053c2fa6-1ca6-4c26-8340-b483019ef3bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\2.Stage\4.ShopStage">
+      <UniqueIdentifier>{7fd351b6-1894-447d-8b1c-c51a7dbcf657}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\2.Stage\2.DungeonStage\Dungeons">
+      <UniqueIdentifier>{19f5c264-30b1-4159-8242-192dd9a4137b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\3.Object\1.Player">
+      <UniqueIdentifier>{570f6751-c883-406f-80d8-a1651c78ac5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\3.Object\2.Monster">
+      <UniqueIdentifier>{d207f72c-9259-47aa-9b5b-39b2fcc3e004}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\3.Object\3.NPC">
+      <UniqueIdentifier>{08caa3f4-3f87-4563-8c1c-7068b0d9f31e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Text_RPG.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CKeyManager.cpp">
+      <Filter>Source Files\1.Manager\1.KeyManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CTimeManager.cpp">
+      <Filter>Source Files\1.Manager\2.TimeManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CStageManager.cpp">
+      <Filter>Source Files\1.Manager\3.StageManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CResourceManager.cpp">
+      <Filter>Source Files\1.Manager\4.ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CScriptManager.cpp">
+      <Filter>Source Files\1.Manager\5.ScriptManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CSpawnManager.cpp">
+      <Filter>Source Files\1.Manager\6.SpawnManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CBattleManager.cpp">
+      <Filter>Source Files\1.Manager\7.BattleManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CShopManager.cpp">
+      <Filter>Source Files\1.Manager\8.ShopManager</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="CStage.cpp">
+      <Filter>Source Files\2.Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="CStartStage.cpp">
+      <Filter>Source Files\2.Stage\1.StartStage</Filter>
+    </ClCompile>
+    <ClCompile Include="CDungeonStage.cpp">
+      <Filter>Source Files\2.Stage\2.DungeonStage</Filter>
+    </ClCompile>
+    <ClCompile Include="CVillageStage.cpp">
+      <Filter>Source Files\2.Stage\3.VillageStage</Filter>
+    </ClCompile>
+    <ClCompile Include="CShopStage.cpp">
+      <Filter>Source Files\2.Stage\4.ShopStage</Filter>
+    </ClCompile>
+    <ClCompile Include="CNormalDungeonStage.cpp">
+      <Filter>Source Files\2.Stage\2.DungeonStage\Dungeons</Filter>
+    </ClCompile>
+    <ClCompile Include="CBossDungeonStage.cpp">
+      <Filter>Source Files\2.Stage\2.DungeonStage\Dungeons</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayer.cpp">
+      <Filter>Source Files\3.Object\1.Player</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CSingleton.h">
+      <Filter>Source Files\6.Module</Filter>
+    </ClInclude>
+    <ClInclude Include="define.h">
+      <Filter>Source Files\0.Header</Filter>
+    </ClInclude>
+    <ClInclude Include="CKeyManager.h">
+      <Filter>Source Files\1.Manager\1.KeyManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CTimeManager.h">
+      <Filter>Source Files\1.Manager\2.TimeManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CStageManager.h">
+      <Filter>Source Files\1.Manager\3.StageManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CResourceManager.h">
+      <Filter>Source Files\1.Manager\4.ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CScriptManager.h">
+      <Filter>Source Files\1.Manager\5.ScriptManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CSpawnManager.h">
+      <Filter>Source Files\1.Manager\6.SpawnManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CBattleManager.h">
+      <Filter>Source Files\1.Manager\7.BattleManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CShopManager.h">
+      <Filter>Source Files\1.Manager\8.ShopManager</Filter>
+    </ClInclude>
+    <ClInclude Include="global.h">
+      <Filter>Source Files\0.Header</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="CStage.h">
+      <Filter>Source Files\2.Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="CStartStage.h">
+      <Filter>Source Files\2.Stage\1.StartStage</Filter>
+    </ClInclude>
+    <ClInclude Include="CDungeonStage.h">
+      <Filter>Source Files\2.Stage\2.DungeonStage</Filter>
+    </ClInclude>
+    <ClInclude Include="CVillageStage.h">
+      <Filter>Source Files\2.Stage\3.VillageStage</Filter>
+    </ClInclude>
+    <ClInclude Include="CShopStage.h">
+      <Filter>Source Files\2.Stage\4.ShopStage</Filter>
+    </ClInclude>
+    <ClInclude Include="CNormalDungeonStage.h">
+      <Filter>Source Files\2.Stage\2.DungeonStage\Dungeons</Filter>
+    </ClInclude>
+    <ClInclude Include="CBossDungeonStage.h">
+      <Filter>Source Files\2.Stage\2.DungeonStage\Dungeons</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayer.h">
+      <Filter>Source Files\3.Object\1.Player</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

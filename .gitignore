@@ -30,3 +30,68 @@
 *.exe
 *.out
 *.app
+
+# Build directories
+/build/
+/bin/
+/obj/
+
+# Visual Studio Code settings
+.vscode/
+
+# CMake files
+CMakeFiles/
+CMakeCache.txt
+*.cmake
+Makefile
+*.ninja
+
+# Log files
+*.log
+*.tmp
+
+# Backup and swap files
+*.bak
+*.swp
+*.swn
+*.swm
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python cache (if Python scripts are used)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Git specific
+.git/
+.gitignore
+
+# Unreal Engine specific (if applicable)
+*.uproject
+*.opensdf
+*.sdf
+*.cache
+*.pdb
+
+
+# Visual Studio 관련 파일
+.vs/
+*.vsidx
+*.suo
+Brawse.VS.db
+.Solution.VS.db
+*.vcxproj.user
+*.exe.recipe
+*.ilk
+*.tlog
+*.lastbuildstate
+vc*.idb
+
+# 사용자 설정
+DocumentLayout..backup.json
+DocumentLayout.json
