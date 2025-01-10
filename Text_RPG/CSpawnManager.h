@@ -2,5 +2,6 @@
 class CSpawnManager :
     public CSingleton<CSpawnManager>
 {
+
 };
 

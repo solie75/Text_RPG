@@ -128,6 +128,12 @@
     <ClCompile Include="CPlayer.cpp">
       <Filter>Source Files\3.Object\1.Player</Filter>
     </ClCompile>
+    <ClCompile Include="extern.cpp">
+      <Filter>Source Files\0.Header</Filter>
+    </ClCompile>
+    <ClCompile Include="CGameInstance.cpp">
+      <Filter>Source Files\6.Module</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CSingleton.h">
@@ -187,6 +193,12 @@
     </ClInclude>
     <ClInclude Include="CPlayer.h">
       <Filter>Source Files\3.Object\1.Player</Filter>
+    </ClInclude>
+    <ClInclude Include="struct.h">
+      <Filter>Source Files\0.Header</Filter>
+    </ClInclude>
+    <ClInclude Include="CGameInstance.h">
+      <Filter>Source Files\6.Module</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,8 +2,14 @@
 //
 #include "pch.h"
 #include <iostream>
+#include "CGameInstance.h"
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    CGameInstance::GetInst()->GameInstInit();
+
+    while (true)
+    {
+        CGameInstance::GetInst()->GameInstTick();
+    }
 }
