@@ -14,17 +14,17 @@ CGoblin::CGoblin(int level)
 	damage = DamageDistribution(RandomGenerator);
 }
 
-string CGoblin::GetName()
+string CGoblin::GetName() const
 {
 	return name;
 }
 
-int CGoblin::GetHealth()
+int CGoblin::GetHealth() const
 {
 	return health;
 }
 
-int CGoblin::GetDamage()
+int CGoblin::GetDamage() const
 {
 	return damage;
 }

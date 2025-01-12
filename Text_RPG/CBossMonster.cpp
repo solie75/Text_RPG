@@ -14,17 +14,17 @@ CBossMonster::CBossMonster(int level)
 	damage = DamageDistribution(RandomGenerator) * 1.5;
 }
 
-string CBossMonster::GetName()
+string CBossMonster::GetName() const
 {
 	return name;
 }
 
-int CBossMonster::GetHealth()
+int CBossMonster::GetHealth() const
 {
 	return health;
 }
 
-int CBossMonster::GetDamage()
+int CBossMonster::GetDamage() const
 {
 	return damage;
 }

@@ -3,5 +3,5 @@
 class CStageManager :
     public CSingleton<CStageManager>
 {
-};
 
+};

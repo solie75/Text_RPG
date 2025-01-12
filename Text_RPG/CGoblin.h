@@ -10,9 +10,9 @@ private:
 	int damage;
 public:
 	CGoblin(int level);
-	string GetName();
-	int GetHealth();
-	int GetDamage();
-	void Hit(int damage);
+	virtual string GetName() const override;
+	virtual int GetHealth() const override;
+	virtual int GetDamage() const override;
+	virtual void Hit(int damage) override;
 	//Item* DropItem();
 };

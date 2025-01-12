@@ -14,17 +14,17 @@ COrc::COrc(int level)
 	damage = DamageDistribution(RandomGenerator);
 }
 
-string COrc::GetName()
+string COrc::GetName() const
 {
 	return name;
 }
 
-int COrc::GetHealth()
+int COrc::GetHealth() const
 {
 	return health;
 }
 
-int COrc::GetDamage()
+int COrc::GetDamage() const
 {
 	return damage;
 }

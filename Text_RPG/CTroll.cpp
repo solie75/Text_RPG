@@ -14,17 +14,17 @@ CTroll::CTroll(int level)
 	damage = DamageDistribution(RandomGenerator);
 }
 
-string CTroll::GetName()
+string CTroll::GetName() const
 {
 	return name;
 }
 
-int CTroll::GetHealth()
+int CTroll::GetHealth() const
 {
 	return health;
 }
 
-int CTroll::GetDamage()
+int CTroll::GetDamage() const
 {
 	return damage;
 }
