@@ -1,4 +1,5 @@
 #pragma once
+
 class CPlayer :
 	public CSingleton<CPlayer>
 {
@@ -6,23 +7,29 @@ class CPlayer :
 
 private:
 	string Name;
+
 	int Level;
+	const int MaxLevel = 10;
+
+	int Experience;
+	int MaxExperience;
+
 	int Health;
 	int MaxHealth;
+
 	int Damage;
-	int Experience;
+
 	int Gold;
 	//vector<item*> Inventory;
 
 	//get, set
 public:
-	void CPlayer();
 	void SetName(string);
 public:
-	void LevelUp();
+	void IncreaseLevel();
 	void TakeDamage(int);
 	void DisplayStatus();
 	void UseItem(int);
-	void VisitShop();
+	void ExpUp(int);
 };
 
