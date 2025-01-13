@@ -16,5 +16,8 @@ public:
 	void SetConsoleWindowSize(int _width, int _height);
 	//BOOL SetConsoleSize(int cols, int rows);
 	void DisableConsoleResize();
+	void HideCursor();
+	//void MoveCursorToPreviousLine(int _lines);
+	void DisableMouseInput();
 };
 

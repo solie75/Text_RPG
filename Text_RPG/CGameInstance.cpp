@@ -13,15 +13,65 @@ CGameInstance::~CGameInstance() {};
 
 void CGameInstance::GameInstInit()
 {
-	CTimeManager::GetInst()->TimeManagerInit();
-	CKeyManager::GetInst()->KeyManagerInit();
-
-	// Set Console Size
+	HideCursor();
+	DisableMouseInput();
 	SetConsoleWindowSize(ConsoleWidth, ConsoleHeight);
 	DisableConsoleResize();
 
+	CTimeManager::GetInst()->TimeManagerInit();
+	CKeyManager::GetInst()->KeyManagerInit();
+
 	// TEST
-	printf("This is GameInstInit Test\n");
+	printf("□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□                                                                                                                                                                                                    □\n");
+	printf("□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□");
 }
 
 void CGameInstance::GameInstTick()
@@ -51,8 +101,6 @@ void CGameInstance::SetConsoleWindowSize(int _width, int _height)
         std::cerr << "Failed to set console window size. Error: " << GetLastError() << "\n";
         return;
     }
-
-    std::cout << "Console buffer size set to " << _width << "x" << _height << "\n";
 }
 
 void CGameInstance::DisableConsoleResize()
@@ -66,4 +114,57 @@ void CGameInstance::DisableConsoleResize()
 	Style &= ~WS_SIZEBOX; // disable resizing window
 	Style &= ~WS_MAXIMIZEBOX; // disable maximazebox
 	SetWindowLong(HwndConsole, GWL_STYLE, Style);
+}
+
+void CGameInstance::HideCursor()
+{
+	// 콘솔 핸들 가져오기
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	if (hConsole == INVALID_HANDLE_VALUE) {
+		std::cerr << "Invalid console handle.\n";
+		return;
+	}
+
+	// 콘솔 커서 정보 가져오기
+	CONSOLE_CURSOR_INFO cursorInfo;
+	if (!GetConsoleCursorInfo(hConsole, &cursorInfo)) {
+		std::cerr << "Failed to get console cursor info.\n";
+		return;
+	}
+
+	// 커서 숨기기
+	cursorInfo.bVisible = FALSE; // 커서 비활성화
+	if (!SetConsoleCursorInfo(hConsole, &cursorInfo)) {
+		std::cerr << "Failed to set console cursor info.\n";
+	}
+}
+
+void CGameInstance::DisableMouseInput()
+{
+	// 콘솔 입력 핸들 가져오기
+	HANDLE hConsoleInput = GetStdHandle(STD_INPUT_HANDLE);
+	if (hConsoleInput == INVALID_HANDLE_VALUE) {
+		std::cerr << "Failed to get console input handle." << std::endl;
+		return;
+	}
+
+	// 현재 콘솔 모드 가져오기
+	DWORD consoleMode;
+	if (!GetConsoleMode(hConsoleInput, &consoleMode)) {
+		std::cerr << "Failed to get console mode. Error: " << GetLastError() << std::endl;
+		return;
+	}
+
+	// 마우스 입력 비활성화
+	consoleMode &= ~ENABLE_MOUSE_INPUT; // 마우스 입력 플래그 제거
+	consoleMode &= ~ENABLE_QUICK_EDIT_MODE; // 드래그를 통한 Quick Edit 모드 비활성화
+	consoleMode |= ENABLE_EXTENDED_FLAGS;   // 확장 플래그 활성화
+
+	// 수정된 모드 설정
+	if (!SetConsoleMode(hConsoleInput, consoleMode)) {
+		std::cerr << "Failed to set console mode. Error: " << GetLastError() << std::endl;
+		return;
+	}
+
+	std::cout << "Mouse input and Quick Edit mode disabled." << std::endl;
 }
