@@ -27,6 +27,7 @@ void CPlayer::SetName(string _str)
 int CPlayer::GetInventorySize()
 {
 	//return Inventory.size();
+	return 0;
 }
 
 void CPlayer::IncreaseLevel()
