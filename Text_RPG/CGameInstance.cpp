@@ -2,7 +2,7 @@
 #include "CGameInstance.h"
 #include "CKeyManager.h"
 #include "CTimeManager.h"
-
+#include "CStageManager.h"
 
 CGameInstance::CGameInstance()
 	: ConsoleWidth(200)
@@ -20,12 +20,14 @@ void CGameInstance::GameInstInit()
 
 	CTimeManager::GetInst()->TimeManagerInit();
 	CKeyManager::GetInst()->KeyManagerInit();
+	CStageManager::GetInst()->StageManagerInit();
 }
 
 void CGameInstance::GameInstTick()
 {
 	CTimeManager::GetInst()->TimeManagerTick();
 	CKeyManager::GetInst()->KeyManagerTick();
+	CStageManager::GetInst()->StageManagerInit();
 }
 
 void CGameInstance::SetConsoleWindowSize(int _width, int _height)
@@ -113,6 +115,4 @@ void CGameInstance::DisableMouseInput()
 		std::cerr << "Failed to set console mode. Error: " << GetLastError() << std::endl;
 		return;
 	}
-
-	std::cout << "Mouse input and Quick Edit mode disabled." << std::endl;
 }

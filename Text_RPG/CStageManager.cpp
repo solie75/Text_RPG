@@ -36,7 +36,7 @@ void CStageManager::StageManagerInit()
 
 void CStageManager::StageManagerTick()
 {
-	CurStage;
+	CurStage->StageTick();
 }
 
 CStage* CStageManager::GetStage(STAGE_TYPE _type)
