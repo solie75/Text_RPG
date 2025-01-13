@@ -19,6 +19,10 @@ void CGameInstance::GameInstInit()
 	SetConsoleWindowSize(ConsoleWidth, ConsoleHeight);
 	DisableConsoleResize();
 
+	HWND HwndConsole = GetConsoleWindow();
+	SetForegroundWindow(HwndConsole);
+	SetFocus(HwndConsole);
+
 	CTimeManager::GetInst()->TimeManagerInit();
 	CKeyManager::GetInst()->KeyManagerInit();
 	CStageManager::GetInst()->StageManagerInit();

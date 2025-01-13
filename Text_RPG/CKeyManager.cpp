@@ -74,23 +74,4 @@ void CKeyManager::KeyManagerTick()
 			}
 		}
 	}
-
-	if (GetFocus()) // 해당 어플리케이션이 포커스 되어있는지 확인
-	{
-		
-	}
-	else // 어플리케이션을 벗어난다면 모든 key 를 none 형태로
-	{
-		/*for (size_t i = 0; i < VecKey.size(); ++i)
-		{
-			if (KEY_STATE::TAP == VecKey[i].state || KEY_STATE::PRESSED == VecKey[i].state)
-			{
-				VecKey[i].state = KEY_STATE::RELEASE;
-			}
-			else if (KEY_STATE::RELEASE == VecKey[i].state)
-			{
-				VecKey[i].state = KEY_STATE::NONE;
-			}
-		}*/
-	}
 }
