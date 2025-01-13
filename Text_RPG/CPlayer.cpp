@@ -11,6 +11,7 @@ CPlayer::CPlayer()
 	Experience = 0;
 	MaxExperience = 100;
 	Gold = 0;
+
 }
 
 CPlayer::~CPlayer()
@@ -21,6 +22,11 @@ CPlayer::~CPlayer()
 void CPlayer::SetName(string _str)
 {
 	Name = _str;
+}
+
+int CPlayer::GetInventorySize()
+{
+	//return Inventory.size();
 }
 
 void CPlayer::IncreaseLevel()
@@ -51,9 +57,9 @@ void CPlayer::TakeDamage(int _damage)
 	Health = Health - _damage > 0 ? Health - _damage : 0;
 }
 
-void CPlayer::UseItem(int)
+void CPlayer::UseItem(int idx)
 {
-	
+	//Inventory.erase(Inventory.begin() + idx);
 }
 
 void CPlayer::ExpUp(int _up)
