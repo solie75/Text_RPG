@@ -24,6 +24,19 @@ void CPlayer::SetName(string _str)
 	Name = _str;
 }
 
+void CPlayer::SetDamage(int amount)
+{
+	Damage += amount;
+}
+
+void CPlayer::SetHealth(int amount)
+{
+	Health += amount;
+
+	if (Health >= MaxHealth)
+		Health = MaxHealth;
+}
+
 int CPlayer::GetInventorySize()
 {
 	//return Inventory.size();

@@ -25,6 +25,8 @@ private:
 	//get, set
 public:
 	void SetName(string);
+	void SetDamage(int);
+	void SetHealth(int);
 public:
 	int GetInventorySize();
 	void IncreaseLevel();

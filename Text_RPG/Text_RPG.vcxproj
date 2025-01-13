@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CAttackBoost.cpp" />
     <ClCompile Include="CBattleManager.cpp" />
     <ClCompile Include="CBossDungeonStage.cpp" />
     <ClCompile Include="CBossMonsterFactory.cpp" />
@@ -143,6 +144,7 @@
     <ClCompile Include="CGameInstance.cpp" />
     <ClCompile Include="CGoblin.cpp" />
     <ClCompile Include="CGoblinFactory.cpp" />
+    <ClCompile Include="CHealthPotion.cpp" />
     <ClCompile Include="CKeyManager.cpp" />
     <ClCompile Include="CNormalDungeonStage.cpp" />
     <ClCompile Include="COrc.cpp" />
@@ -168,6 +170,7 @@
     <ClCompile Include="Text_RPG.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CAttackBoost.h" />
     <ClInclude Include="CBattleManager.h" />
     <ClInclude Include="CBossDungeonStage.h" />
     <ClInclude Include="CBossMonsterFactory.h" />
@@ -177,6 +180,8 @@
     <ClInclude Include="CGameInstance.h" />
     <ClInclude Include="CGoblin.h" />
     <ClInclude Include="CGoblinFactory.h" />
+    <ClInclude Include="CHealthPotion.h" />
+    <ClInclude Include="CItem.h" />
     <ClInclude Include="CKeyManager.h" />
     <ClInclude Include="CMonster.h" />
     <ClInclude Include="CMonsterFactory.h" />

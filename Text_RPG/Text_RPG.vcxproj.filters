@@ -77,6 +77,15 @@
     <Filter Include="Source Files\2.Stage\5.EndingStage">
       <UniqueIdentifier>{a8a8cb54-5da0-4c6f-84c7-0662fd839bb4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\3.Object\4.Item">
+      <UniqueIdentifier>{ca421271-43d0-46c9-b06e-a3a56c8d49ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\3.Object\4.Item\HealthPotion">
+      <UniqueIdentifier>{ee10db5b-7f8f-482b-812d-7298cd7939ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\3.Object\4.Item\AttackBoost">
+      <UniqueIdentifier>{509abbfc-5c24-4b71-a1ae-ff1a13a811f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Text_RPG.cpp">
@@ -163,6 +172,12 @@
     </ClCompile>
     <ClCompile Include="CEndingStage.cpp">
       <Filter>Source Files\2.Stage\5.EndingStage</Filter>
+    </ClCompile>
+    <ClCompile Include="CHealthPotion.cpp">
+      <Filter>Source Files\3.Object\4.Item\HealthPotion</Filter>
+    </ClCompile>
+    <ClCompile Include="CAttackBoost.cpp">
+      <Filter>Source Files\3.Object\4.Item\AttackBoost</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -262,6 +277,15 @@
     </ClInclude>
     <ClInclude Include="CEndingStage.h">
       <Filter>Source Files\2.Stage\5.EndingStage</Filter>
+    </ClInclude>
+    <ClInclude Include="CItem.h">
+      <Filter>Source Files\3.Object\4.Item</Filter>
+    </ClInclude>
+    <ClInclude Include="CHealthPotion.h">
+      <Filter>Source Files\3.Object\4.Item\HealthPotion</Filter>
+    </ClInclude>
+    <ClInclude Include="CAttackBoost.h">
+      <Filter>Source Files\3.Object\4.Item\AttackBoost</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
