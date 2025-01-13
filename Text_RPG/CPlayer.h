@@ -1,4 +1,5 @@
 #pragma once
+#include "CItem.h"
 
 class CPlayer :
 	public CSingleton<CPlayer>
@@ -20,7 +21,7 @@ private:
 	int Damage;
 
 	int Gold;
-	//vector<item*> Inventory;
+	std::map<string, int> Inventory;
 
 	//get, set
 public:
@@ -28,10 +29,9 @@ public:
 	void SetDamage(int);
 	void SetHealth(int);
 public:
-	int GetInventorySize();
 	void IncreaseLevel();
 	void TakeDamage(int);
-	void UseItem(int);
+	void UseItem(string);
 	void ExpUp(int);
 };
 

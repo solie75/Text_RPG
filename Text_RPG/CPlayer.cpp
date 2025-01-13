@@ -37,12 +37,6 @@ void CPlayer::SetHealth(int amount)
 		Health = MaxHealth;
 }
 
-int CPlayer::GetInventorySize()
-{
-	//return Inventory.size();
-	return 0;
-}
-
 void CPlayer::IncreaseLevel()
 {
 	if (Level == MaxLevel) // 나중에 포션 등으로 레벨 올렸을 경우 대비.
@@ -71,9 +65,12 @@ void CPlayer::TakeDamage(int _damage)
 	Health = Health - _damage > 0 ? Health - _damage : 0;
 }
 
-void CPlayer::UseItem(int idx)
+void CPlayer::UseItem(string _itemName)
 {
-	//Inventory.erase(Inventory.begin() + idx);
+	if (Inventory.find(_itemName) != Inventory.end())
+	{
+		Inventory[_itemName] = Inventory[_itemName] > 0 ? Inventory[_itemName]-- : 0;
+	}
 }
 
 void CPlayer::ExpUp(int _up)

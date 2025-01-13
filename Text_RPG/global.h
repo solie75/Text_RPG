@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <map>
 
 using std::vector;
 using std::string; 
