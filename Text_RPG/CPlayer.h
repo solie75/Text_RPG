@@ -26,9 +26,9 @@ private:
 public:
 	void SetName(string);
 public:
+	int GetInventorySize();
 	void IncreaseLevel();
 	void TakeDamage(int);
-	void DisplayStatus();
 	void UseItem(int);
 	void ExpUp(int);
 };
