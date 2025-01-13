@@ -3,6 +3,7 @@
 #include "CKeyManager.h"
 #include "CTimeManager.h"
 #include "CStageManager.h"
+#include "CStartStage.h"
 
 CGameInstance::CGameInstance()
 	: ConsoleWidth(200)
@@ -21,13 +22,14 @@ void CGameInstance::GameInstInit()
 	CTimeManager::GetInst()->TimeManagerInit();
 	CKeyManager::GetInst()->KeyManagerInit();
 	CStageManager::GetInst()->StageManagerInit();
+	CStageManager::GetInst()->ChangeStage(new CStartStage);
 }
 
 void CGameInstance::GameInstTick()
 {
 	CTimeManager::GetInst()->TimeManagerTick();
 	CKeyManager::GetInst()->KeyManagerTick();
-	CStageManager::GetInst()->StageManagerInit();
+	CStageManager::GetInst()->StageManagerTick();
 }
 
 void CGameInstance::SetConsoleWindowSize(int _width, int _height)

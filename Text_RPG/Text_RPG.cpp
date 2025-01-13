@@ -6,7 +6,7 @@
 int main()
 {
     // Set Console Title
-    system("title TEXT_RPG");             
+    system("title TEXT_RPG");
 
     CGameInstance::GetInst()->GameInstInit();
 

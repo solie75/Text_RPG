@@ -8,14 +8,14 @@ class CStageManager :
     SINGLE(CStageManager)
 
 private:
-    vector<CStage*> VecStage;
+    //vector<CStage*> VecStage;
     CStage* CurStage;
-    CStage* NextStage;
+    //CStage* NextStage;
 
 public:
     void StageManagerInit();
     void StageManagerTick();
 
-    CStage* GetStage(STAGE_TYPE _type);
-    void ChangeStage(STAGE_TYPE _nextStageType);
+    CStage* GetCurStage();
+    void ChangeStage(CStage* _nextStage);
 };
