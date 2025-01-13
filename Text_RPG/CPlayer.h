@@ -28,7 +28,6 @@ public:
 public:
 	void IncreaseLevel();
 	void TakeDamage(int);
-	void DisplayStatus();
 	void UseItem(int);
 	void ExpUp(int);
 };

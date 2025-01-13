@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "CPlayer.h"
 #include <iostream>
 
@@ -25,13 +25,13 @@ void CPlayer::SetName(string _str)
 
 void CPlayer::IncreaseLevel()
 {
-	if (Level == MaxLevel) // ³ªÁß¿¡ Æ÷¼Ç µîÀ¸·Î ·¹º§ ¿Ã·ÈÀ» °æ¿ì ´ëºñ.
+	if (Level == MaxLevel) // ë‚˜ì¤‘ì— í¬ì…˜ ë“±ìœ¼ë¡œ ë ˆë²¨ ì˜¬ë ¸ì„ ê²½ìš° ëŒ€ë¹„.
 		return;
 
 
 	Level++;
-	
-	if (Level == MaxLevel) // ¸¸·¾ : °æÇèÄ¡0, ÇÊ¿ä°æÇèÄ¡ 0;
+
+	if (Level == MaxLevel) // ë§Œë ™ : ê²½í—˜ì¹˜0, í•„ìš”ê²½í—˜ì¹˜ 0;
 	{
 		Experience = 0;
 		MaxExperience = 0;
@@ -46,25 +46,23 @@ void CPlayer::IncreaseLevel()
 	Damage += 5;
 }
 
-void CPlayer::TakeDamage(int)
+void CPlayer::TakeDamage(int _damage)
 {
-}
-
-void CPlayer::DisplayStatus()
-{
+	Health = Health - _damage > 0 ? Health - _damage : 0;
 }
 
 void CPlayer::UseItem(int)
 {
+	
 }
 
 void CPlayer::ExpUp(int _up)
 {
-	if (Level != MaxLevel) // ¸¸·¾ : °æÇèÄ¡ ¿Ã¸±ÇÊ¿ä ¾øÀ½
+	if (Level != MaxLevel) // ë§Œë ™ : ê²½í—˜ì¹˜ ì˜¬ë¦´í•„ìš” ì—†ìŒ
 	{
 		Experience += _up;
 
-		//·¹º§¾÷
+		//ë ˆë²¨ì—…
 		if (Experience >= MaxExperience)
 		{
 			IncreaseLevel();
