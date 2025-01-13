@@ -74,6 +74,9 @@
     <Filter Include="Source Files\3.Object\3.NPC">
       <UniqueIdentifier>{08caa3f4-3f87-4563-8c1c-7068b0d9f31e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\2.Stage\5.EndingStage">
+      <UniqueIdentifier>{a8a8cb54-5da0-4c6f-84c7-0662fd839bb4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Text_RPG.cpp">
@@ -157,6 +160,9 @@
     </ClCompile>
     <ClCompile Include="CBossMonsterFactory.cpp">
       <Filter>Source Files\1.Manager\6.SpawnManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CEndingStage.cpp">
+      <Filter>Source Files\2.Stage\5.EndingStage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -253,6 +259,9 @@
     </ClInclude>
     <ClInclude Include="CBossMonster.h">
       <Filter>Source Files\3.Object\2.Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CEndingStage.h">
+      <Filter>Source Files\2.Stage\5.EndingStage</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
