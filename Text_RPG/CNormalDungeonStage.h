@@ -3,5 +3,8 @@
 class CNormalDungeonStage :
     public CDungeonStage
 {
+public:
+    virtual void StageInit() override;
+    virtual void StageTick() override;
 };
 

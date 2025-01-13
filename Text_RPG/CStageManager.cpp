@@ -36,6 +36,7 @@ void CStageManager::StageManagerInit()
 
 void CStageManager::StageManagerTick()
 {
+	CurStage;
 }
 
 CStage* CStageManager::GetStage(STAGE_TYPE _type)
@@ -45,20 +46,12 @@ CStage* CStageManager::GetStage(STAGE_TYPE _type)
 
 void CStageManager::ChangeStage(STAGE_TYPE _nextStageType)
 {
-	// Close Cur Stage
-	{
-
-	}
-
-	// Open Next Stage
-	{
-
-	}
-
-	// Render Next Stage
-	{
-
-	}
+	// 1. Next Stage  대입
+	// 2. Next Stage 의 file stream 불러오기
+	// 3. Cur Stage 의 삭제
+	// 4. Cur Stage 에 Next Stage 를 대입
+	// 5. Cur Stage 의 Init() 호출
+	// 6. 끝
 
 	CurStage = NextStage;
 }

@@ -20,58 +20,6 @@ void CGameInstance::GameInstInit()
 
 	CTimeManager::GetInst()->TimeManagerInit();
 	CKeyManager::GetInst()->KeyManagerInit();
-
-	// TEST
-	printf("¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à");
 }
 
 void CGameInstance::GameInstTick()
