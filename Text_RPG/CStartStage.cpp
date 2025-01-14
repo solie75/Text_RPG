@@ -4,6 +4,7 @@
 #include "CKeyManager.h"
 #include "CStageManager.h"
 #include "CDungeonStage.h"
+#include "CVillageStage.h"
 #include "CPlayer.h"
 
 void CStartStage::StageInit()
@@ -21,7 +22,7 @@ void CStartStage::StageTick()
 
 	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::SPACE) == KEY_STATE::TAP)
 	{
-		CStageManager::GetInst()->ChangeStage(new CDungeonStage());
+		CStageManager::GetInst()->ChangeStage(new CVillageStage());
 	}
 }
 
