@@ -75,6 +75,7 @@ void CPlayer::UseItem(string _itemName)
 
 void CPlayer::ExpUp(int _up)
 {
+
 	if (Level != MaxLevel) // 만렙 : 경험치 올릴필요 없음
 	{
 		Experience += _up;
@@ -85,4 +86,9 @@ void CPlayer::ExpUp(int _up)
 			IncreaseLevel();
 		}
 	}
+}
+
+void CPlayer::ExpDown()
+{
+	Experience /= 30;
 }

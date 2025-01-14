@@ -38,5 +38,6 @@ public:
 	void Hit(int);
 	void UseItem(string);
 	void ExpUp(int);
+	void ExpDown();
 };
 

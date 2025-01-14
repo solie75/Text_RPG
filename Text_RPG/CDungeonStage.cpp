@@ -3,17 +3,27 @@
 #include "CPlayer.h"
 #include "CBattleManager.h"
 #include "CTimeManager.h"
+#include "CStageManager.h"
+#include "CVillageStage.h"
 
 void CDungeonStage::StageInit()
 {
+	bCallRender = false;
 }
 
 void CDungeonStage::StageTick()
 {
+
+	if (bCallRender)
+	{
+		this->StageRender();
+		bCallRender = false;
+	}
+
 	if (tickTimer <= curTimer)
 	{
 		curTimer = 0;
-		// false : 배틀 중
+		// if == true : 배틀 중
 		if (CBattleManager::GetInst()->GetIsEndBattle() == false)
 		{
 			curLogIdx++;
@@ -22,18 +32,22 @@ void CDungeonStage::StageTick()
 		}
 		else
 		{
-			//승패 플로우
+			bCallRender = false;
+			if (CBattleManager::GetInst()->GetIsPlayerWinner())
+			{
+				CPlayer::GetInst()->ExpUp(50);
+				Monster->DropItem();
+			}
+			else
+			{
+				CPlayer::GetInst()->ExpDown();
+			}
+			CStageManager::GetInst()->ChangeStage(new CVillageStage());
 		}
 	}
 	else
 	{
 		curTimer += CTimeManager::GetInst()->GetDeltaTime();
-	}
-
-	if (bCallRender)
-	{
-		this->StageRender();
-		bCallRender = false;
 	}
 }
 
@@ -121,7 +135,7 @@ void CDungeonStage::StageRender()
 			SpaceMaker(PlayerHitLog[PHLIndex], Max_TextBoxBlockSpace);
 			PHLIndex = (PHLIndex + 1) % MaxHitLogSpace;
 		}
-		else
+		else if(BattleLog[i].first == "M")
 		{
 			if (BattleLog[i].second == true)
 			{
@@ -134,6 +148,21 @@ void CDungeonStage::StageRender()
 			}
 			SpaceMaker(MonsterHitLog[MHLIndex], Max_TextBoxBlockSpace);
 			MHLIndex = (MHLIndex + 1) % MaxHitLogSpace;
+		}
+		else
+		{
+			//물약 사용 : 초기단계는 두가지 뿐,
+			//TODO : 물약 종류가 늘어나면 배틀로그의 second의 타입부터 다시 고려하여 짜야함.
+			if (BattleLog[i].second == true) // 힐링포션
+			{
+				PlayerHitLog[PHLIndex] = "  Use Heal";
+			}
+			else // 어택포션
+			{
+				PlayerHitLog[PHLIndex] = "  Use Damage Up";
+			}
+			SpaceMaker(PlayerHitLog[PHLIndex], Max_TextBoxBlockSpace);
+			PHLIndex = (PHLIndex + 1) % MaxHitLogSpace;
 		}
 	}
 

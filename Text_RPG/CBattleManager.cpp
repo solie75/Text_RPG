@@ -9,17 +9,18 @@ void CBattleManager::Battle(CPlayer& player, CMonster& monster, vector<std::pair
 	std::uniform_int_distribution<int> MonsterAttackDistribution(0, 100);
 	std::uniform_int_distribution<int> PlayerAttackDistribution(0, 100);
 
-	std::cout << monster.GetName() << " 몬스터가 등장했다!!" << std::endl;
 	// [플레이어의 턴]
 	// 플레이어의 아이템 사용
 	int ItemUseProbabiliity = ItemUseDistribution(RandomGenerator);
 	if (ItemUseProbabiliity > 75)
 	{
 		player.UseItem("health"); // 25% 확률로 회복 아이템 사용
+		_battleLog.push_back(std::make_pair("U", true));
 	}
 	else if (ItemUseProbabiliity < 50)
 	{
 		player.UseItem("attackboost"); // 25% 확률로 회복 아이템 사용
+		_battleLog.push_back(std::make_pair("U", false));
 	}
 
 	// 플레이어의 공격
