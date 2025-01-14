@@ -10,26 +10,26 @@ void CBattleManager::Battle(CPlayer& player, CMonster& monster)
 	std::uniform_int_distribution<int> PlayerAttackDistribution(0, 100);
 
 	std::cout << monster.GetName() << " 몬스터가 등장했다!!" << std::endl;
-	while (monster.GetHealth() <= 0) // 플레이어 체력이나 몬스터의 체력이 0이될 때가지
+	while (monster.GetHealth() > 0 && player.GetHealth() > 0) // 플레이어 체력이나 몬스터의 체력이 0이될 때가지
 	{
 		// [플레이어의 턴]
 		// 플레이어의 아이템 사용
 		int ItemUseProbabiliity = ItemUseDistribution(RandomGenerator);
-		if (ItemUseProbabiliity > 75)
+		if (ItemUseProbabiliity > 75) 
 		{
-			player.UseItem("health");
+			player.UseItem("health"); // 25% 확률로 회복 아이템 사용
 		}
 		else if (ItemUseProbabiliity < 50)
 		{
-			player.UseItem("attackboost");
+			player.UseItem("attackboost"); // 25% 확률로 회복 아이템 사용
 		}
-		
+
 		// 플레이어의 공격
 		int PlayerAttackProbability = PlayerAttackDistribution(RandomGenerator);
 		if (PlayerAttackProbability > 50)
 		{
 			// 공격 성공
-			//monster.Hit(player.GetDamage());
+			monster.Hit(player.GetDamage());
 		}
 		else
 		{
@@ -55,10 +55,10 @@ void CBattleManager::Battle(CPlayer& player, CMonster& monster)
 	{
 		IsPlayerWinner = true;
 	}
-	/*else if (player.GetHealth() <= 0) // 몬스터가 이겼다면
+	else if (player.GetHealth() <= 0) // 몬스터가 이겼다면
 	{
 		IsPlayerWinner = false;
-	}*/
+	}
 }
 
 bool CBattleManager::GetIsPlayerWinner() const
