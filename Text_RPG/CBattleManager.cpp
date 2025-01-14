@@ -9,7 +9,7 @@ void CBattleManager::Battle(CPlayer& player, CMonster& monster)
 	std::uniform_int_distribution<int> MonsterAttackDistribution(0, 100);
 	std::uniform_int_distribution<int> PlayerAttackDistribution(0, 100);
 
-	std::cout << monster.GetName() << " 몬스터가 등장했다!!" << std::endl;
+	// 몬스터 등장 텍스트
 	while (monster.GetHealth() > 0 && player.GetHealth() > 0) // 플레이어 체력이나 몬스터의 체력이 0이될 때가지
 	{
 		// [플레이어의 턴]
@@ -19,7 +19,7 @@ void CBattleManager::Battle(CPlayer& player, CMonster& monster)
 		{
 			player.UseItem("health"); // 25% 확률로 회복 아이템 사용
 		}
-		else if (ItemUseProbabiliity < 50)
+		else if (ItemUseProbabiliity > 50)
 		{
 			player.UseItem("attackboost"); // 25% 확률로 회복 아이템 사용
 		}
@@ -29,11 +29,13 @@ void CBattleManager::Battle(CPlayer& player, CMonster& monster)
 		if (PlayerAttackProbability > 50)
 		{
 			// 공격 성공
-			monster.Hit(player.GetDamage());
+			monster.Hit(player.GetDamage()); // 몬스터 데미지 입음
+			// 공격 성공 텍스트
 		}
 		else
 		{
 			// 공격 실패
+			// 공격 실패 텍스트
 		}
 
 		// [몬스터의 턴]
@@ -42,11 +44,13 @@ void CBattleManager::Battle(CPlayer& player, CMonster& monster)
 		if (MonsterAttackProbability > 50)
 		{
 			// 공격 성공
-			player.Hit(monster.GetDamage());
+			player.Hit(monster.GetDamage()); // 플레이어 데미지 입음
+			// 공격 성공 텍스트
 		}
 		else
 		{
-			// 공격 실패 
+			// 공격 실패
+			// 공격 실패 텍스트
 		}
 	}
 
