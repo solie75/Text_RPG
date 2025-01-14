@@ -25,11 +25,14 @@ private:
 
 	//get, set
 public:
+	string GetName() { return Name; }
 	void SetName(string);
 	void SetDamage(int);
 	int GetDamage(){ return Damage; }
 	void SetHealth(int);
 	int GetHealth() { return Health; }
+	int GetMaxHealth() { return MaxHealth; }
+	int GetLevel() { return Level; }
 public:
 	void IncreaseLevel();
 	void Hit(int);
