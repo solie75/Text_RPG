@@ -25,3 +25,9 @@ enum class STAGE_TYPE
 	ENDING,
 	END,
 };
+
+enum class ITEM_TYPE
+{
+	HEALTH_POTION,
+	ATTACK_BOOST
+};

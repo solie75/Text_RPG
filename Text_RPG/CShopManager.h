@@ -1,10 +1,14 @@
 #pragma once
+
 class CShopManager :
     public CSingleton<CShopManager>
 {
 private:
-    int ShopCoin;
+    int ShopCoin = 300;
+    int MaxShopCoin = 500;
+    float ResalePercent = 0.6;
+    std::map<ITEM_TYPE, class CItem*> Stuff;
 public:
-    void BuyItem(int Index, class CPlayer* Character);
-    void SellItem(int Index, class CPlayer* Character);
+    int BuyItem(ITEM_TYPE);
+    int SellItem(ITEM_TYPE);
 };

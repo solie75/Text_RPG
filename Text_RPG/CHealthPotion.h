@@ -1,16 +1,16 @@
 #pragma once
-#include "pch.h"
 #include "CItem.h"
 
 class CHealthPotion
 	: public CItem
 {
 private:
-	string Name;
-	int HealthRestore;
-public:
-	CHealthPotion(string name, int amount) : Name(name), HealthRestore(amount) {}
+	int Amount = 50;
 
-	// Inherited via CItem
-	void Use(int) override;
+public:
+	CHealthPotion(string _Name, int _Cnt) : CItem(_Name, _Cnt) { SetPrice(10); }
+	int GetAmount();
+
+public:
+	virtual void Use() override;
 };

@@ -1,6 +1,9 @@
 ﻿#include "pch.h"
 #include "CPlayer.h"
-#include <iostream>
+#include "CItem.h"
+#include "CHealthPotion.h"
+#include "CAttackBoost.h"
+#include "CShopManager.h"
 
 CPlayer::CPlayer()
 {
@@ -22,19 +25,6 @@ CPlayer::~CPlayer()
 void CPlayer::SetName(string _str)
 {
 	Name = _str;
-}
-
-void CPlayer::SetDamage(int amount)
-{
-	Damage += amount;
-}
-
-void CPlayer::SetHealth(int amount)
-{
-	Health += amount;
-
-	if (Health >= MaxHealth)
-		Health = MaxHealth;
 }
 
 void CPlayer::IncreaseLevel()
@@ -65,11 +55,24 @@ void CPlayer::Hit(int _damage)
 	Health = Health - _damage > 0 ? Health - _damage : 0;
 }
 
-void CPlayer::UseItem(string _itemName)
+void CPlayer::Heal(int amount)
 {
-	if (Inventory.find(_itemName) != Inventory.end())
+	Health += amount;
+
+	if (Health >= MaxHealth)
+		Health = MaxHealth;
+}
+
+void CPlayer::IncreaseDamage(int amount)
+{
+	Damage += amount;
+}
+
+void CPlayer::UseItem(ITEM_TYPE Item_t)
+{
+	if (Inventory.find(Item_t) != Inventory.end())
 	{
-		Inventory[_itemName] = Inventory[_itemName] > 0 ? Inventory[_itemName]-- : 0;
+		Inventory[Item_t]->Use();
 	}
 }
 
@@ -85,4 +88,82 @@ void CPlayer::ExpUp(int _up)
 			IncreaseLevel();
 		}
 	}
+}
+
+void CPlayer::BuyItem(ITEM_TYPE Item_t)
+{
+	int ItemPrice = CShopManager::GetInst()->SellItem(Item_t);
+	if (ItemPrice == 0)
+	{
+		//not enough money
+		return;
+	}
+
+	if (Inventory.find(Item_t) == Inventory.end())
+	{
+		switch (Item_t)
+		{
+		case ITEM_TYPE::HEALTH_POTION:
+			Inventory.insert({ Item_t, new CHealthPotion("Health Potion", 1) });
+			break;
+		case ITEM_TYPE::ATTACK_BOOST:
+			Inventory.insert({ Item_t, new CAttackBoost("Attack Boost", 1) });
+			break;
+		default:
+			//non type
+			return;
+		}
+	}
+	else
+	{
+		Inventory[Item_t]->IncreaseCnt();
+	}
+
+	PayGold(ItemPrice);
+}
+
+void CPlayer::SellItem(ITEM_TYPE Item_t)
+{
+	if (Inventory.find(Item_t) == Inventory.end())
+	{
+		//can not sell(player problem)
+		return;
+	}
+
+	int ResalePrice = CShopManager::GetInst()->BuyItem(Item_t);
+	if (ResalePrice == 0)
+	{
+		//cna not sell(shop problem)
+		return;
+	}
+
+	CItem* Item = Inventory[Item_t];
+	if (Item->GetCnt() == 1)
+	{
+		Inventory.erase(Item_t);
+	}
+	else
+	{
+		Item->ReduceCnt();
+	}
+
+	ReceiveGold(ResalePrice);
+}
+
+bool CPlayer::CanPayGold(int Price)
+{
+	if (Gold - Price < 0)
+		return false;
+	else
+		return true;
+}
+
+void CPlayer::PayGold(int Price)
+{
+	Gold -= Price;
+}
+
+void CPlayer::ReceiveGold(int Price)
+{
+	Gold += Price;
 }

@@ -1,13 +1,21 @@
 #pragma once
-#include "pch.h"
 
 class CItem
 {
 private:
 	string Name;
+	int Cnt;
+	int Price=0;
 
 public:
-	string GetName() { return Name; }
+	CItem(string _Name, int _Cnt) : Name(_Name), Cnt(_Cnt) {}
+	string GetName();
+	int GetPrice();
+	int GetCnt();
+	void SetPrice(int);
 
-	virtual void Use(int) = 0;
+public:
+	void ReduceCnt();
+	void IncreaseCnt();
+	virtual void Use() = 0;
 };

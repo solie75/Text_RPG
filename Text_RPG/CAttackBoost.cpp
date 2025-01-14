@@ -1,8 +1,14 @@
+#include "pch.h"
 #include "CAttackBoost.h"
 #include "CPlayer.h"
 
-void CAttackBoost::Use(int amount)
+int CAttackBoost::GetAmount()
 {
-	CPlayer* Player = CPlayer::GetInst();
-	Player->SetDamage(amount);
+	return Amount;
+}
+
+void CAttackBoost::Use()
+{
+	ReduceCnt();
+	CPlayer::GetInst()->IncreaseDamage(Amount);
 }
