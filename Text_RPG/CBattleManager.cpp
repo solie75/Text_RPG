@@ -42,7 +42,7 @@ void CBattleManager::Battle(CPlayer& player, CMonster& monster)
 		if (MonsterAttackProbability > 50)
 		{
 			// 공격 성공
-			player.TakeDamage(monster.GetDamage());
+			player.Hit(monster.GetDamage());
 		}
 		else
 		{
