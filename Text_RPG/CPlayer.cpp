@@ -60,7 +60,7 @@ void CPlayer::IncreaseLevel()
 	Damage += 5;
 }
 
-void CPlayer::TakeDamage(int _damage)
+void CPlayer::Hit(int _damage)
 {
 	Health = Health - _damage > 0 ? Health - _damage : 0;
 }

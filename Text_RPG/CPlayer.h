@@ -32,7 +32,7 @@ public:
 	int GetHealth() { return Health; }
 public:
 	void IncreaseLevel();
-	void TakeDamage(int);
+	void Hit(int);
 	void UseItem(string);
 	void ExpUp(int);
 };
