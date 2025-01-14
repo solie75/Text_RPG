@@ -27,7 +27,9 @@ private:
 public:
 	void SetName(string);
 	void SetDamage(int);
+	int GetDamage(){ return Damage; }
 	void SetHealth(int);
+	int GetHealth() { return Health; }
 public:
 	void IncreaseLevel();
 	void TakeDamage(int);
