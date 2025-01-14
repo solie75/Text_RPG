@@ -5,7 +5,6 @@
 std::unique_ptr<CMonster> CSpawnManager::GenerateMonster(int level)
 {
 	std::default_random_engine RandomGenerator;
-	// 체력은 캐릭터 레벨에 비례해서 랜덤하게 생성(레벨*20~레벨*30)
 	std::uniform_int_distribution<int> MonsterDistribution(0, 2);
 	int MonsterIndex = MonsterDistribution(RandomGenerator);
 
