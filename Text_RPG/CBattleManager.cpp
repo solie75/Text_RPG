@@ -36,7 +36,7 @@ void CBattleManager::Battle(CPlayer& player, CMonster& monster)
 			// 지금 공격으로 몬스터가 죽었다면
 			if (monster.GetHealth() <= 0)
 			{
-				break; // 몬스터 턴으로 가지 않고 반복 종료
+				break; // 몬스터 턴 스킵
 			}
 		}
 		else
