@@ -2,43 +2,52 @@
 #include "CShopManager.h"
 #include "CHealthPotion.h"
 #include "CAttackBoost.h"
+#include "CMonsterLeather.h"
 #include "CPlayer.h"
 
 int CShopManager::BuyItem(ITEM_TYPE Item_t)
 {
 	CItem* Item;
-	switch (Item_t)
-	{
-	case ITEM_TYPE::HEALTH_POTION:
-		Item = new CHealthPotion("Health Potion", 1);
-		break;
-	case ITEM_TYPE::ATTACK_BOOST:
-		Item = new CAttackBoost("Attack Boost", 1);
-		break;
-	default:
-		//non type
-		return 0;
-	}
+	int SalePrice;
+	bool isSale = true; //is not sold in shop
 
-	int ResalePrice = round(Item->GetPrice() * ResalePercent);
-	if (ShopCoin - ResalePrice < 0)
+	//items not sold in shop
+	if (Stuff.find(Item_t) == Stuff.end())
 	{
-		//can not resell
-		return 0;
+		switch (Item_t)
+		{
+		case ITEM_TYPE::MONSTER_LEATHER:
+			Item = new CMonsterLeather("Monster Leather", 0);
+			isSale = false;
+			break;
+		default:
+			//non type
+			return 0;
+		}
+		SalePrice = Item->GetPrice();
 	}
-	ShopCoin -= ResalePrice;
-
-	if (Stuff.find(Item_t) != Stuff.end())
-	{
-		Item = Stuff[Item_t];
-		Item->IncreaseCnt();
-	}
+	//items sold in shop
+	//resale percent of pirce
 	else
 	{
-		Stuff.insert({ Item_t, Item });
+		Item = Stuff[Item_t];
+		SalePrice = round(Item->GetPrice() * ResalePercent);
+	}
+
+	//not enough shopcoin
+	if (ShopCoin - SalePrice < 0)
+	{
+		//can not buy
+		return 0;
+	}
+	ShopCoin -= SalePrice;
+
+	if (isSale)
+	{
+		Item->IncreaseCnt();
 	}
 	
-	return ResalePrice;
+	return SalePrice;
 }
 
 int CShopManager::SellItem(ITEM_TYPE Item_t)

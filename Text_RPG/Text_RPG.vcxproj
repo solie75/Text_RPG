@@ -147,6 +147,7 @@
     <ClCompile Include="CHealthPotion.cpp" />
     <ClCompile Include="CItem.cpp" />
     <ClCompile Include="CKeyManager.cpp" />
+    <ClCompile Include="CMonsterLeather.cpp" />
     <ClCompile Include="CNormalDungeonStage.cpp" />
     <ClCompile Include="COrc.cpp" />
     <ClCompile Include="COrcFactory.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="CKeyManager.h" />
     <ClInclude Include="CMonster.h" />
     <ClInclude Include="CMonsterFactory.h" />
+    <ClInclude Include="CMonsterLeather.h" />
     <ClInclude Include="CNormalDungeonStage.h" />
     <ClInclude Include="COrc.h" />
     <ClInclude Include="COrcFactory.h" />

@@ -10,7 +10,8 @@ CPlayer::CPlayer()
 	Level = 1;
 	MaxHealth = 200;
 	Health = MaxHealth;
-	Damage = 30;
+	CharacterDamage = 30;
+	Damage = CharacterDamage;
 	Experience = 0;
 	MaxExperience = 100;
 	Gold = 0;
@@ -47,12 +48,17 @@ void CPlayer::IncreaseLevel()
 	}
 
 	MaxHealth += 20;
-	Damage += 5;
+	CharacterDamage += 5;
 }
 
 void CPlayer::Hit(int _damage)
 {
 	Health = Health - _damage > 0 ? Health - _damage : 0;
+}
+
+void CPlayer::ResetDamage()
+{
+	Damage = CharacterDamage;
 }
 
 void CPlayer::Heal(int amount)
@@ -126,14 +132,14 @@ void CPlayer::SellItem(ITEM_TYPE Item_t)
 {
 	if (Inventory.find(Item_t) == Inventory.end())
 	{
-		//can not sell(player problem)
+		//doesn't have
 		return;
 	}
 
-	int ResalePrice = CShopManager::GetInst()->BuyItem(Item_t);
-	if (ResalePrice == 0)
+	int SalePrice = CShopManager::GetInst()->BuyItem(Item_t);
+	if (SalePrice == 0)
 	{
-		//cna not sell(shop problem)
+		//can not sell(shop problem)
 		return;
 	}
 
@@ -147,7 +153,7 @@ void CPlayer::SellItem(ITEM_TYPE Item_t)
 		Item->ReduceCnt();
 	}
 
-	ReceiveGold(ResalePrice);
+	ReceiveGold(SalePrice);
 }
 
 bool CPlayer::CanPayGold(int Price)

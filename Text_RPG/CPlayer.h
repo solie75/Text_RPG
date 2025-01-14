@@ -17,6 +17,7 @@ private:
 	int Health;
 	int MaxHealth;
 
+	int CharacterDamage;
 	int Damage;
 
 	int Gold;
@@ -40,5 +41,6 @@ public:
 	bool CanPayGold(int);
 	void PayGold(int);
 	void ReceiveGold(int);
+	void ResetDamage();
 };
 
