@@ -7,8 +7,10 @@ class CBattleManager :
 {
 private:
     bool IsPlayerWinner;
+    bool IsEndBattle = false;
 public:
-    virtual void Battle(CPlayer& player, CMonster& monster);
+    virtual void Battle(CPlayer& player, CMonster& monster, vector<std::pair<string, bool>>& _battleLog);
     virtual bool GetIsPlayerWinner() const;
+    virtual bool GetIsEndBattle() const;
 };
 

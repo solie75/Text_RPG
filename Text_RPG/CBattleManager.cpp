@@ -1,72 +1,66 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "CBattleManager.h"
 #include <random>
 
-void CBattleManager::Battle(CPlayer& player, CMonster& monster)
+void CBattleManager::Battle(CPlayer& player, CMonster& monster, vector<std::pair<string, bool>>& _battleLog)
 {
-	// ·£·³ °ü·Ã º¯¼öµé
 	std::default_random_engine RandomGenerator;
-	std::uniform_int_distribution<int> ItemUseDistribution(0, 100); // ¾ÆÀÌÅÛ »ç¿ë ³­¼ö »ı¼º
-	std::uniform_int_distribution<int> MonsterAttackDistribution(0, 100); // ¸ó½ºÅÍ °ø°İ ³­¼ö »ı¼º
-	std::uniform_int_distribution<int> PlayerAttackDistribution(0, 100); // ÇÃ·¹ÀÌ¾î °ø°İ ³­¼ö »ı¼º
+	std::uniform_int_distribution<int> ItemUseDistribution(0, 100);
+	std::uniform_int_distribution<int> MonsterAttackDistribution(0, 100);
+	std::uniform_int_distribution<int> PlayerAttackDistribution(0, 100);
 
-	// ¸ó½ºÅÍ µîÀå ÅØ½ºÆ®
-	while (monster.GetHealth() > 0 && player.GetHealth() > 0) // ÇÃ·¹ÀÌ¾î Ã¼·ÂÀÌ³ª ¸ó½ºÅÍÀÇ Ã¼·ÂÀÌ 0ÀÌµÉ ¶§°¡Áö
+	std::cout << monster.GetName() << " ëª¬ìŠ¤í„°ê°€ ë“±ì¥í–ˆë‹¤!!" << std::endl;
+	// [í”Œë ˆì´ì–´ì˜ í„´]
+	// í”Œë ˆì´ì–´ì˜ ì•„ì´í…œ ì‚¬ìš©
+	int ItemUseProbabiliity = ItemUseDistribution(RandomGenerator);
+	if (ItemUseProbabiliity > 75)
 	{
-		// [ÇÃ·¹ÀÌ¾îÀÇ ÅÏ]
-		// ÇÃ·¹ÀÌ¾îÀÇ ¾ÆÀÌÅÛ »ç¿ë
-		int ItemUseProbabiliity = ItemUseDistribution(RandomGenerator);
-		if (ItemUseProbabiliity > 75) 
-		{
-			player.UseItem("health"); // 25% È®·ü·Î È¸º¹ ¾ÆÀÌÅÛ »ç¿ë
-		}
-		else if (ItemUseProbabiliity > 50)
-		{
-			player.UseItem("attackboost"); // 25% È®·ü·Î °ø°İ·Â Áõ°¡ ¾ÆÀÌÅÛ »ç¿ë
-		}
-
-		// ÇÃ·¹ÀÌ¾îÀÇ °ø°İ
-		int PlayerAttackProbability = PlayerAttackDistribution(RandomGenerator);
-		if (PlayerAttackProbability > 50) // 50% È®·ü·Î °ø°İ ¼º°ø
-		{
-			// °ø°İ ¼º°ø
-			monster.Hit(player.GetDamage()); // ¸ó½ºÅÍ µ¥¹ÌÁö ÀÔÀ½
-			// °ø°İ ¼º°ø ÅØ½ºÆ®
-
-			// Áö±İ °ø°İÀ¸·Î ¸ó½ºÅÍ°¡ Á×¾ú´Ù¸é
-			if (monster.GetHealth() <= 0)
-			{
-				break; // ¸ó½ºÅÍ ÅÏ ½ºÅµ
-			}
-		}
-		else
-		{
-			// °ø°İ ½ÇÆĞ
-			// °ø°İ ½ÇÆĞ ÅØ½ºÆ®
-		}
-
-		// [¸ó½ºÅÍÀÇ ÅÏ]
-		// ¸ó½ºÅÍÀÇ °ø°İ
-		int MonsterAttackProbability = MonsterAttackDistribution(RandomGenerator);
-		if (MonsterAttackProbability > 50) // 50% È®·ü·Î °ø°İ ¼º°ø
-		{
-			// °ø°İ ¼º°ø
-			player.Hit(monster.GetDamage()); // ÇÃ·¹ÀÌ¾î µ¥¹ÌÁö ÀÔÀ½
-			// °ø°İ ¼º°ø ÅØ½ºÆ®
-		}
-		else
-		{
-			// °ø°İ ½ÇÆĞ
-			// °ø°İ ½ÇÆĞ ÅØ½ºÆ®
-		}
+		player.UseItem("health"); // 25% í™•ë¥ ë¡œ íšŒë³µ ì•„ì´í…œ ì‚¬ìš©
+	}
+	else if (ItemUseProbabiliity < 50)
+	{
+		player.UseItem("attackboost"); // 25% í™•ë¥ ë¡œ íšŒë³µ ì•„ì´í…œ ì‚¬ìš©
 	}
 
-	// ½ÂÆĞ °áÁ¤
-	if (monster.GetHealth() <= 0) // ÇÃ·¹ÀÌ¾î°¡ ÀÌ°å´Ù¸é
+	// í”Œë ˆì´ì–´ì˜ ê³µê²©
+	int PlayerAttackProbability = PlayerAttackDistribution(RandomGenerator);
+	if (PlayerAttackProbability > 50)
+	{
+		// ê³µê²© ì„±ê³µ
+		monster.Hit(player.GetDamage());
+		_battleLog.push_back(std::make_pair("P", true));
+	}
+	else
+	{
+		_battleLog.push_back(std::make_pair("P", false));
+		// ê³µê²© ì‹¤íŒ¨
+	}
+
+	// [ëª¬ìŠ¤í„°ì˜ í„´]
+	// ëª¬ìŠ¤í„°ì˜ ê³µê²©
+	int MonsterAttackProbability = MonsterAttackDistribution(RandomGenerator);
+	if (MonsterAttackProbability > 50)
+	{
+		// ê³µê²© ì„±ê³µ
+		player.Hit(monster.GetDamage());
+		_battleLog.push_back(std::make_pair("M", true));
+	}
+	else
+	{
+		// ê³µê²© ì‹¤íŒ¨ 
+		_battleLog.push_back(std::make_pair("M", false));
+	}
+
+	if (player.GetHealth() <= 0 || monster.GetHealth() <= 0)
+	{
+		IsEndBattle = true;
+	}
+	// ìŠ¹íŒ¨ ê²°ì •
+	if (monster.GetHealth() <= 0) // í”Œë ˆì´ì–´ê°€ ì´ê²¼ë‹¤ë©´
 	{
 		IsPlayerWinner = true;
 	}
-	else if (player.GetHealth() <= 0) // ¸ó½ºÅÍ°¡ ÀÌ°å´Ù¸é
+	else if (player.GetHealth() <= 0) // ëª¬ìŠ¤í„°ê°€ ì´ê²¼ë‹¤ë©´
 	{
 		IsPlayerWinner = false;
 	}
@@ -75,4 +69,9 @@ void CBattleManager::Battle(CPlayer& player, CMonster& monster)
 bool CBattleManager::GetIsPlayerWinner() const
 {
 	return IsPlayerWinner;
+}
+
+bool CBattleManager::GetIsEndBattle() const
+{
+	return IsEndBattle;
 }

@@ -1,6 +1,8 @@
 ﻿#include "pch.h"
 #include "CDungeonStage.h"
 #include "CPlayer.h"
+#include "CBattleManager.h"
+#include "CTimeManager.h"
 
 void CDungeonStage::StageInit()
 {
@@ -8,6 +10,26 @@ void CDungeonStage::StageInit()
 
 void CDungeonStage::StageTick()
 {
+	if (tickTimer <= curTimer)
+	{
+		curTimer = 0;
+		// false : 배틀 중
+		if (CBattleManager::GetInst()->GetIsEndBattle() == false)
+		{
+			curLogIdx++;
+			bCallRender = true;
+			CBattleManager::GetInst()->Battle(*CPlayer::GetInst(), *Monster, BattleLog);
+		}
+		else
+		{
+			//승패 플로우
+		}
+	}
+	else
+	{
+		curTimer += CTimeManager::GetInst()->GetDeltaTime();
+	}
+
 	if (bCallRender)
 	{
 		this->StageRender();
@@ -26,65 +48,23 @@ void CDungeonStage::StageRender()
 	RenderText.push_back("□     Dungeon stage                                                                                                                                                                                  □\n");
 	RenderText.push_back("□                 =@@@@@@@@@@!                 @@@@@@@@@@@@@@@@@@@@@@@@@@@@#               ,    @@@$                                ;@@@@-                       =@@@@@@@@@@@@@@@@@@@@@@@@@@@@       □\n");
 	RenderText.push_back("□               *@@###########@=               @                          .#            *@#;$#@@   .#=                          .;@@@@##@@@@,.                   =,                          @       □\n");
-	RenderText.push_back("□             .*#=,          ,$#=.             @                          .#         ...=-    $;    ,$.                        :@@@$$~  ;$$#@@,,                 =,고블린                    @       □\n");
-	RenderText.push_back("□             !#-              -@*             @                          .#       ,,;!$@-     @,,,,~$=                      ,:@#$:        ,=@@@,                =,                          @       □\n");
-	RenderText.push_back("□            ,=;               ,$=,            @레벨:                     .#      ~$=~.;#;     @====*:$-,                   :@@=:            !=@@-               =,레벨:                     @       □\n");
-	RenderText.push_back("□            ;@:  -,        ~-  ~@!            @                          .#     .*;    :#-   ~@    -****;~,               -@@!.               *@@~              =,                          @       □\n");
-	RenderText.push_back("□            ;=,-:#*:      ;##~ ~@!            @체력:                     .#  .::*@;     =!.  @@        ,!!;,              *@*.                 !@@~             =,체력:                     @       □\n");
-	RenderText.push_back("□            ;: *@*;#!    ;@;!#~~@!            @                          .# .;;;;**-    ~#,  ;@;          ;=,            !@#,                   !@$             =,                          @       □\n");
-	RenderText.push_back("□            ;: *@- ~@!!!!@: ,@=~@!            @공격력:                   .# :=   .!=-    =*.  :@!;        ,=:           ,@#~                    .@@:            =,공격력:                   @       □\n");
-	RenderText.push_back("□            ;: *@-  ~@@@@~  ,@=~@!            @                          .# ~=    ,=:    -#*   ~:@**;      ;$-   ~!*    =@~  -*:            !**  :@$   ,;*~     =,                          @       □\n");
-	RenderText.push_back("□            ;: *$,   -~~-   ,@=~@!            @                          .# ,#;    ,;-    -#;   =@~!=      ,=:   =@@=   @# .=$@#*~        !*@@@* .@@; -=@@;     =,                          @       □\n");
-	RenderText.push_back("□            ;::#:            :@$@!            @                          .# ,@@;    !#-    ,$===@, :=       !#-  $@@@= =@, ,@$:$@#~      !@@@-@@* ~@=,$@@@;     =,                          @       □\n");
-	RenderText.push_back("□           :##@;  !.      .* ,#@@@:           @                          .# ,$:@;   .*#-   =@-,,,.$#=       .*~  $@-#@$@@ .#@! .;@#~    !@@-, ,@# ,@@#@*;@=,    =,                          @       □\n");
-	RenderText.push_back("□          :@;..  *@,      .$  ...;@:          @############################ ,= :@;   ,=#####,  ##$...        !~  $@..@@@@ .#@*.;!;@@~   =@-$#  @#  -@@= :@@:    =############################       □\n");
-	RenderText.push_back("□          :@;    =@,      .$     :@;          @공격성공                  .# ,=  :@@@@@~      #@              !~  $@.  @@;  -@=~@! ;@:  *@*.#@ @@#  ,@=  :@@:    =-                          @       □\n");
-	RenderText.push_back("□           ;@@:   ,        ;   ~@@;           @                          .# ,=.            #@               !:   $@.  @@   ,@@*   ;@:  =@,   :@@   ,@=  :@$-    =,                          @       □\n");
-	RenderText.push_back("□             !:                ~*             @                          .# ,#;           $@.              ;:    $@.  @@    ,@@*  ;@:  *@-  #@@;   ,@=  :@;     =,                          @       □\n");
-	RenderText.push_back("□             !:                :*             @                          .# ,#=          =#.             ,!:     $@-  @@     -#@@@@@~   =@@@@#*    ,@@* :@;     =,                          @       □\n");
-	RenderText.push_back("□             !;               ,$*             @                          .#  :=          =-             ;#:      *@@. @@      -$$$$~    !$$$$      ,#@*.!@;     =,                          @       □\n");
-	RenderText.push_back("□             !@~              -@*             @                          .#  -$,        ,$,           .;$:        $@~ @@                           .!@=!@#~     =,                          @       □\n");
-	RenderText.push_back("□             ~#~    -~  ~~   .;#:             @                          .#  ,==,       =@,         .~:!-         !@@~@@                            :@@@#~      =,                          @       □\n");
-	RenderText.push_back("□              !!.   #@::@@   -@*              @                          .#   ,!;:,     :!.         ;#:            ;@@@@                           .!@@#~       =,                          @       □\n");
-	RenderText.push_back("□              ~$*.  :;;;;;  -!#~              @                          .#     ,;;;;,            ;;*=              ;;@@   .;;;;;;;;;;;;;;;;;;;:   ,$@$~        =,                          @       □\n");
-	RenderText.push_back("□               -$*;.       !=#~               @                          .#      ,==;,           .$~-$-               @@   ,@@@@@@@@@@@@@@@@@@@@   ,@@*         =,                          @       □\n");
-	RenderText.push_back("□                -$@*!;  !!*@*-                @                          .#      :@;              - -@!               @@   ,@@$:*@@@*::$@@@@:;@@   ,@$-         =,                          @       □\n");
-	RenderText.push_back("□                 -#@@@**@@@#.                 @                          .#      :$-                ,$*               @@    ;@#*$@@@$- =@;#@.=@;   ,@=          =,                          @       □\n");
-	RenderText.push_back("□           ~====, $@~----~@$ ,===:            @                          .#      :!                  :*               @@~   .!@@@*-*@~;#*.$@=@@.   ,@=          =,                          @       □\n");
-	RenderText.push_back("□   .$$!   .!@!*@#$@@.     @@$$@=;#:   .!$$,   @                          .#      :;                  -*               ;@$    ~@@@=-;@#@@- $@@@,    ,@=          =,                          @       □\n");
-	RenderText.push_back("□  ##@@@!  :@! ..~#@@#.   #@@$... ;@:  !@@@#!  @                          .#      :;                  -*                @@     .:@@#@@@@@##@@=,    .#$.          =,                          @       □\n");
-	RenderText.push_back("□ @@$ -@@@@@@;      $@@@@@@=      :@@@@@:  $@. @                          .#     .!;              .$= -=                @@$       ;@@@@@@@@*.      ,@=           =,                          @       □\n");
-	RenderText.push_back("□ @#   -@*  ;@*,       @@       ~@@!  !@~   $@.@                          .#     :@;               ,$ -@*                @#                       .@#-           =,                          @       □\n");
-	RenderText.push_back("□@@    -@*   ;@@~              ~@@!   !@-    #.@                          .#     :@;                  -@*                :@#                     .@@=            =,                          @       □\n");
-	RenderText.push_back("□@@    -@*   ;@@~              ~@@!   !@-    #.@                          .#     :@;                  -@*                :@#                     .@@=            =,                          @       □\n");
-	RenderText.push_back("□@@    -@*   ;@@~              ~@@!   !@-    #.@                          .#     :@;                  -@*                :@#                     .@@=            =                           @       □\n");
-	RenderText.push_back("□@@     ~*     ;@:.          -#@!    ;@~     #@@                          .#     :$-               .$ ,$*                 #@@$..               .,@@=             =,                          @       □\n");
-	RenderText.push_back("□@@     -#!     ;#@~       .~@$!     !#~     #@@                          .#     :!                .#. ~*                 .$#@@=,,,,      ,,,,~@@$=              =,                          @       □\n");
-	RenderText.push_back("□@@      ~=.     -*@:-    -#@!      -=:      #@@                          .#     :!                .@= ~*                   .$@@@@@#;----;#@@@@@=                =,                          @       □\n");
-	RenderText.push_back("□@@      ~@=~~.    ;$@~ .~@*!    .~:$@:      #@@                          .#    .!!                .@= ~*                 -~~;@@@@@@@@@@@@@@@@@@~~~-             =,                          @       □\n");
-	RenderText.push_back("□@@     .!#*$@:     ~!@:!@!      ~#=*$!.     #@@                          .#    ~@!                .*= ~$,             ,~:@@@@#****************@@@@#~~-          =,                          @       □\n");
-	RenderText.push_back("□!@:::::*@! -$:       ;@*;      .*=. ;#!:::::@!@                          .#    ~@!                 ,= ~@!           -:*@@@!!!:.               !!!!@@@$:-        =,                          @       □\n");
-	RenderText.push_back("□ ;*@;;;*@!  ;:        ;.       ,=!  ;@*;;;#!; @                          .#    ~$-                 ,= ,=!          :$@@;;:                        ;;*@@$~       =,                          @       □\n");
-	RenderText.push_back("□  ~#   .*$!!$:                  :$!!$*,   $,  @                          .#    ~!                  ,#- :!         ;@@!:                             .:*@#*-     =,                          @       □\n");
-	RenderText.push_back("□  ~#    .!@@*,                  .*@@*.    $,  @                          .#    ~!                  ,@* ~!        ;@@:.                                .!@@$-    =,                          @       □\n");
-	RenderText.push_back("□  ~#     .--.                    .--.     $,  @                          .#    ~!                  ,@= ~!       ;@@:                                   .-*@:    =,                          @       □\n");
-	RenderText.push_back("□  ~#                                      $,  @                          .#   ,=!                   -, ~$-      =@~                                      ;@#~   =,                          @       □\n");
-	RenderText.push_back("□  .#                                      $,  @                          .#   -@!                      ~@;      .,                                       .,,    =,                          @       □\n");
-	RenderText.push_back("□   .                                      .   @############################    :@######################@*                                                       =###########################@       □\n");
-	RenderText.push_back("□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□");
+	
 
 	//플레이어와 몬스터 이름 넣는 플로우
 	string strPlayerName = CPlayer::GetInst()->GetName();
 	SpaceMaker(strPlayerName, Max_TextBoxBlockSpace);
 	string strMonsterName = Monster->GetName();
 	SpaceMaker(strMonsterName, Max_TextBoxBlockSpace);
-	RenderText[4] = "□             .*#=,          ,$#=.             @" + strPlayerName + ".#         ...=-    $;    ,$.                        :@@@$$~  ;$$#@@,,                 =,"+ strMonsterName +"@       □\n";
 
+	RenderText.push_back("□             .*#=,          ,$#=.             @" + strPlayerName + ".#         ...=-    $;    ,$.                        :@@@$$~  ;$$#@@,,                 =," + strMonsterName + "@       □\n");
+	RenderText.push_back("□             !#-              -@*             @                          .#       ,,;!$@-     @,,,,~$=                      ,:@#$:        ,=@@@,                =,                          @       □\n");
+	
 	//플레이어의 레벨 넣는 플로우
 	string strPlayerLevel = "레벨:";
 	strPlayerLevel += std::to_string(CPlayer::GetInst()->GetLevel());
 	SpaceMaker(strPlayerLevel, Max_TextBoxBlockSpace);
-	RenderText[6] = "□            ,=;               ,$=,            @" + strPlayerLevel + ".#      ~$=~.;#;     @====*:$-,                   :@@=:            !=@@-               =,                          @       □\n";
+	RenderText.push_back("□            ,=;               ,$=,            @" + strPlayerLevel + ".#      ~$=~.;#;     @====*:$-,                   :@@=:            !=@@-               =,                          @       □\n");
+	RenderText.push_back("□            ;@:  -,        ~-  ~@!            @                          .#     .*;    :#-   ~@    -****;~,               -@@!.               *@@~              =,                          @       □\n");
 
 	//플레이어와 몬스터의 체력을 넣는 플로우
 	string strPlayerHealth = "체력:";
@@ -93,7 +73,9 @@ void CDungeonStage::StageRender()
 	string strMonsterHealth = "체력:";
 	strMonsterHealth += std::to_string(Monster->GetHealth());
 	SpaceMaker(strMonsterHealth, Max_TextBoxBlockSpace);
-	RenderText[8] = "□            ;=,-:#*:      ;##~ ~@!            @" + strPlayerHealth + ".#  .::*@;     =!.  @@        ,!!;,              *@*.                 !@@~             =,"+ strMonsterHealth +"@       □\n";
+	RenderText.push_back("□            ;=,-:#*:      ;##~ ~@!            @" + strPlayerHealth + ".#  .::*@;     =!.  @@        ,!!;,              *@*.                 !@@~             =," + strMonsterHealth + "@       □\n");
+	RenderText.push_back("□            ;: *@*;#!    ;@;!#~~@!            @                          .# .;;;;**-    ~#,  ;@;          ;=,            !@#,                   !@$             =,                          @       □\n");
+
 
 	//플레이어와 몬스터의 공격력을 넣는 플로우
 	string strPlayerDamage = "공격력:";
@@ -102,7 +84,93 @@ void CDungeonStage::StageRender()
 	string strMonsterDamage = "공격력:";
 	strMonsterDamage += std::to_string(Monster->GetDamage());
 	SpaceMaker(strMonsterDamage, Max_TextBoxBlockSpace);
-	RenderText[10] = "□            ;: *@- ~@!!!!@: ,@=~@!            @" + strPlayerDamage + ".# :=   .!=-    =*.  :@!;        ,=:           ,@#~                    .@@:            =,"+ strMonsterDamage +"@       □\n";
+	RenderText.push_back("□            ;: *@- ~@!!!!@: ,@=~@!            @" + strPlayerDamage + ".# :=   .!=-    =*.  :@!;        ,=:           ,@#~                    .@@:            =," + strMonsterDamage + "@       □\n");
+	RenderText.push_back("□            ;: *@-  ~@@@@~  ,@=~@!            @                          .# ~=    ,=:    -#*   ~:@**;      ;$-   ~!*    =@~  -*:            !**  :@$   ,;*~     =,                          @       □\n");
+	RenderText.push_back("□            ;: *$,   -~~-   ,@=~@!            @                          .# ,#;    ,;-    -#;   =@~!=      ,=:   =@@=   @# .=$@#*~        !*@@@* .@@; -=@@;     =,                          @       □\n");
+	RenderText.push_back("□            ;::#:            :@$@!            @                          .# ,@@;    !#-    ,$===@, :=       !#-  $@@@= =@, ,@$:$@#~      !@@@-@@* ~@=,$@@@;     =,                          @       □\n");
+	RenderText.push_back("□           :##@;  !.      .* ,#@@@:           @                          .# ,$:@;   .*#-   =@-,,,.$#=       .*~  $@-#@$@@ .#@! .;@#~    !@@-, ,@# ,@@#@*;@=,    =,                          @       □\n");
+	RenderText.push_back("□          :@;..  *@,      .$  ...;@:          @############################ ,= :@;   ,=#####,  ##$...        !~  $@..@@@@ .#@*.;!;@@~   =@-$#  @#  -@@= :@@:    =############################       □\n");
+
+
+
+
+	//전투 로그
+	vector<string> PlayerHitLog(MaxHitLogSpace);
+	vector<string> MonsterHitLog(MaxHitLogSpace);
+	int PHLIndex = 0;
+	int MHLIndex = 0;
+	for (int i = 0; i < MaxHitLogSpace; i++)
+	{
+		SpaceMaker(PlayerHitLog[i], Max_TextBoxBlockSpace);
+		SpaceMaker(MonsterHitLog[i], Max_TextBoxBlockSpace);
+
+	}
+	for (int i = 0; i < BattleLog.size(); i++)
+	{
+		if (BattleLog[i].first == "P")
+		{
+			if (BattleLog[i].second == true)
+			{
+				PlayerHitLog[PHLIndex] = "  HIT";
+				Monster->Hit(CPlayer::GetInst()->GetDamage());
+			}
+			else
+			{
+				PlayerHitLog[PHLIndex] = "  MISS";
+			}
+			SpaceMaker(PlayerHitLog[PHLIndex], Max_TextBoxBlockSpace);
+			PHLIndex = (PHLIndex + 1) % MaxHitLogSpace;
+		}
+		else
+		{
+			if (BattleLog[i].second == true)
+			{
+				MonsterHitLog[MHLIndex] = "  HIT";
+				CPlayer::GetInst()->Hit(Monster->GetDamage());
+			}
+			else
+			{
+				MonsterHitLog[MHLIndex] = "  MISS";
+			}
+			SpaceMaker(MonsterHitLog[MHLIndex], Max_TextBoxBlockSpace);
+			MHLIndex = (MHLIndex + 1) % MaxHitLogSpace;
+		}
+	}
+
+	RenderText.push_back("□          :@;    =@,      .$     :@;          @" + PlayerHitLog[0] + ".# ,=  :@@@@@~      #@              !~  $@.  @@;  -@=~@! ;@:  *@*.#@ @@#  ,@=  :@@:    =-" + MonsterHitLog[0] + "@       □\n");
+	RenderText.push_back("□           ;@@:   ,        ;   ~@@;           @" + PlayerHitLog[1] + ".# ,=.            #@               !:   $@.  @@   ,@@*   ;@:  =@,   :@@   ,@=  :@$-    =," + MonsterHitLog[1] + "@       □\n");
+	RenderText.push_back("□             !:                ~*             @" + PlayerHitLog[2] + ".# ,#;           $@.              ;:    $@.  @@    ,@@*  ;@:  *@-  #@@;   ,@=  :@;     =," + MonsterHitLog[2] + "@       □\n");
+	RenderText.push_back("□             !:                :*             @" + PlayerHitLog[3] + ".# ,#=          =#.             ,!:     $@-  @@     -#@@@@@~   =@@@@#*    ,@@* :@;     =," + MonsterHitLog[3] + "@       □\n");
+	RenderText.push_back("□             !;               ,$*             @" + PlayerHitLog[4] + ".#  :=          =-             ;#:      *@@. @@      -$$$$~    !$$$$      ,#@*.!@;     =," + MonsterHitLog[4] + "@       □\n");
+	RenderText.push_back("□             !@~              -@*             @" + PlayerHitLog[5] + ".#  -$,        ,$,           .;$:        $@~ @@                           .!@=!@#~     =," + MonsterHitLog[5] + "@       □\n");
+	RenderText.push_back("□             ~#~    -~  ~~   .;#:             @" + PlayerHitLog[6] + ".#  ,==,       =@,         .~:!-         !@@~@@                            :@@@#~      =," + MonsterHitLog[6] + "@       □\n");
+	RenderText.push_back("□              !!.   #@::@@   -@*              @" + PlayerHitLog[7] + ".#   ,!;:,     :!.         ;#:            ;@@@@                           .!@@#~       =," + MonsterHitLog[7] + "@       □\n");
+	RenderText.push_back("□              ~$*.  :;;;;;  -!#~              @" + PlayerHitLog[8] + ".#     ,;;;;,            ;;*=              ;;@@   .;;;;;;;;;;;;;;;;;;;:   ,$@$~        =," + MonsterHitLog[8] + "@       □\n");
+	RenderText.push_back("□               -$*;.       !=#~               @" + PlayerHitLog[9] + ".#      ,==;,           .$~-$-               @@   ,@@@@@@@@@@@@@@@@@@@@   ,@@*         =," + MonsterHitLog[9] + "@       □\n");
+	RenderText.push_back("□                -$@*!;  !!*@*-                @" + PlayerHitLog[10] + ".#      :@;              - -@!               @@   ,@@$:*@@@*::$@@@@:;@@   ,@$-         =," + MonsterHitLog[10] + "@       □\n");
+	RenderText.push_back("□                 -#@@@**@@@#.                 @" + PlayerHitLog[11] + ".#      :$-                ,$*               @@    ;@#*$@@@$- =@;#@.=@;   ,@=          =," + MonsterHitLog[11] + "@       □\n");
+	RenderText.push_back("□           ~====, $@~----~@$ ,===:            @" + PlayerHitLog[12] + ".#      :!                  :*               @@~   .!@@@*-*@~;#*.$@=@@.   ,@=          =," + MonsterHitLog[12] + "@       □\n");
+	RenderText.push_back("□   .$$!   .!@!*@#$@@.     @@$$@=;#:   .!$$,   @" + PlayerHitLog[13] + ".#      :;                  -*               ;@$    ~@@@=-;@#@@- $@@@,    ,@=          =," + MonsterHitLog[13] + "@       □\n");
+	RenderText.push_back("□  ##@@@!  :@! ..~#@@#.   #@@$... ;@:  !@@@#!  @" + PlayerHitLog[14] + ".#      :;                  -*                @@     .:@@#@@@@@##@@=,    .#$.          =," + MonsterHitLog[14] + "@       □\n");
+	RenderText.push_back("□ @@$ -@@@@@@;      $@@@@@@=      :@@@@@:  $@. @" + PlayerHitLog[15] + ".#     .!;              .$= -=                @@$       ;@@@@@@@@*.      ,@=           =," + MonsterHitLog[15] + "@       □\n");
+	RenderText.push_back("□ @#   -@*  ;@*,       @@       ~@@!  !@~   $@.@" + PlayerHitLog[16] + ".#     :@;               ,$ -@*                @#                       .@#-           =," + MonsterHitLog[16] + "@       □\n");
+	RenderText.push_back("□@@    -@*   ;@@~              ~@@!   !@-    #.@" + PlayerHitLog[17] + ".#     :@;                  -@*                :@#                     .@@=            =," + MonsterHitLog[17] + "@       □\n");
+	RenderText.push_back("□@@    -@*   ;@@~              ~@@!   !@-    #.@" + PlayerHitLog[18] + ".#     :@;                  -@*                :@#                     .@@=            =," + MonsterHitLog[18] + "@       □\n");
+	RenderText.push_back("□@@    -@*   ;@@~              ~@@!   !@-    #.@" + PlayerHitLog[19] + ".#     :@;                  -@*                :@#                     .@@=            =," + MonsterHitLog[19] + "@       □\n");
+	RenderText.push_back("□@@     ~*     ;@:.          -#@!    ;@~     #@@" + PlayerHitLog[20] + ".#     :$-               .$ ,$*                 #@@$..               .,@@=             =," + MonsterHitLog[20] + "@       □\n");
+	RenderText.push_back("□@@     -#!     ;#@~       .~@$!     !#~     #@@" + PlayerHitLog[21] + ".#     :!                .#. ~*                 .$#@@=,,,,      ,,,,~@@$=              =," + MonsterHitLog[21] + "@       □\n");
+	RenderText.push_back("□@@      ~=.     -*@:-    -#@!      -=:      #@@" + PlayerHitLog[22] + ".#     :!                .@= ~*                   .$@@@@@#;----;#@@@@@=                =," + MonsterHitLog[22] + "@       □\n");
+	RenderText.push_back("□@@      ~@=~~.    ;$@~ .~@*!    .~:$@:      #@@" + PlayerHitLog[23] + ".#    .!!                .@= ~*                 -~~;@@@@@@@@@@@@@@@@@@~~~-             =," + MonsterHitLog[23] + "@       □\n");
+	RenderText.push_back("□@@     .!#*$@:     ~!@:!@!      ~#=*$!.     #@@" + PlayerHitLog[24] + ".#    ~@!                .*= ~$,             ,~:@@@@#****************@@@@#~~-          =," + MonsterHitLog[24] + "@       □\n");
+	RenderText.push_back("□!@:::::*@! -$:       ;@*;      .*=. ;#!:::::@!@" + PlayerHitLog[25] + ".#    ~@!                 ,= ~@!           -:*@@@!!!:.               !!!!@@@$:-        =," + MonsterHitLog[25] + "@       □\n");
+	RenderText.push_back("□ ;*@;;;*@!  ;:        ;.       ,=!  ;@*;;;#!; @" + PlayerHitLog[26] + ".#    ~$-                 ,= ,=!          :$@@;;:                        ;;*@@$~       =," + MonsterHitLog[26] + "@       □\n");
+	RenderText.push_back("□  ~#   .*$!!$:                  :$!!$*,   $,  @" + PlayerHitLog[27] + ".#    ~!                  ,#- :!         ;@@!:                             .:*@#*-     =," + MonsterHitLog[27] + "@       □\n");
+	RenderText.push_back("□  ~#    .!@@*,                  .*@@*.    $,  @" + PlayerHitLog[28] + ".#    ~!                  ,@* ~!        ;@@:.                                .!@@$-    =," + MonsterHitLog[28] + "@       □\n");
+	RenderText.push_back("□  ~#     .--.                    .--.     $,  @" + PlayerHitLog[29] + ".#    ~!                  ,@= ~!       ;@@:                                   .-*@:    =," + MonsterHitLog[29] + "@       □\n");
+	RenderText.push_back("□  ~#                                      $,  @" + PlayerHitLog[30] + ".#   ,=!                   -, ~$-      =@~                                      ;@#~   =," + MonsterHitLog[30] + "@       □\n");
+	RenderText.push_back("□  .#                                      $,  @" + PlayerHitLog[31] + ".#   -@!                      ~@;      .,                                       .,,    =," + MonsterHitLog[31] + "@       □\n");
+	RenderText.push_back("□   .                                      .   @############################    :@######################@*                                                       =###########################@       □\n");
+	RenderText.push_back("□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□");
 
 
 	//전체 송출

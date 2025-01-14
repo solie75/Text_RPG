@@ -134,7 +134,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CAttackBoost.cpp" />
+    <ClCompile Include="CAttackBoost.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="CBattleManager.cpp" />
     <ClCompile Include="CBossDungeonStage.cpp" />
     <ClCompile Include="CBossMonsterFactory.cpp" />
@@ -144,7 +146,9 @@
     <ClCompile Include="CGameInstance.cpp" />
     <ClCompile Include="CGoblin.cpp" />
     <ClCompile Include="CGoblinFactory.cpp" />
-    <ClCompile Include="CHealthPotion.cpp" />
+    <ClCompile Include="CHealthPotion.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="CKeyManager.cpp" />
     <ClCompile Include="CNormalDungeonStage.cpp" />
     <ClCompile Include="COrc.cpp" />
