@@ -10,9 +10,9 @@ private:
 	int damage;
 public:
 	CTroll(int level);
-	string GetName();
-	int GetHealth();
-	int GetDamage();
-	void Hit(int damage);
-	//Item* DropItem();
+	virtual string GetName() const override;
+	virtual int GetHealth() const override;
+	virtual int GetDamage() const override;
+	virtual void Hit(int damage) override;
+	virtual CItem* DropItem() override;
 };
