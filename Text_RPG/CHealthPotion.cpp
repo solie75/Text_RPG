@@ -1,8 +1,14 @@
+#include "pch.h"
 #include "CHealthPotion.h"
 #include "CPlayer.h"
 
-void CHealthPotion::Use(int amount)
+int CHealthPotion::GetAmount()
 {
-	CPlayer* Player = CPlayer::GetInst();
-	Player->SetHealth(amount);
+	return Amount;
+}
+
+void CHealthPotion::Use()
+{
+	ReduceCnt();
+	CPlayer::GetInst()->Heal(Amount);
 }

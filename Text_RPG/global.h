@@ -6,7 +6,8 @@
 #include <map>
 
 using std::vector;
-using std::string; 
+using std::string;
+using std::map;
 
 #include <Windows.h>
 

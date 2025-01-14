@@ -146,9 +146,8 @@
     <ClCompile Include="CGameInstance.cpp" />
     <ClCompile Include="CGoblin.cpp" />
     <ClCompile Include="CGoblinFactory.cpp" />
-    <ClCompile Include="CHealthPotion.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
+    <ClCompile Include="CHealthPotion.cpp" />
+    <ClCompile Include="CItem.cpp" />
     <ClCompile Include="CKeyManager.cpp" />
     <ClCompile Include="CNormalDungeonStage.cpp" />
     <ClCompile Include="COrc.cpp" />

@@ -14,12 +14,12 @@ void CBattleManager::Battle(CPlayer& player, CMonster& monster, vector<std::pair
 	int ItemUseProbabiliity = ItemUseDistribution(RandomGenerator);
 	if (ItemUseProbabiliity > 75)
 	{
-		player.UseItem("health"); // 25% 확률로 회복 아이템 사용
+		player.UseItem(ITEM_TYPE::HEALTH_POTION); // 25% 확률로 회복 아이템 사용
 		_battleLog.push_back(std::make_pair("U", true));
 	}
 	else if (ItemUseProbabiliity < 50)
 	{
-		player.UseItem("attackboost"); // 25% 확률로 회복 아이템 사용
+		player.UseItem(ITEM_TYPE::ATTACK_BOOST); // 25% 확률로 회복 아이템 사용
 		_battleLog.push_back(std::make_pair("U", false));
 	}
 

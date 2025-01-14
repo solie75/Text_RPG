@@ -1,16 +1,16 @@
 #pragma once
-#include "pch.h"
 #include "CItem.h"
 
 class CAttackBoost
 	: public CItem
 {
 private:
-	string Name;
-	int AttackIncrease;
-public:
-	CAttackBoost(string name, int amount) : Name(name), AttackIncrease(amount) {}
+	int Amount = 10;
 
-	// Inherited via CItem
-	void Use(int) override;
+public:
+	CAttackBoost(string _Name, int _Cnt) : CItem(_Name, _Cnt) { SetPrice(15); }
+	int GetAmount();
+
+public:
+	virtual void Use() override;
 };

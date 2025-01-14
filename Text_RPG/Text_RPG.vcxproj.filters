@@ -179,6 +179,9 @@
     <ClCompile Include="CAttackBoost.cpp">
       <Filter>Source Files\3.Object\4.Item\AttackBoost</Filter>
     </ClCompile>
+    <ClCompile Include="CItem.cpp">
+      <Filter>Source Files\3.Object\4.Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CSingleton.h">
