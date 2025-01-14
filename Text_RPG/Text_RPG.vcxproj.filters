@@ -182,6 +182,9 @@
     <ClCompile Include="CItem.cpp">
       <Filter>Source Files\3.Object\4.Item</Filter>
     </ClCompile>
+    <ClCompile Include="CResource.cpp">
+      <Filter>Source Files\4.Resource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CSingleton.h">
@@ -289,6 +292,9 @@
     </ClInclude>
     <ClInclude Include="CAttackBoost.h">
       <Filter>Source Files\3.Object\4.Item\AttackBoost</Filter>
+    </ClInclude>
+    <ClInclude Include="CResource.h">
+      <Filter>Source Files\4.Resource</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

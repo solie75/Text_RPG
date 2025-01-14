@@ -20,22 +20,88 @@ void CStartStage::StageTick()
 		bCallRender = false;
 	}
 
-	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::SPACE) == KEY_STATE::TAP)
+	if (bMessiveScolling)
 	{
-		CStageManager::GetInst()->ChangeStage(new CVillageStage());
+		fAccumulatedTime += GlobalData.DeltaTime;
+		if (fAccumulatedTime > fMissiveScollingTime)
+		{
+			++iCurMissivePart;
+			if (iCurMissivePart > 13)
+			{
+				iCurMissivePart = 13;
+				bMessiveScolling = false;
+			}
+			bCallRender = true;
+			fAccumulatedTime = 0.f;
+		}
+	}
+	else
+	{
+		if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::SPACE) == KEY_STATE::TAP)
+		{
+			if (iCurMissivePart == 0 && CurScene == START_SCENE::TUTORIAL)
+			{
+				bMessiveScolling = true;
+			}
+			else
+			{
+				ChangeScene();
+				bCallRender = true;
+			}
+		}
+		else
+		{
+			fAccumulatedTime += GlobalData.DeltaTime;
+			if (iCurMissivePart == 13 && fAccumulatedTime > (fNoticeTextDurationTime / 4.0f))
+			{
+				iCurMissivePart = 14;
+				bCallRender = true;
+				fAccumulatedTime = 0.f;
+			}
+			else if (iCurMissivePart == 14 && fAccumulatedTime > fNoticeTextDurationTime)
+			{
+				iCurMissivePart = 13;
+				bCallRender = true;
+				fAccumulatedTime = 0.f;
+			}
+		}
 	}
 }
 
 void CStartStage::StageRender()
 {
 	std::cout << "\033[2J\033[H";
-	
+	switch (CurScene)
+	{
+	case START_SCENE::START :
+		StartScene();
+		bCallRender = true;
+		break;
+	case START_SCENE::TUTORIAL :
+		TutorialScene();
+		bCallRender = true;
+		break;
+	}
+}
+
+void CStartStage::ChangeScene()
+{
+	switch (CurScene)
+	{
+	case START_SCENE::START:
+		CurScene = START_SCENE::TUTORIAL;
+		break;
+	case START_SCENE::TUTORIAL:
+		CStageManager::GetInst()->ChangeStage(new CVillageStage());
+		break;
+	}
+}
+
+void CStartStage::StartScene()
+{
 	string PlayerID;
 	CPlayer* Player = CPlayer::GetInst();
 	Player->SetName(PlayerID);
-
-	//я┐╜я┐╜ я┐╜я┐╜я┐╜▀▒я┐╜я┐╜ я┐╜╙╜я┐╜ я┐╜я┐╜я┐╜я┐╜╞о
-	//printf("я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜\n");
 
 	printf("                                                                                                                                                                                                        \n");
 	printf("                                                                                                                                                                                                        \n");
@@ -69,7 +135,7 @@ void CStartStage::StageRender()
 	printf("                                                                                                                                                                                                        \n");
 	printf("                                                                                     Please type your PlayerID                                                                                          \n");
 	printf("                                                                                                                                                                                                        \n");
-	printf("                                                                                         ");std::getline(std::cin, PlayerID);
+	printf("                                                                                         "); std::getline(std::cin, PlayerID);
 	printf("                                                                                                                                                                                                        \n");
 	printf("                                                                                     Press Space Bar to Start!                                                                                          \n");
 	printf("                                                                                                                                                                                                        \n");
@@ -89,3 +155,710 @@ void CStartStage::StageRender()
 	printf("                                                                                                                                                                                                        ");
 }
 
+void CStartStage::TutorialScene()
+{
+	printf("брбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбр\n");
+	printf("бр                                                                                                                                                                                                    бр\n"); // 1
+	printf("бр                                                                                                                                                                                                    бр\n"); // 2
+	printf("бр                                                                                                                                                                                                    бр\n"); // 3
+	printf("бр                                       /$$$$$$$  /$$$$$$ /$$     /$$/$$$$$$ /$$             /$$      /$$/$$$$$$ /$$$$$$  /$$$$$$ /$$$$$$/$$    /$$/$$$$$$$$                                         бр\n"); // 4
+	printf("бр                                      | $$__  $$/$$__  $|  $$   /$$/$$__  $| $$            | $$$    /$$|_  $$_//$$__  $$/$$__  $|_  $$_| $$   | $| $$_____/                                         бр\n"); // 5
+	printf("бр                                      | $$  \\ $| $$  \\ $$\\  $$ /$$| $$  \\ $| $$            | $$$$  /$$$$ | $$ | $$  \\__| $$  \\__/ | $$ | $$   | $| $$                                               бр\n"); // 6
+	printf("бр                                      | $$$$$$$| $$  | $$ \\  $$$$/| $$$$$$$| $$            | $$ $$/$$ $$ | $$ |  $$$$$$|  $$$$$$  | $$ |  $$ / $$| $$$$$                                            бр\n"); // 7
+	printf("бр                                      | $$__  $| $$  | $$  \\  $$/ | $$__  $| $$            | $$  $$$| $$ | $$  \\____  $$\\____  $$ | $$  \\  $$ $$/| $$__/                                            бр\n"); // 8
+	printf("бр                                      | $$  \\ $| $$  | $$   | $$  | $$  | $| $$            | $$\\  $ | $$ | $$  /$$  \\ $$/$$  \\ $$ | $$   \\  $$$/ | $$                                               бр\n"); // 9
+	printf("бр                                      | $$  | $|  $$$$$$/   | $$  | $$  | $| $$$$$$$$      | $$ \\/  | $$/$$$$$|  $$$$$$|  $$$$$$//$$$$$$  \\  $/  | $$$$$$$$                                         бр\n"); // 10
+	printf("бр                                      |__/  |__/\\______/    |__/  |__/  |__|________/      |__/     |__|______/\\______/ \\______/|______/   \\_/   |________/                                         бр\n"); // 11
+	switch (iCurMissivePart)
+	{
+	case 0:
+		MessivePart0();
+		break;
+	case 1:
+		MessivePart1();
+		break;
+	case 2:
+		MessivePart2();
+		break;
+	case 3:
+		MessivePart3();
+		break;
+	case 4:
+		MessivePart4();
+		break;
+	case 5:
+		MessivePart5();
+		break;
+	case 6:
+		MessivePart6();
+		break;
+	case 7:
+		MessivePart7();
+		break;
+	case 8:
+		MessivePart8();
+		break;
+	case 9:
+		MessivePart9();
+		break;
+	case 10:
+		MessivePart10();
+		break;
+	case 11:
+		MessivePart11();
+		break;
+	case 12:
+		MessivePart12();
+		break;
+	case 13:
+		MessivePart13();
+		break;
+	case 14:
+		MessivePart14();
+		break;
+	}
+	printf("брбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбрбр");
+}
+
+void CStartStage::MessivePart0()
+{
+	printf("бр                                                                                                                                                                                                    бр\n"); // 12
+	printf("бр                                                                                                                                                                                                    бр\n"); // 13
+	printf("бр                                                                                                                                                                                                    бр\n"); // 14
+	printf("бр                                                                                                                                                                                                    бр\n"); // 15
+	printf("бр                                                                                                                                                                                                    бр\n"); // 16
+	printf("бр                                                                                                                                                                                                    бр\n"); // 17
+	printf("бр                                                                                                                                                                                                    бр\n"); // 18
+	printf("бр                                                                                                                                                                                                    бр\n"); // 19
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                             ___________________________________________________________________________________________________                                                    бр\n"); // 
+	printf("бр                                            (                                                                                                   )                                                   бр\n"); // 
+	printf("бр                                           /|\\                                                                                                   \\                                                  бр\n"); // 
+	printf("бр                                        ()==) )                                                                                                  |@==()                                             бр\n"); // 
+	printf("бр                                           \\|/                                                                                                   /                                                  бр\n"); // 
+	printf("бр                                            (___________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                           ( ___________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                          /|\\                                                                                                    \\                                                  бр\n"); // 
+	printf("бр                                       ()==) )                                                                                                   |@==()                                             бр\n"); // 
+	printf("бр                                          \\|/                                                                                                    /                                                  бр\n"); // 
+	printf("бр                                           (____________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                              press space bar to open scroll                                                                                        бр\n");
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+}
+
+void CStartStage::MessivePart1()
+{
+	printf("бр                                                                                                                                                                                                    бр\n"); // 12
+	printf("бр                                                                                                                                                                                                    бр\n"); // 13
+	printf("бр                                                                                                                                                                                                    бр\n"); // 14
+	printf("бр                                                                                                                                                                                                    бр\n"); // 15
+	printf("бр                                                                                                                                                                                                    бр\n"); // 16
+	printf("бр                                                                                                                                                                                                    бр\n"); // 17
+	printf("бр                                                                                                                                                                                                    бр\n"); // 18
+	printf("бр                                                                                                                                                                                                    бр\n"); // 19
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                             ___________________________________________________________________________________________________                                                    бр\n"); // 
+	printf("бр                                            (                                                                                                   )                                                   бр\n"); // 
+	printf("бр                                           /|\\                                                                                                   \\                                                  бр\n"); // 
+	printf("бр                                        ()==) )                                                                                                  |@==()                                             бр\n"); // 
+	printf("бр                                           \\|/                                                                                                   /                                                  бр\n"); // 
+	printf("бр                                            (___________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                           ( ___________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                          /|\\                                                                                                    \\                                                  бр\n"); // 
+	printf("бр                                       ()==) )                                                                                                   |@==()                                             бр\n"); // 
+	printf("бр                                          \\|/                                                                                                    /                                                  бр\n"); // 
+	printf("бр                                           (____________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+}
+
+void CStartStage::MessivePart2()
+{
+	printf("бр                                                                                                                                                                                                    бр\n"); // 12
+	printf("бр                                                                                                                                                                                                    бр\n"); // 13
+	printf("бр                                                                                                                                                                                                    бр\n"); // 14
+	printf("бр                                                                                                                                                                                                    бр\n"); // 15
+	printf("бр                                                                                                                                                                                                    бр\n"); // 16
+	printf("бр                                                                                                                                                                                                    бр\n"); // 17
+	printf("бр                                                                                                                                                                                                    бр\n"); // 18
+	printf("бр                                                                                                                                                                                                    бр\n"); // 19
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                             ___________________________________________________________________________________________________                                                    бр\n"); // 
+	printf("бр                                            (                                                                                                   )                                                   бр\n"); // 
+	printf("бр                                           /|\\                                                                                                   \\                                                  бр\n"); // 
+	printf("бр                                        ()==) )                                                                                                  |@==()                                             бр\n"); // 
+	printf("бр                                           \\|/                                                                                                   /                                                  бр\n"); // 
+	printf("бр                                            (___________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                           ( ___________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                          /|\\                                                                                                    \\                                                  бр\n"); // 
+	printf("бр                                       ()==) )                                                                                                   |@==()                                             бр\n"); // 
+	printf("бр                                          \\|/                                                                                                    /                                                  бр\n"); // 
+	printf("бр                                           (____________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+}
+
+void CStartStage::MessivePart3()
+{
+	printf("бр                                                                                                                                                                                                    бр\n"); // 12
+	printf("бр                                                                                                                                                                                                    бр\n"); // 13
+	printf("бр                                                                                                                                                                                                    бр\n"); // 14
+	printf("бр                                                                                                                                                                                                    бр\n"); // 15
+	printf("бр                                                                                                                                                                                                    бр\n"); // 16
+	printf("бр                                                                                                                                                                                                    бр\n"); // 17
+	printf("бр                                                                                                                                                                                                    бр\n"); // 18
+	printf("бр                                                                                                                                                                                                    бр\n"); // 19
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                             ___________________________________________________________________________________________________                                                    бр\n"); // 
+	printf("бр                                            (                                                                                                   )                                                   бр\n"); // 
+	printf("бр                                           /|\\                                                                                                   \\                                                  бр\n"); // 
+	printf("бр                                        ()==) )                                                                                                  |@==()                                             бр\n"); // 
+	printf("бр                                           \\|/                                                                                                   /                                                  бр\n"); // 
+	printf("бр                                            (___________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                           ( ___________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                          /|\\                                                                                                    \\                                                  бр\n"); // 
+	printf("бр                                       ()==) )                                                                                                   |@==()                                             бр\n"); // 
+	printf("бр                                          \\|/                                                                                                    /                                                  бр\n"); // 
+	printf("бр                                           (____________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+}
+
+void CStartStage::MessivePart4()
+{
+	printf("бр                                                                                                                                                                                                    бр\n"); // 12
+	printf("бр                                                                                                                                                                                                    бр\n"); // 13
+	printf("бр                                                                                                                                                                                                    бр\n"); // 14
+	printf("бр                                                                                                                                                                                                    бр\n"); // 15
+	printf("бр                                                                                                                                                                                                    бр\n"); // 16
+	printf("бр                                                                                                                                                                                                    бр\n"); // 17
+	printf("бр                                                                                                                                                                                                    бр\n"); // 18
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                             ___________________________________________________________________________________________________                                                    бр\n"); // 
+	printf("бр                                            (                                                                                                   )                                                   бр\n"); // 
+	printf("бр                                           /|\\                                                                                                   \\                                                  бр\n"); // 
+	printf("бр                                        ()==) )                                                                                                  |@==()                                             бр\n"); // 
+	printf("бр                                           \\|/                                                                                                   /                                                  бр\n"); // 
+	printf("бр                                            (___________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                           ( ___________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                          /|\\                                                                                                    \\                                                  бр\n"); // 
+	printf("бр                                       ()==) )                                                                                                   |@==()                                             бр\n"); // 
+	printf("бр                                          \\|/                                                                                                    /                                                  бр\n"); // 
+	printf("бр                                           (____________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+}
+
+void CStartStage::MessivePart5()
+{
+	printf("бр                                                                                                                                                                                                    бр\n"); // 12
+	printf("бр                                                                                                                                                                                                    бр\n"); // 13
+	printf("бр                                                                                                                                                                                                    бр\n"); // 14
+	printf("бр                                                                                                                                                                                                    бр\n"); // 15
+	printf("бр                                                                                                                                                                                                    бр\n"); // 17
+	printf("бр                                                                                                                                                                                                    бр\n"); // 18
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                             ___________________________________________________________________________________________________                                                    бр\n"); // 
+	printf("бр                                            (                                                                                                   )                                                   бр\n"); // 
+	printf("бр                                           /|\\                                                                                                   \\                                                  бр\n"); // 
+	printf("бр                                        ()==) )                                                                                                  |@==()                                             бр\n"); // 
+	printf("бр                                           \\|/                                                                                                   /                                                  бр\n"); // 
+	printf("бр                                            (___________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                           ( ___________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                          /|\\                                                                                                    \\                                                  бр\n"); // 
+	printf("бр                                       ()==) )                                                                                                   |@==()                                             бр\n"); // 
+	printf("бр                                          \\|/                                                                                                    /                                                  бр\n"); // 
+	printf("бр                                           (____________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+}
+
+void CStartStage::MessivePart6()
+{
+	printf("бр                                                                                                                                                                                                    бр\n"); // 12
+	printf("бр                                                                                                                                                                                                    бр\n"); // 13
+	printf("бр                                                                                                                                                                                                    бр\n"); // 14
+	printf("бр                                                                                                                                                                                                    бр\n"); // 15
+	printf("бр                                                                                                                                                                                                    бр\n"); // 17
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                             ___________________________________________________________________________________________________                                                    бр\n"); // 
+	printf("бр                                            (                                                                                                   )                                                   бр\n"); // 
+	printf("бр                                           /|\\                                                                                                   \\                                                  бр\n"); // 
+	printf("бр                                        ()==) )                                                                                                  |@==()                                             бр\n"); // 
+	printf("бр                                           \\|/                                                                                                   /                                                  бр\n"); // 
+	printf("бр                                            (___________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                           ( ___________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                          /|\\                                                                                                    \\                                                  бр\n"); // 
+	printf("бр                                       ()==) )                                                                                                   |@==()                                             бр\n"); // 
+	printf("бр                                          \\|/                                                                                                    /                                                  бр\n"); // 
+	printf("бр                                           (____________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+}
+
+void CStartStage::MessivePart7()
+{
+	printf("бр                                                                                                                                                                                                    бр\n"); // 12
+	printf("бр                                                                                                                                                                                                    бр\n"); // 13
+	printf("бр                                                                                                                                                                                                    бр\n"); // 14
+	printf("бр                                                                                                                                                                                                    бр\n"); // 15
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                             ___________________________________________________________________________________________________                                                    бр\n"); // 
+	printf("бр                                            (                                                                                                   )                                                   бр\n"); // 
+	printf("бр                                           /|\\                                                                                                   \\                                                  бр\n"); // 
+	printf("бр                                        ()==) )                                                                                                  |@==()                                             бр\n"); // 
+	printf("бр                                           \\|/                                                                                                   /                                                  бр\n"); // 
+	printf("бр                                            (___________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                           ( ___________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                          /|\\                                                                                                    \\                                                  бр\n"); // 
+	printf("бр                                       ()==) )                                                                                                   |@==()                                             бр\n"); // 
+	printf("бр                                          \\|/                                                                                                    /                                                  бр\n"); // 
+	printf("бр                                           (____________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+}
+
+void CStartStage::MessivePart8()
+{
+	printf("бр                                                                                                                                                                                                    бр\n"); // 12
+	printf("бр                                                                                                                                                                                                    бр\n"); // 13
+	printf("бр                                                                                                                                                                                                    бр\n"); // 14
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                             ___________________________________________________________________________________________________                                                    бр\n"); // 
+	printf("бр                                            (                                                                                                   )                                                   бр\n"); // 
+	printf("бр                                           /|\\                                                                                                   \\                                                  бр\n"); // 
+	printf("бр                                        ()==) )                                                                                                  |@==()                                             бр\n"); // 
+	printf("бр                                           \\|/                                                                                                   /                                                  бр\n"); // 
+	printf("бр                                            (___________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                           ( ___________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                          /|\\                                                                                                    \\                                                  бр\n"); // 
+	printf("бр                                       ()==) )                                                                                                   |@==()                                             бр\n"); // 
+	printf("бр                                          \\|/                                                                                                    /                                                  бр\n"); // 
+	printf("бр                                           (____________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+}
+
+void CStartStage::MessivePart9()
+{
+	printf("бр                                                                                                                                                                                                    бр\n"); // 12
+	printf("бр                                                                                                                                                                                                    бр\n"); // 13
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                             ___________________________________________________________________________________________________                                                    бр\n"); // 
+	printf("бр                                            (                                                                                                   )                                                   бр\n"); // 
+	printf("бр                                           /|\\                                                                                                   \\                                                  бр\n"); // 
+	printf("бр                                        ()==) )                                                                                                  |@==()                                             бр\n"); // 
+	printf("бр                                           \\|/                                                                                                   /                                                  бр\n"); // 
+	printf("бр                                            (___________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                           ( ___________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                          /|\\                                                                                                    \\                                                  бр\n"); // 
+	printf("бр                                       ()==) )                                                                                                   |@==()                                             бр\n"); // 
+	printf("бр                                          \\|/                                                                                                    /                                                  бр\n"); // 
+	printf("бр                                           (____________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+}
+
+void CStartStage::MessivePart10()
+{
+	printf("бр                                                                                                                                                                                                    бр\n"); // 12
+	printf("бр                                                                                                                                                                                                    бр\n"); // 13
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                             ___________________________________________________________________________________________________                                                    бр\n"); // 
+	printf("бр                                            (                                                                                                   )                                                   бр\n"); // 
+	printf("бр                                           /|\\                                                                                                   \\                                                  бр\n"); // 
+	printf("бр                                        ()==) )                                                                                                  |@==()                                             бр\n"); // 
+	printf("бр                                           \\|/                                                                                                   /                                                  бр\n"); // 
+	printf("бр                                            (___________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                           ( ___________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                          /|\\                                                                                                    \\                                                  бр\n"); // 
+	printf("бр                                       ()==) )                                                                                                   |@==()                                             бр\n"); // 
+	printf("бр                                          \\|/                                                                                                    /                                                  бр\n"); // 
+	printf("бр                                           (____________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+}
+
+void CStartStage::MessivePart11()
+{
+	printf("бр                                                                                                                                                                                                    бр\n"); // 12
+	printf("бр                                                                                                                                                                                                    бр\n"); // 13
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                             ___________________________________________________________________________________________________                                                    бр\n"); // 
+	printf("бр                                            (                                                                                                   )                                                   бр\n"); // 
+	printf("бр                                           /|\\                                                                                                   \\                                                  бр\n"); // 
+	printf("бр                                        ()==) )                                                                                                  |@==()                                             бр\n"); // 
+	printf("бр                                           \\|/                                                                                                   /                                                  бр\n"); // 
+	printf("бр                                            (___________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                           ( ___________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                          /|\\                                                                                                    \\                                                  бр\n"); // 
+	printf("бр                                       ()==) )                                                                                                   |@==()                                             бр\n"); // 
+	printf("бр                                          \\|/                                                                                                    /                                                  бр\n"); // 
+	printf("бр                                           (____________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+}
+
+void CStartStage::MessivePart12()
+{
+	printf("бр                                                                                                                                                                                                    бр\n"); // 12
+	printf("бр                                                                                                                                                                                                    бр\n"); // 13
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                             ___________________________________________________________________________________________________                                                    бр\n"); // 
+	printf("бр                                            (                                                                                                   )                                                   бр\n"); // 
+	printf("бр                                           /|\\                                                                                                   \\                                                  бр\n"); // 
+	printf("бр                                        ()==) )                                                                                                  |@==()                                             бр\n"); // 
+	printf("бр                                           \\|/                                                                                                   /                                                  бр\n"); // 
+	printf("бр                                            (___________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                           ( ___________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                          /|\\                                                                                                    \\                                                  бр\n"); // 
+	printf("бр                                       ()==) )                                                                                                   |@==()                                             бр\n"); // 
+	printf("бр                                          \\|/                                                                                                    /                                                  бр\n"); // 
+	printf("бр                                           (____________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+}
+
+void CStartStage::MessivePart13()
+{
+	printf("бр                                                                                                                                                                                                    бр\n"); // 12
+	printf("бр                                                                                                                                                                                                    бр\n"); // 13
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                             ___________________________________________________________________________________________________                                                    бр\n"); // 
+	printf("бр                                            (                                                                                                   )                                                   бр\n"); // 
+	printf("бр                                           /|\\                                                                                                   \\                                                  бр\n"); // 
+	printf("бр                                        ()==) )><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><|@==()                                             бр\n"); // 
+	printf("бр                                           \\|/                                                                                                   /                                                  бр\n"); // 
+	printf("бр                                            (...................................................................................................)                                                   бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                     ╟Ў└ч ░°▒╣└║ ╕╢┐╒└╟ ╚ф╛╟╟╤ ┴╓╝·╖╬ └╬╟╪ ╕є╜║┼═░б ├в▒╚╟╧┐й,                   |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                           ░в ╝║░· ╡╡╜├, ├╠╢Ї┐б ▒┘╜╔└╠ ▒╫─е │п└╠ ╛°┤┘.                          |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |            └╠┐б ║╗▒╣└║ ╕є╜║┼═╕ж ┼ф╣·╟╧░э, ╕╢┐╒└╗ ╝╥╕ъ╜├┼░▒т └з╟╪ ┐ы╗ч╕ж ╝▒╣▀╟╧░э└┌ ╟╤┤┘        |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                     └╠ ─в╝н╕ж ╣▐└║ ┐ы╗ч ╚─║╕╡щ└║ ┴я╜├ ┴Ў┴д╡╚ ┴Ў┐к└╕╖╬ ╟т╟╪,                    |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                     ┐╡┐ї└╟ └┌░▌└╗ ┴ї╕э╟╧╢є!                     |              |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                 |              |                                                      бр\n"); // 
+	printf("бр                                            |                           ▒╫┤ы╡щ└╟ ╚√└╠ ░°▒╣└╟ ┐ю╕э└╗ ░с┴д┴Ў└╗ ░═└╠┤┘.          + \\            |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                 \\\\.G_.*=.      |                                                      бр\n"); //
+	printf("бр                                            |                                                                                  `( '/.\\|      |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                   .>' (_--.    |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                _=/d   ,^\\      |                                                      бр\n"); // 
+	printf("бр                                            |                                                                               ~~ \\)-'   '      |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                  / |           |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                  '  '          |                                                      бр\n"); // 
+	printf("бр                                           ( ```````````````````````````````````````````````````````````````````````````````````````````````````)                                                   бр\n"); // 
+	printf("бр                                          /|\\                                                                                                    \\                                                  бр\n"); // 
+	printf("бр                                       ()==) )><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>|@==()                                             бр\n"); // 
+	printf("бр                                          \\|/                                                                                                    /                                                  бр\n"); // 
+	printf("бр                                           (____________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); //  
+}
+void CStartStage::MessivePart14()
+{
+	printf("бр                                                                                                                                                                                                    бр\n"); // 12
+	printf("бр                                                                                                                                                                                                    бр\n"); // 13
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                             ___________________________________________________________________________________________________                                                    бр\n"); // 
+	printf("бр                                            (                                                                                                   )                                                   бр\n"); // 
+	printf("бр                                           /|\\                                                                                                   \\                                                  бр\n"); // 
+	printf("бр                                        ()==) )><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><|@==()                                             бр\n"); // 
+	printf("бр                                           \\|/                                                                                                   /                                                  бр\n"); // 
+	printf("бр                                            (...................................................................................................)                                                   бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                     ╟Ў└ч ░°▒╣└║ ╕╢┐╒└╟ ╚ф╛╟╟╤ ┴╓╝·╖╬ └╬╟╪ ╕є╜║┼═░б ├в▒╚╟╧┐й,                   |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                           ░в ╝║░· ╡╡╜├, ├╠╢Ї┐б ▒┘╜╔└╠ ▒╫─е │п└╠ ╛°┤┘.                          |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |            └╠┐б ║╗▒╣└║ ╕є╜║┼═╕ж ┼ф╣·╟╧░э, ╕╢┐╒└╗ ╝╥╕ъ╜├┼░▒т └з╟╪ ┐ы╗ч╕ж ╝▒╣▀╟╧░э└┌ ╟╤┤┘        |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                     └╠ ─в╝н╕ж ╣▐└║ ┐ы╗ч ╚─║╕╡щ└║ ┴я╜├ ┴Ў┴д╡╚ ┴Ў┐к└╕╖╬ ╟т╟╪,                    |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                                |                                                      бр\n"); // 
+	printf("бр                                            |                                     ┐╡┐ї└╟ └┌░▌└╗ ┴ї╕э╟╧╢є!                     |              |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                 |              |                                                      бр\n"); // 
+	printf("бр                                            |                           ▒╫┤ы╡щ└╟ ╚√└╠ ░°▒╣└╟ ┐ю╕э└╗ ░с┴д┴Ў└╗ ░═└╠┤┘.          + \\            |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                 \\\\.G_.*=.      |                                                      бр\n"); //
+	printf("бр                                            |                                                                                  `( '/.\\|      |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                   .>' (_--.    |                                                      бр\n"); // 
+	printf("бр                                            |                                 Press Space Bar to go Dungeon!                 _=/d   ,^\\      |                                                      бр\n"); // 
+	printf("бр                                            |                                                                               ~~ \\)-'   '      |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                  / |           |                                                      бр\n"); // 
+	printf("бр                                            |                                                                                  '  '          |                                                      бр\n"); // 
+	printf("бр                                           ( ```````````````````````````````````````````````````````````````````````````````````````````````````)                                                   бр\n"); // 
+	printf("бр                                          /|\\                                                                                                    \\                                                  бр\n"); // 
+	printf("бр                                       ()==) )><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>|@==()                                             бр\n"); // 
+	printf("бр                                          \\|/                                                                                                    /                                                  бр\n"); // 
+	printf("бр                                           (____________________________________________________________________________________________________)                                                   бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+	printf("бр                                                                                                                                                                                                    бр\n"); // 
+}
+//             _
+//            /_\
+//  .         )_(         .
+//  |`-._,.-~'|=|`'~--.,-'|
+//  | | ______|=|______ | |
+//  | | |_____|=|_____| | |
+//  | |      /|=|\      | |
+//  | |      ||=||      | |
+//  | |      / . \      | |
+//  | | __  / / \ \ ____| |
+//  | |    / / | \ \    | |
+//   \ \  / /| | |\ \   / /
+//    \ \/_/ | | | \_\_/ /
+//     \/_/__| | |__\_\ /
+//           | | |
+//            \|/
+//                           
+//                                
+//                                
+// _                               
+//|.\  
+// \\\ 
+//  \\\
+//   \\\ /|
+//  __\\V /
+//  \___O/
+//      \/\
+//       \/\ 
+//        (O)
