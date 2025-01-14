@@ -10,7 +10,8 @@ CPlayer::CPlayer()
 	Level = 1;
 	MaxHealth = 200;
 	Health = MaxHealth;
-	Damage = 30;
+	CharacterDamage = 30;
+	Damage = CharacterDamage;
 	Experience = 0;
 	MaxExperience = 100;
 	Gold = 0;
@@ -47,7 +48,7 @@ void CPlayer::IncreaseLevel()
 	}
 
 	MaxHealth += 20;
-	Damage += 5;
+	CharacterDamage += 5;
 }
 
 void CPlayer::Hit(int _damage)
@@ -166,4 +167,9 @@ void CPlayer::PayGold(int Price)
 void CPlayer::ReceiveGold(int Price)
 {
 	Gold += Price;
+}
+
+void CPlayer::ResetDamage()
+{
+	Damage = CharacterDamage;
 }
