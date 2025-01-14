@@ -1,5 +1,6 @@
 #pragma once
 #include "pch.h"
+#include "CItem.h"
 
 class CMonster
 {
@@ -8,5 +9,5 @@ public:
 	virtual int GetHealth() const = 0;
 	virtual int GetDamage() const = 0;
 	virtual void Hit(int damage) = 0;
-	//virtual Item* DropItem() = 0;
+	virtual CItem* DropItem() = 0;
 };

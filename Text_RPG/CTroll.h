@@ -14,5 +14,5 @@ public:
 	virtual int GetHealth() const override;
 	virtual int GetDamage() const override;
 	virtual void Hit(int damage) override;
-	//Item* DropItem();
+	virtual CItem* DropItem() override;
 };

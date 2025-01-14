@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "COrc.h"
+#include "CHealthPotion.h"
+#include "CAttackBoost.h"
 #include <random>
 
 COrc::COrc(int level)
@@ -32,4 +34,28 @@ int COrc::GetDamage() const
 void COrc::Hit(int damage)
 {
 	health -= damage;
+}
+
+CItem* COrc::DropItem()
+{
+	std::default_random_engine RandomGenerator;
+	std::uniform_int_distribution<int> ItemDropDistribution(0, 100);
+	int ItemDropProbabiliity = ItemDropDistribution(RandomGenerator);
+
+	//30% 확률로 아이템 드랍
+	if (ItemDropProbabiliity <= 30)
+	{
+		// 50% 확률로 체력 아이템 드랍
+		if (ItemDropProbabiliity <= 15)
+		{
+			return new CHealthPotion("CHealthPotion", 10);
+		}
+		else // 50% 확률로 공격력 증가 아이템 드랍
+		{
+			return new CAttackBoost("CAttackBoost", 10);
+		}
+	}
+
+	// 아이템을 드랍하지 않음
+	return nullptr;
 }
