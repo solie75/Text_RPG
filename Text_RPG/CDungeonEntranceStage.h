@@ -1,5 +1,6 @@
 #pragma once
 #include "CStage.h"
+
 class CDungeonEntranceStage :
     public CStage
 {
@@ -25,6 +26,9 @@ private:
 	bool bCallRender = true;
 	bool isDungeunFirst = true; // 플레이어의 레벨이 1 이고 exp 가 0 이면 isDungeonFirst 를 true 로 지정한다. -> 플레이어 레벨과 경험치 가져오는 것으로 대체
 	bool bAccessBoss = false; // 플레이어의 레벨이 10 이상이면 bAccessBoss 가 false -> 플레이어의 레벨을 가져오는 것으로 대체
+	bool bShowArrow = true;
 	int iCurTextPart = 1;
+	float fAccumulateTime = 0.0f;
+	float fArrowDurationTime = 1.0f;
 };
 

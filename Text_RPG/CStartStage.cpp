@@ -5,8 +5,7 @@
 #include "CStartStage.h"
 #include "CKeyManager.h"
 #include "CStageManager.h"
-#include "CDungeonStage.h"
-#include "CVillageStage.h"
+#include "CDungeonEntranceStage.h"
 #include "CPlayer.h"
 
 void CStartStage::StageInit()
@@ -44,6 +43,10 @@ void CStartStage::StageTick()
 			if (iCurMissivePart == 0 && CurScene == START_SCENE::TUTORIAL)
 			{
 				bMessiveScolling = true;
+			}
+			else if (iCurMissivePart == 14)
+			{
+				CStageManager::GetInst()->ChangeStage(new CDungeonEntranceStage);
 			}
 			else
 			{
@@ -94,7 +97,7 @@ void CStartStage::ChangeScene()
 		CurScene = START_SCENE::TUTORIAL;
 		break;
 	case START_SCENE::TUTORIAL:
-		CStageManager::GetInst()->ChangeStage(new CVillageStage());
+		CStageManager::GetInst()->ChangeStage(new CDungeonEntranceStage());
 		break;
 	}
 }

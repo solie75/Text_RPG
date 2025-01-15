@@ -19,6 +19,7 @@ public:
 private:
     bool bCallRender = true;
     bool isDestArrowHide = true;
+    bool bVillageFirst = true;
     DESTINATION_TYPE CurDest_Type = DESTINATION_TYPE::BASIC;
     float fDestArrowShowTime = 1.f;
     float fDestArrowHideTime = 0.25f;

@@ -1,9 +1,18 @@
 #include "pch.h"
 #include "CVillageStage.h"
 #include "CKeyManager.h"
+#include "CPlayer.h"
 
 void CVillageStage::StageInit()
 {
+	if (CPlayer::GetInst()->GetLevel() == 1 && CPlayer::GetInst()->GetExp() == 0)
+	{
+		iCurStartPart = 1;
+	}
+	else
+	{
+		iCurStartPart = 9;
+	}
 }
 
 void CVillageStage::StageTick()

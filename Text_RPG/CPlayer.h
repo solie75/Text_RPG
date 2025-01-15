@@ -35,6 +35,7 @@ public:
 	int GetMaxHealth() { return MaxHealth; }
 	int GetLevel() { return Level; }
 	int GetItemCnt(ITEM_TYPE);
+	int GetExp() { return Experience; }
 public:
 	void IncreaseLevel();
 	void Hit(int);

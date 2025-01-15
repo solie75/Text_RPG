@@ -1,6 +1,11 @@
 #include "pch.h"
 #include "CDungeonEntranceStage.h"
 #include "CKeyManager.h"
+#include "CPlayer.h"
+#include "CStageManager.h"
+#include "CVillageStage.h"
+#include "CNormalDungeonStage.h"
+#include "CBossDungeonStage.h"
 
 void CDungeonEntranceStage::StageTick()
 {
@@ -10,29 +15,69 @@ void CDungeonEntranceStage::StageTick()
 		bCallRender = false;
 	}
 
-	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::SPACE) == KEY_STATE::TAP)
+	if (iCurTextPart < 5)
 	{
-		if (iCurTextPart != 0 && iCurTextPart < 5)
+		if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::SPACE) == KEY_STATE::TAP)
 		{
 			++iCurTextPart;
 			bCallRender = true;
 		}
 	}
-
-	else if (iCurTextPart > 4 && CKeyManager::GetInst()->GetKeyState(KEY_TYPE::RIGHT) == KEY_STATE::TAP)
+	else if (iCurTextPart > 4)
 	{
-		++iCurTextPart;
-		bCallRender = true;
-		if (iCurTextPart > 6)
+		fAccumulateTime += GlobalData.DeltaTime;
+		if (bShowArrow == true && fAccumulateTime > fArrowDurationTime)
 		{
-			iCurTextPart = 5;
+			bShowArrow = false;
+			bCallRender = true;
+			fAccumulateTime = 0.f;
 		}
-		//ChangeDestination();
+		else if(bShowArrow == false && fAccumulateTime > (fArrowDurationTime / 4.0f))
+		{
+			bShowArrow = true;
+			bCallRender = true;
+			fAccumulateTime = 0.f;
+		}
+
+		if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::RIGHT) == KEY_STATE::TAP)
+		{
+			++iCurTextPart;
+			bCallRender = true;
+			if (iCurTextPart > 6)
+			{
+				iCurTextPart = 5;
+			}
+		}
+
+		if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::SPACE) == KEY_STATE::TAP)
+		{
+			if (iCurTextPart == 5)
+			{
+				CStageManager::GetInst()->ChangeStage(new CNormalDungeonStage);
+			}
+			else if (iCurTextPart == 6)
+			{
+				CStageManager::GetInst()->ChangeStage(new CBossDungeonStage);
+			}
+		}
+	}
+
+	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::ESC) == KEY_STATE::TAP)
+	{
+		CStageManager::GetInst()->ChangeStage(new CVillageStage);
 	}
 }
 
 void CDungeonEntranceStage::StageInit()
 {
+	if (CPlayer::GetInst()->GetLevel() == 1 && CPlayer::GetInst()->GetExp() == 0)
+	{
+		iCurTextPart = 1;
+	}
+	else
+	{
+		iCurTextPart = 5;
+	}
 }
 
 void CDungeonEntranceStage::StageRender()
@@ -46,17 +91,31 @@ void CDungeonEntranceStage::StageRender()
 	}
 	else if (iCurTextPart == 5)
 	{
-		PointToNormal();
-	}
-	else if (iCurTextPart > 5)
-	{
-		if (bAccessBoss)
+		if (bShowArrow)
 		{
-			PointToBossAccess();
+			PointToNormal();
 		}
 		else
 		{
-			PointToBossNoAccess();
+			BasicRender();
+		}
+	}
+	else if (iCurTextPart > 5)
+	{
+		if (bShowArrow)
+		{
+			if (bAccessBoss)
+			{
+				PointToBossAccess();
+			}
+			else
+			{
+				PointToBossNoAccess();
+			}
+		}
+		else
+		{
+			BasicRender();
 		}
 	}
 
@@ -129,14 +188,14 @@ void CDungeonEntranceStage::BasicRender()
 	printf("бр                               _ .  ... ... ...----.... ...-........|.= /- /\\/  /\\/   /=- \\.-' :           $$$$$$$/    $$$$$$/   $$/   $$/   $$$$$$/   $$$$$$$$/   $$$$$$/   $$/   $$/              бр\n"); // 10
 	printf("бр                             ..   .   .      .  .    .     .  ......|. /_.=========._/_.-._\\  .:                                                                                                    бр\n"); // 11
 	printf("бр                            .:  .   .    .    .  .  .    .. .  .....|.= |-.'.- .'.- |  /|\\ ^^|/___                                                                                                  бр\n"); // 12
-	printf("бр                           .: .   .   ..   .    .     . . .. . .....\\.  |=|:|= |:| =| |~|~|=/=_-=/\\.                                                                                    ^V^         бр\n"); // 13
+	printf("бр                           .: .   .   ..   .    .     . . .. . .....\\.  |=|:|= |:| =| |~|~|=/=_-=/\\.                                                                               ^V^              бр\n"); // 13
 	printf("бр                           '..  .  .. .   .       .  . .. . .. . .....|~|-|:| -|:|  |-|~|~|/=_-_/__\\                                                                                                бр\n"); // 14
 	printf("бр       ^V^                .:. .  . .  . .   .  .  . . . ...:.:... ....|=|=|:|- |:|- | |~|~||]#| I   I                                                                                               бр\n"); // 15
-	printf("бр                         .:.... .   . .'  '.. .   .  . .:.:.:II;,. .. | |-_~__=_~__=|_^^   |]#| I   I                                          ^V^                                                  бр\n"); // 16
+	printf("бр                         .:.... .   . .'  '.. .   .  . .:.:.:II;,. .. | |-_~__=_~__=|_^^   |]#| I   I                                             ^V^                                               бр\n"); // 16
 	printf("бр                         ':.:.. ...::       ::. . .  ...:.::::.,,,. . |-(=-=-=-=-|````|==  |]!! I__ I                                                                                               бр\n"); // 17
 	printf("бр                        .:::I..:             ::. .:...,:IIHHHHHHMMMHHL|/-'/  IHWW|    |HWW|//======/                                                                                                бр\n"); // 18
-	printf("бр                       .:.:V.:                ::..:` .:HIHHHHHHHHHHHHHH_/`-./`-; |    |HW/=======/                                                                    ^V^                           бр\n"); // 19
-	printf("бр                       :..V.:    ^V^          ... . .:VPHHMHHHMMHHHHHHHH __/_  IH`|------------/                                                                                          ^V^       бр\n"); // 20
+	printf("бр                       .:.:V.:                ::..:` .:HIHHHHHHHHHHHHHH_/`-./`-; |    |HW/=======/                                                                        ^V^                       бр\n"); // 19
+	printf("бр                       :..V.:    ^V^          ... . .:VPHHMHHHMMHHHHHHHH __/_  IH`|------------/                                                                                       ^V^          бр\n"); // 20
 	printf("бр                       ::V..:                  . .   .I`:IIMHHMMHHHHHHHH/    IHWWI                                                                                                                  бр\n"); // 21
 	printf("бр                       :: . :.::                 .ABA.:.:IMHMHMMMHMHHHHV:'. .IHWW                                                                   ^V^                                             бр\n"); // 22
 	printf("бр                       '.  ..:..:.:           '.AVMHMA. :.'VHMMMMHHHHHV:' .  :IHWV                                                                                                                  бр\n"); // 23
