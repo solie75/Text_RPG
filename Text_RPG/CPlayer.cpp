@@ -32,6 +32,17 @@ void CPlayer::SetName(string _str)
 	Name = _str;
 }
 
+int CPlayer::GetItemCnt(ITEM_TYPE Item_t)
+{
+	if (Inventory.find(Item_t) == Inventory.end())
+	{
+		//doesn't have, in list
+		return -1;
+	}
+
+	return Inventory[Item_t]->GetCnt();
+}
+
 void CPlayer::IncreaseLevel()
 {
 	if (Level == MaxLevel) // 나중에 포션 등으로 레벨 올렸을 경우 대비.
