@@ -71,10 +71,7 @@ void CPlayer::IncreaseDamage(int amount)
 
 void CPlayer::UseItem(ITEM_TYPE Item_t)
 {
-	if (Inventory.find(Item_t) != Inventory.end())
-	{
-		Inventory[Item_t]->Use();
-	}
+	Inventory[Item_t]->Use();
 }
 
 void CPlayer::ExpUp(int _up)
