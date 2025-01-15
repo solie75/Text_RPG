@@ -9,5 +9,5 @@ public:
 	virtual int GetHealth() const = 0;
 	virtual int GetDamage() const = 0;
 	virtual void Hit(int damage) = 0;
-	virtual CItem* DropItem() = 0;
+	virtual ITEM_TYPE DropItem() = 0;
 };

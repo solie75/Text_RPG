@@ -37,7 +37,7 @@ void CBossMonster::Hit(int damage)
 	health -= damage;
 }
 
-CItem* CBossMonster::DropItem()
+ITEM_TYPE CBossMonster::DropItem()
 {
 	std::default_random_engine RandomGenerator;
 	std::uniform_int_distribution<int> ItemDropDistribution(0, 100);
@@ -48,15 +48,15 @@ CItem* CBossMonster::DropItem()
 	{
 		if (ItemDropProbabiliity <= 10) // 1/3 확률로 체력 아이템 드랍
 		{
-			return new CHealthPotion("Health Potion", 1);
+			return ITEM_TYPE::HEALTH_POTION;
 		}
 		else if(ItemDropProbabiliity <=20) // 1/3 확률로 공격력 증가 아이템 드랍
 		{
-			return new CAttackBoost("Attack Boost", 1);
+			return ITEM_TYPE::ATTACK_BOOST;
 		}
 		else // 1/3 확률로 몬스터 가죽 드랍
 		{
-			return new CMonsterLeather("Monster Leather", 1);
+			return ITEM_TYPE::MONSTER_LEATHER;
 		}
 	}
 
