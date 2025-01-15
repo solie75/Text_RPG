@@ -6,7 +6,7 @@ class CDungeonStage :
     public CStage
 {
 private:
-    bool bCallRender = true;
+    bool bIsProcessOnceDo = false;
     int MaxHitLogSpace = 32;
     int StartHitLogSpace = 16;
     double tickTimer = 1;

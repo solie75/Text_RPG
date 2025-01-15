@@ -8,18 +8,11 @@
 
 void CDungeonStage::StageInit()
 {
-	bCallRender = false;
+	this->StageRender();
 }
 
 void CDungeonStage::StageTick()
 {
-
-	if (bCallRender)
-	{
-		this->StageRender();
-		bCallRender = false;
-	}
-
 	if (tickTimer <= curTimer)
 	{
 		curTimer = 0;
@@ -27,23 +20,29 @@ void CDungeonStage::StageTick()
 		if (CBattleManager::GetInst()->GetIsEndBattle() == false)
 		{
 			curLogIdx++;
-			bCallRender = true;
 			CBattleManager::GetInst()->Battle(*CPlayer::GetInst(), *Monster, BattleLog);
 		}
 		else
 		{
-			bCallRender = false;
-			if (CBattleManager::GetInst()->GetIsPlayerWinner())
+			if (bIsProcessOnceDo == false)
 			{
-				CPlayer::GetInst()->ExpUp(50);
-				Monster->DropItem();
+				if (CBattleManager::GetInst()->GetIsPlayerWinner())
+				{
+					CPlayer::GetInst()->ExpUp(50);
+					Monster->DropItem();
+				}
+				else
+				{
+					CPlayer::GetInst()->ExpDown();
+				}
+				bIsProcessOnceDo = true;
 			}
-			else
-			{
-				CPlayer::GetInst()->ExpDown();
-			}
-			CStageManager::GetInst()->ChangeStage(new CVillageStage());
+
+			//CStageManager::GetInst()->ChangeStage(new CVillageStage());
 		}
+
+		if(bIsProcessOnceDo == false)
+			this->StageRender();
 	}
 	else
 	{
@@ -126,7 +125,6 @@ void CDungeonStage::StageRender()
 			if (BattleLog[i].second == true)
 			{
 				PlayerHitLog[PHLIndex] = "  HIT";
-				Monster->Hit(CPlayer::GetInst()->GetDamage());
 			}
 			else
 			{
@@ -140,7 +138,6 @@ void CDungeonStage::StageRender()
 			if (BattleLog[i].second == true)
 			{
 				MonsterHitLog[MHLIndex] = "  HIT";
-				CPlayer::GetInst()->Hit(Monster->GetDamage());
 			}
 			else
 			{
