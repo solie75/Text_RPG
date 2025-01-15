@@ -33,7 +33,7 @@ int COrc::GetDamage() const
 
 void COrc::Hit(int damage)
 {
-	health -= damage;
+	health = health - damage > 0 ? health - damage : 0;
 }
 
 CItem* COrc::DropItem()

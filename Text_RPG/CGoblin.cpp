@@ -33,7 +33,7 @@ int CGoblin::GetDamage() const
 
 void CGoblin::Hit(int damage)
 {
-	health -= damage;
+	health = health - damage > 0 ? health - damage : 0;
 }
 
 CItem* CGoblin::DropItem()

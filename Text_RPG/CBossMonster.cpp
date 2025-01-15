@@ -33,7 +33,7 @@ int CBossMonster::GetDamage() const
 
 void CBossMonster::Hit(int damage)
 {
-	health -= damage;
+	health = health - damage > 0 ? health - damage : 0;
 }
 
 CItem* CBossMonster::DropItem()
