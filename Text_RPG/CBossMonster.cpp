@@ -61,5 +61,5 @@ ITEM_TYPE CBossMonster::DropItem()
 	}
 
 	// 아이템을 드랍하지 않음
-	return nullptr;
+	return ITEM_TYPE::NONE;
 }
