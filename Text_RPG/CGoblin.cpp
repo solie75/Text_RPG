@@ -2,6 +2,7 @@
 #include "CGoblin.h"
 #include "CHealthPotion.h"
 #include "CAttackBoost.h"
+#include "CMonsterLeather.h"
 #include <random>
 
 CGoblin::CGoblin(int level)
@@ -45,14 +46,17 @@ CItem* CGoblin::DropItem()
 	//30% 확률로 아이템 드랍
 	if (ItemDropProbabiliity <= 30)
 	{
-		// 50% 확률로 체력 아이템 드랍
-		if (ItemDropProbabiliity <= 15)
+		if (ItemDropProbabiliity <= 10) // 1/3 확률로 체력 아이템 드랍
 		{
-			return new CHealthPotion("CHealthPotion", 10);
+			return new CHealthPotion("Health Potion", 1);
 		}
-		else // 50% 확률로 공격력 증가 아이템 드랍
+		else if (ItemDropProbabiliity <= 20) // 1/3 확률로 공격력 증가 아이템 드랍
 		{
-			return new CAttackBoost("CAttackBoost", 10);
+			return new CAttackBoost("Attack Boost", 1);
+		}
+		else // 1/3 확률로 몬스터 가죽 드랍
+		{
+			return new CMonsterLeather("Monster Leather", 1);
 		}
 	}
 
