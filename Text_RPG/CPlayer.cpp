@@ -37,7 +37,6 @@ void CPlayer::IncreaseLevel()
 	if (Level == MaxLevel) // 나중에 포션 등으로 레벨 올렸을 경우 대비.
 		return;
 
-
 	Level++;
 
 	if (Level == MaxLevel) // 만렙 : 경험치0, 필요경험치 0;
@@ -100,6 +99,11 @@ void CPlayer::ExpUp(int _up)
 	}
 }
 
+void CPlayer::AddItem(ITEM_TYPE Item_t)
+{
+	Inventory[Item_t]->IncreaseCnt();
+}
+
 void CPlayer::BuyItem(ITEM_TYPE Item_t)
 {
 	int ItemPrice = CShopManager::GetInst()->SellItem(Item_t);
@@ -109,26 +113,7 @@ void CPlayer::BuyItem(ITEM_TYPE Item_t)
 		return;
 	}
 
-	if (Inventory.find(Item_t) == Inventory.end())
-	{
-		switch (Item_t)
-		{
-		case ITEM_TYPE::HEALTH_POTION:
-			Inventory.insert({ Item_t, new CHealthPotion("Health Potion", 1) });
-			break;
-		case ITEM_TYPE::ATTACK_BOOST:
-			Inventory.insert({ Item_t, new CAttackBoost("Attack Boost", 1) });
-			break;
-		default:
-			//non type
-			return;
-		}
-	}
-	else
-	{
-		Inventory[Item_t]->IncreaseCnt();
-	}
-
+	AddItem(Item_t);
 	PayGold(ItemPrice);
 }
 
