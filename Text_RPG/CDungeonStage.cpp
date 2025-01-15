@@ -132,6 +132,16 @@ void CDungeonStage::StageRender()
 			}
 			SpaceMaker(PlayerHitLog[PHLIndex], Max_TextBoxBlockSpace);
 			PHLIndex = (PHLIndex + 1) % MaxHitLogSpace;
+
+			//다시 첫줄부터 썼을때 = 마지막 줄 빼고 모두 지움.
+			if (PHLIndex == 0)
+			{
+				for (int i = 0; i < PlayerHitLog.size() - 1; i++)
+				{
+					PlayerHitLog[i] = "";
+					SpaceMaker(PlayerHitLog[i], Max_TextBoxBlockSpace);
+				}
+			}
 		}
 		else if(BattleLog[i].first == "M")
 		{
@@ -144,7 +154,17 @@ void CDungeonStage::StageRender()
 				MonsterHitLog[MHLIndex] = "  MISS";
 			}
 			SpaceMaker(MonsterHitLog[MHLIndex], Max_TextBoxBlockSpace);
-			MHLIndex = (MHLIndex + 1) % MaxHitLogSpace;
+			MHLIndex = (MHLIndex + 1) % MaxHitLogSpace;			
+			
+			//다시 첫줄부터 썼을때 = 마지막 줄 빼고 모두 지움.
+			if (MHLIndex == 0)
+			{
+				for (int i = 0; i < MonsterHitLog.size() - 1; i++)
+				{
+					MonsterHitLog[i] = "";
+					SpaceMaker(MonsterHitLog[i], Max_TextBoxBlockSpace);
+				}
+			}
 		}
 		else
 		{

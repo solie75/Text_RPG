@@ -17,7 +17,7 @@ void CBattleManager::Battle(CPlayer& player, CMonster& monster, vector<std::pair
 		int ItemUseProbabiliity = ItemUseDistribution(RandomGenerator);
 		if (_battleLog.empty() || _battleLog.back().first == "M")
 		{
-			if (ItemUseProbabiliity > 100)
+			if (ItemUseProbabiliity > 75)
 			{
 				if (player.GetInventory()[ITEM_TYPE::HEALTH_POTION]->GetCnt() > 0)
 				{
@@ -26,7 +26,7 @@ void CBattleManager::Battle(CPlayer& player, CMonster& monster, vector<std::pair
 					return;
 				}
 			}
-			else if (ItemUseProbabiliity < 100)
+			else if (ItemUseProbabiliity < 25)
 			{
 				if (player.GetInventory()[ITEM_TYPE::ATTACK_BOOST]->GetCnt() > 0)
 				{
