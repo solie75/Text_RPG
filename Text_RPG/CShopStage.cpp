@@ -55,6 +55,8 @@ void CShopStage::StageRender()
 	{
 		SellRender();
 	}
+
+
 }
 
 void CShopStage::BuyRender()
@@ -93,7 +95,7 @@ void CShopStage::BuyRender()
 	printf("        | '-----------------' ##       | '-----------------' ##       | '-----------------' ##        ||            MMM     MMMMM    MMMMMM  MMMM |         ####    ######   ######   ######            \n");
 	printf("        'YMMMMMMMMMMMMMMMMMMMM#        'YMMMMMMMMMMMMMMMMMMMM#        'YMMMMMMMMMMMMMMMMMMMM#         ||            MMMMMMMMMMMMMMMMMMMMMMMMMMMM# |                                                     \n");
 	printf("                                                                                                      ||            Y_____________________________#                                                     \n");
-	printf("         [      HP POTION     ]         [  ATK PLUS POTION  ]          [  Monster leather   ]         ||                                                                                                \n");
+	printf("         [      HP POTION     ]         [    Attack Boost   ]          [  Monster leather   ]         ||                                                                                                \n");
 	printf("          ====================           ===================            ====================          ||                  press 'C' button to change BUY ITME MODE or SELL ITEM MODE                    \n");
 	printf("         [    10$   / 00000   ]         [    15$  / 00000   ]          [   You can't buy    ]         ||                                                                                                \n");
 	printf("                                                                                                      ||                      When you want to go village press the 'ESC' button                        \n");
@@ -151,7 +153,7 @@ void CShopStage::SellRender()
 	printf("        | '-----------------' ##       | '-----------------' ##       | '-----------------' ##        ||               #####     ####      ##            MMM    MMMM      MMM      MMM      MM |        \n");
 	printf("        'YMMMMMMMMMMMMMMMMMMMM#        'YMMMMMMMMMMMMMMMMMMMM#        'YMMMMMMMMMMMMMMMMMMMM#         ||                                                 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM# |        \n");
 	printf("                                                                                                      ||                                                 Y_____________________________________#        \n");
-	printf("         [      HP POTION     ]         [  ATK PLUS POTION  ]          [  Monster leather   ]         ||                                                                                                \n");
+	printf("         [      HP POTION     ]         [    Attack Boost   ]          [  Monster leather   ]         ||                                                                                                \n");
 	printf("          ====================           ===================            ====================          ||                  press 'C' button to change BUY ITME MODE or SELL ITEM MODE                    \n");
 	printf("         [     6$   / 00000   ]         [    9$   / 00000   ]          [    5$    / 00000   ]         ||                                                                                                \n");
 	printf("                                                                                                      ||                      When you want to go village press the 'ESC' button                        \n");
