@@ -1,5 +1,7 @@
 #include "pch.h"
-#include <string>
+#include <regex>
+#include <conio.h>
+#include <Windows.h>
 #include "CStartStage.h"
 #include "CKeyManager.h"
 #include "CStageManager.h"
@@ -101,9 +103,20 @@ void CStartStage::StartScene()
 {
 	string PlayerID;
 	CPlayer* Player = CPlayer::GetInst();
+	WelcomeMessage();
+	printf("                                                                               Please type your PlayerID and Press Enter                                                                                \n");
+	printf("                                                                            ( alphabet and numbers / 10 characters or less )                                                                            \n");
+	printf("                                                                                               ");
+	
+	do
+	{
+		PlayerID = GetInputID();
+	} while (PlayerID == "");
+	
 	Player->SetName(PlayerID);
 
 	printf("                                                                                                                                                                                                        \n");
+	printf("                                                                                       Press Space Bar to Start!                                                                                        \n");
 	printf("                                                                                                                                                                                                        \n");
 	printf("                                                                                                                                                                                                        \n");
 	printf("                                                                                                                                                                                                        \n");
@@ -114,46 +127,7 @@ void CStartStage::StartScene()
 	printf("                                                                                                                                                                                                        \n");
 	printf("                                                                                                                                                                                                        \n");
 	printf("                                                                                                                                                                                                        \n");
-	printf("                                                               _     _  _______  ___      ___      _______  _______  __   __  _______  __                                                               \n");
-	printf("                                                              | | _ | ||       ||   |    |   |    |       ||       ||  |_|  ||       ||  |                                                              \n");
-	printf("                                                              | || || ||    ___||   |    |   |    |      _||   _   ||       ||    ___||  |                                                              \n");
-	printf("                                                              |       ||   |___ |   |    |   |    |     |  |  | |  ||       ||   |___ |  |                                                              \n");
-	printf("                                                              |       ||    ___||   |___ |   |___ |     |_ |  |_|  ||       ||    ___||__|                                                              \n");
-	printf("                                                              |   _   ||   |___ |       ||       ||       ||       || ||_|| ||   |___  __                                                               \n");
-	printf("                                                              |__| |__||_______||_______||_______||_______||_______||_|   |_||_______||__|                                                              \n");
-	printf("                                                                                __   __  _______  ______    _______  __                                                                                 \n");
-	printf("                                                                               |  | |  ||       ||    _ |  |       ||  |                                                                                \n");
-	printf("                                                                               |  |_|  ||    ___||   | ||  |   _   ||  |                                                                                \n");
-	printf("                                                                               |       ||   |___ |   |_||_ |  | |  ||  |                                                                                \n");
-	printf("                                                                               |       ||    ___||    __  ||  |_|  ||__|                                                                                \n");
-	printf("                                                                               |   _   ||   |___ |   |  | ||       | __                                                                                 \n");
-	printf("                                                                               |__| |__||_______||___|  |_||_______||__|                                                                                \n");
-	printf("                                                                                                                                                                                                        \n");
-	printf("                                                                                                                                                                                                        \n");
-	printf("                                                                                                                                                                                                        \n");
-	printf("                                                                                                                                                                                                        \n");
-	printf("                                                                                                                                                                                                        \n");
-	printf("                                                                                     Please type your PlayerID                                                                                          \n");
-	printf("                                                                                                                                                                                                        \n");
-	printf("                                                                                         "); std::getline(std::cin, PlayerID);
-	printf("                                                                                                                                                                                                        \n");
-	printf("                                                                                     Press Space Bar to Start!                                                                                          \n");
-	printf("                                                                                                                                                                                                        \n");
-	printf("                                                                                                                                                                                                        \n");
-	printf("                                                                                                                                                                                                        \n");
-	printf("                                                                                                                                                                                                        \n");
-	printf("                                                                                                                                                                                                        \n");
-	printf("                                                                                                                                                                                                        \n");
-	printf("                                                                                                                                                                                                        \n");
-	printf("                                                                                                                                                                                                        \n");
-	printf("                                                                                                                                                                                                        \n");
-	printf("                                                                                                                                                                                                        \n");
-	printf("                                                                                                                                                                                                        \n");
-	printf("                                                                                                                                                                                                        \n");
-	printf("                                                                                                                                                                                                        \n");
-	printf("                                                                                                                                                                                                        \n");
-	printf("                                                                                                                                                                                                        ");
-}
+	}
 
 void CStartStage::TutorialScene()
 {
@@ -218,6 +192,99 @@ void CStartStage::TutorialScene()
 		break;
 	}
 	printf("¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à");
+}
+
+void CStartStage::WelcomeMessage()
+{
+	printf("                                                                                                                                                                                                        \n");
+	printf("                                                                                                                                                                                                        \n");
+	printf("                                                                                                                                                                                                        \n");
+	printf("                                                                                                                                                                                                        \n");
+	printf("                                                                                                                                                                                                        \n");
+	printf("                                                                                                                                                                                                        \n");
+	printf("                                                                                                                                                                                                        \n");
+	printf("                                                                                                                                                                                                        \n");
+	printf("                                                                                                                                                                                                        \n");
+	printf("                                                                                                                                                                                                        \n");
+	printf("                                                                                                                                                                                                        \n");
+	printf("                                                               _     _  _______  ___      ___      _______  _______  __   __  _______  __                                                               \n");
+	printf("                                                              | | _ | ||       ||   |    |   |    |       ||       ||  |_|  ||       ||  |                                                              \n");
+	printf("                                                              | || || ||    ___||   |    |   |    |      _||   _   ||       ||    ___||  |                                                              \n");
+	printf("                                                              |       ||   |___ |   |    |   |    |     |  |  | |  ||       ||   |___ |  |                                                              \n");
+	printf("                                                              |       ||    ___||   |___ |   |___ |     |_ |  |_|  ||       ||    ___||__|                                                              \n");
+	printf("                                                              |   _   ||   |___ |       ||       ||       ||       || ||_|| ||   |___  __                                                               \n");
+	printf("                                                              |__| |__||_______||_______||_______||_______||_______||_|   |_||_______||__|                                                              \n");
+	printf("                                                                                __   __  _______  ______    _______  __                                                                                 \n");
+	printf("                                                                               |  | |  ||       ||    _ |  |       ||  |                                                                                \n");
+	printf("                                                                               |  |_|  ||    ___||   | ||  |   _   ||  |                                                                                \n");
+	printf("                                                                               |       ||   |___ |   |_||_ |  | |  ||  |                                                                                \n");
+	printf("                                                                               |       ||    ___||    __  ||  |_|  ||__|                                                                                \n");
+	printf("                                                                               |   _   ||   |___ |   |  | ||       | __                                                                                 \n");
+	printf("                                                                               |__| |__||_______||___|  |_||_______||__|                                                                                \n");
+	printf("                                                                                                                                                                                                        \n");
+	printf("                                                                                                                                                                                                        \n");
+	printf("                                                                                                                                                                                                        \n");
+	printf("                                                                                                                                                                                                        \n");
+	printf("                                                                                                                                                                                                        \n");
+
+}
+
+void CStartStage::PressAgainIDPart()
+{
+	system("cls");
+	WelcomeMessage();
+	printf("                                                                              Please enter a word of 10 characters or less                                                                              \n");
+	printf("                                                                                    Using only alphabets and numbers                                                                                    \n");
+	printf("                                                                                             ");
+}
+
+string CStartStage::GetInputID()
+{
+	int cnt = 0;
+	string ID = "";
+	std::regex e("[a-zA-Z0-9]+");
+
+	while (1)
+	{
+		if (cnt > CPlayer::GetInst()->GetMaxNameLength())
+		{
+			PressAgainIDPart();
+			cnt = 0;
+		}
+
+		char c = _getch();
+
+		switch (c)
+		{
+		case 3: // exit
+			return "exit";
+		case 13: // press enter
+			return ID;
+		default:
+			break;
+		}
+
+		ID.push_back(c);
+
+		//if korean -> 2byte
+		if (_kbhit()) {
+			c = _getch();
+			ID.push_back(c);
+		}
+
+		//no alphabets and numbers
+		if(!std::regex_match(ID, e))
+		{ 
+			PressAgainIDPart();
+			cnt = 0;
+			ID = "";
+			continue;
+		}
+
+		printf("%c", c);
+		cnt++;
+	}
+	return ID;
 }
 
 void CStartStage::MessivePart0()

@@ -7,6 +7,7 @@ class CPlayer :
 
 private:
 	string Name;
+	int MaxNameLength;
 
 	int Level;
 	const int MaxLevel = 10;
@@ -27,6 +28,7 @@ private:
 public:
 	string GetName() { return Name; }
 	void SetName(string);
+	int GetMaxNameLength() { return MaxNameLength; }
 	int GetDamage() { return Damage; }
 	int GetHealth() { return Health; }
 	int GetGold() { return Gold; }

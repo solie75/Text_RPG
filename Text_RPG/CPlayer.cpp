@@ -8,6 +8,7 @@
 
 CPlayer::CPlayer()
 {
+	MaxNameLength = 10;
 	Level = 1;
 	MaxHealth = 200;
 	Health = MaxHealth;

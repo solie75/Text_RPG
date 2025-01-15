@@ -34,6 +34,10 @@ private:
     float fAccumulatedTime = 0.0f;
     float fNoticeTextDurationTime = 1.0f;
 
+    void WelcomeMessage();
+    void PressAgainIDPart();
+    string GetInputID();
+
     void MessivePart0();
     void MessivePart1();
     void MessivePart2();
