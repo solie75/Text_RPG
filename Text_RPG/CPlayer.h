@@ -50,5 +50,6 @@ public:
 	void PayGold(int);
 	void ReceiveGold(int);
 	void ResetDamage();
+	string GetItemName(ITEM_TYPE);
 };
 

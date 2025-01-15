@@ -19,6 +19,8 @@ COrc::COrc(int level)
 	// 공격력은 캐릭터 레벨에 비례해서 랜덤하게 생성(레벨*5~레벨*10)
 	std::uniform_int_distribution<int> DamageDistribution(level * 5, level * 10);
 	damage = DamageDistribution(gen);
+
+	ImageInit();
 }
 
 string COrc::GetName() const
@@ -68,4 +70,64 @@ ITEM_TYPE COrc::DropItem()
 
 	// 아이템을 드랍하지 않음
 	return ITEM_TYPE::NONE;
+}
+
+void COrc::ImageInit()
+{
+	TextImg.push_back("");
+	TextImg.push_back("                 @$                  @");
+	TextImg.push_back("                 @@                 @@");
+	TextImg.push_back("                 @@@      @@@      @@@");
+	TextImg.push_back("                 =@@@@@@@@@@@@@@@@@@@#");
+
+	TextImg.push_back("                  ##@@@@@@@@@@@@@@@##");
+	TextImg.push_back("                    #@@@@@@@@@@@@@#                 .");
+	TextImg.push_back("                     $@@@@#$#@@@@@               ,,;@");
+	TextImg.push_back("                     ,@@@@-,-$@@@*               @@@@,.");
+	TextImg.push_back("                     @@@@@@@@@@@@@               $@@@@!,,,.");
+
+	TextImg.push_back("                     @@@@$@@@#@@@@               ,@@@@@@@@=");
+	TextImg.push_back("                     @@@@ @@@~#@@@               =@@@@@@@@@");
+	TextImg.push_back("                   .-=@@@-@@@-!@@=-,            --@@@@@@@@=");
+	TextImg.push_back("                ---!@-@=@@@@@@@=@-@$--       --:@@@@@@@@@@");
+	TextImg.push_back("              ,-@@@@@@@-@@@@@@@-@@@@@@--  -- ==@@@@==@@@@@@-");
+
+	TextImg.push_back("             ~=@@@@@@@@@@@@@@@@@@@@@@@@*~~=@~~~@***  **@@@@@");
+	TextImg.push_back("            ~@@@@@@@@@@@@@@@@@@@@@@@*@#~@@.@@@@@       *@@@@~");
+	TextImg.push_back("            @@@@@@@@@@@@@@@@@@@@@*@@~@@@@@,@@@@@        @@@@@~");
+	TextImg.push_back("           :@@@@@*@@@@@@@@@@@@$*@:@@@@@@!@*@@@@@        @@@@@@:");
+	TextImg.push_back("           @@@@@@ @@@@@@@@@@!@=:@@@@@@!@:@@@@@@@        @@@@@@@");
+
+	TextImg.push_back("           @@@@@@ !@@@@@@!@@:@@@@@@!!! @@@@@@@@@        @@@@@@@;");
+	TextImg.push_back("           @@@@@@  @@@@!@:@@@@@@!=@:   @@@@@@@@!       :@@@@@@@@:");
+	TextImg.push_back("           @@@@@@  @;@@;@@@@@@;@;=@@   ;;@@@@@;       ;@@@@@@@@@@;");
+	TextImg.push_back("           @@@@@@  @;@@@@@@;@@;@@@@@     ;;;;;        ;@@@@@@@*;;;");
+	TextImg.push_back("           @@@@@@.;@@@@@;@@;@@@@@@@;                   ;;;;;;;,");
+
+	TextImg.push_back("           :@@@@@*@@@$;@;@@@@@@@@@@");
+	TextImg.push_back("           !@@@@@@::@$!@@@@@@@@@@@@");
+	TextImg.push_back("        :!!@:@@@@@ !@@@@@@@@@@@@@@@!");
+	TextImg.push_back("      !!#@@@!:@@@; @@@@@@@@@@@@@@@@@");
+	TextImg.push_back("   !!!@@@@*:: ::: !@@@@@@@@:@@@@@@@@*");
+
+	TextImg.push_back(" !*@@@@@~~,       @@@@@@@@@ #@@@@@@@@");
+	TextImg.push_back(" ~@@@~~~         *@@@@@@@@~ -@@@@@@@@*");
+	TextImg.push_back("  ~~~            @@@@@@@@@   ;@@@@@@@@");
+	TextImg.push_back("                .@@@@@@@@-    @@@@@@@@=");
+	TextImg.push_back("                ;@@*--@@@     @@@--;@@@");
+
+	TextImg.push_back("               =#@@#==@@-     -@@==$@@@=");
+	TextImg.push_back("              -@----@@@@=     =@@@@----@=");
+	TextImg.push_back("              #@$$$$@@@@@     @@@@@$$$$@@");
+	TextImg.push_back("              @@@@@@@@@@@     !@@@@@@@@@@");
+	TextImg.push_back("              @,,,,@@@@@,     .@@@@@,,,,@,");
+
+	TextImg.push_back("             ,@$$$$@@@@@       @@@@@$$$$@#");
+	TextImg.push_back("             #@@@@@@@@@@       @@@@@@@@@@@");
+	TextImg.push_back("             @@@@@@@@@@@       @@@@@@@@@@@");
+	TextImg.push_back("             @@@@@@@@@@@       .@@@@@@@@@@");
+	TextImg.push_back("             @@@@@@@@@@         @@@@@@@@@@");
+
+	TextImg.push_back("              @@@@@@@@           @@@@@@@@");
+	TextImg.push_back("                @@@@@             #@@@@.");
 }

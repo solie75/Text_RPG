@@ -6,22 +6,21 @@ class CDungeonStage :
     public CStage
 {
 private:
-    bool bIsProcessOnceDo = false;
-    int MaxHitLogSpace = 32;
+    int MaxHitLogSpace = 31;
     int StartHitLogSpace = 16;
+protected:
+    string dropItemName;
     double tickTimer = 1;
     double curTimer = 0;
-    int curLogIdx = 0;
-    string dropItemName;
-    bool bIsAbleNextStep = false;
-protected:
+    bool bIsProcessOnceDo = false;
     std::unique_ptr<CMonster> Monster;
-    vector<std::pair<string, bool>> BattleLog;
+    vector<std::pair<BATTLE_TURN_TYPE, BATTLE_RESULT_TYPE>> BattleLog;
+    bool bIsAbleNextStep = false;
 public:
     virtual void StageInit() override;
     virtual void StageTick() override;
     virtual void StageRender() override;
-    void FinishStage();
+    virtual void FinishStage() = 0;
     void SpaceMaker(string&, int);
 };
 

@@ -19,6 +19,8 @@ CBossMonster::CBossMonster(int level)
 	// 공격력은 캐릭터 레벨에 비례해서 랜덤하게 생성(레벨*5~레벨*10)
 	std::uniform_int_distribution<int> DamageDistribution(level * 5, level * 10);
 	damage = DamageDistribution(gen) * 1.5;
+
+	ImageInit();
 }
 
 string CBossMonster::GetName() const
@@ -68,4 +70,64 @@ ITEM_TYPE CBossMonster::DropItem()
 
 	// 아이템을 드랍하지 않음
 	return ITEM_TYPE::NONE;
+}
+
+void CBossMonster::ImageInit()
+{
+	TextImg.push_back("                                   @@@@@");
+	TextImg.push_back("                                      @@@@@.");
+	TextImg.push_back("                              #         @@@@@@");
+	TextImg.push_back("                    .@       @    .@@  @# @@@@@@@");
+	TextImg.push_back("                ..@#$     ..#        #@@@@..#@@@@@@..");
+
+	TextImg.push_back("               .@@#   ...$@#          #@@@@@.@@@@@@@@..");
+	TextImg.push_back("            ! .@@@ ...@@@##....        #@@@@@@@@@@@@@@@..");
+	TextImg.push_back("           ,@.@@$@,@@@#$!,,=$$$         @@@@@@@@@@@@@@@@@,");
+	TextImg.push_back("           @@@@$,@@@$$,,:@@@,.          @@@@@@@@@@@@@@@@@@,");
+	TextImg.push_back("           $@@@$@@@$  $$@@@@@!,,,,,     @@@@@@@@@=$@@@@@@@@,,");
+
+	TextImg.push_back("           -@@$,@@@,,  .@@@@@@@$$$$     @@@@@@@@@@,$@@@@@@@@@,");
+	TextImg.push_back("           @@@-@@#@@@---==#@@@@-,       @@@@@@@@@@@-=@@@@@@@@@-");
+	TextImg.push_back("        :--@@@==@*@=====  ~=@@@@@--    -@@@@@@@@@@@@ =@@@@@@@@@-");
+	TextImg.push_back("        @@@@@= -@@=   ~- -  =@@@#==    @@@@@@@@@@@@@- @@@@@@@@@@");
+	TextImg.push_back("        @@==@ -@@=    =@-@   @@@!     -@@@@@@@@@@@@@@ =@@@@@@@@@-");
+
+	TextImg.push_back("        *=  * @@#      @#*   @@@,     @@@@@@@@@$@@@@@: #@@@@@@@@@~");
+	TextImg.push_back("              *@:     ~@~~   @@@     ~@@@@@@@@@,@@@@@@ ~@@@@@@@@@@.");
+	TextImg.push_back("               *     ~@@~=  ~@@@    ~@@@@@@@@@@ @@@@@@  @@@@@@@@@@!");
+	TextImg.push_back("                   .:@@@!, :@@@!  ::@@@@@@@@@@@ @@@@@@: *@@@@@@@@@@");
+	TextImg.push_back("                  :;@!!!  :@@@!  :@@@@@@@@@@@@! @@@@@@@  @@@@@@@@@@:");
+
+	TextImg.push_back("                 :@!! :  :@@@@ ::@@@@@@@@@@@@@ :@@@@@@@  @@@@@@@@@@@");
+	TextImg.push_back("               ::@! ::! :@@@@@:@@@@@@@@!!!!!!! !@@@@@@@  !!@@@@@@@@@");
+	TextImg.push_back("              :@@@;;;; .@@@@@@@@@@@!;;;         ;;@@@@;    ;;;@@@@@@");
+	TextImg.push_back("              @@@@;;   !@@@@@@@@@;;               ;@@@        ;*@@@@");
+	TextImg.push_back("             ,@@=;    ;@@@@@@@@;;                  $@@         .#@@@");
+
+	TextImg.push_back("             *@@,;;   @@@@@@@;;;;;;-               -@;          ~@@@");
+	TextImg.push_back("       :     @@@!@@   @@@@@@@!!@@@:,;!!!!!!!:       :            :@@");
+	TextImg.push_back("      !#*!!!!@@@@@:   @@@@@@@@@@@@!!@@@@@@::-                     @@");
+	TextImg.push_back("     !@@::*@@@@@@: !  @@@@:@@@@@@@@@@@@@@@                     ;  @:");
+	TextImg.push_back("    !@@@! ,::=:@@!!@  @@@@ =@@@@@@@@@:@@@@!!!!!             !! ~  @");
+
+	TextImg.push_back("    ~@@~~    , ~~@@@* ~@@@*,@@@@@@@@@*~~@@@@@@@***        ,*@@    ~");
+	TextImg.push_back("     ~~          ~~@@  @@@@ @@@@@@@@@@* ~@@@@@~=@@**      $@@@");
+	TextImg.push_back("                  .~~ .@@$~*@@@@@@@@@@@* ~@@@@ ,~~~~*    *@@@@");
+	TextImg.push_back("            !=======: =@*-=@@@@@@@@@@@@@  !@@@==    -    -@@@@=");
+	TextImg.push_back("           =@@@-----,=@@. --@@@@@@@@@@@@  .@@@@@=         :@@@@=");
+
+	TextImg.push_back("         :=@@;- ~====@@-    ----@@@@@@@$  =@@@@@@     ===!$@@@@@");
+	TextImg.push_back("         #@@@. =#-@@@@@         -@@@@@@,  @@@@@@@!   =@@@@@@@@@@");
+	TextImg.push_back("         @@@@  ,, @,,,,         =@@@@,,  $@@@@,@@;   @@@@@@@@@@@");
+	TextImg.push_back("         @@@@!    ,    ;$$$$$$$$@@@,,  $$@@@@- :@.   ,,,@@@@@,,,");
+	TextImg.push_back("         ,@@@@~        .-*@@$~,,,,,  $$@@@@@,  !=      $@@@@@$=");
+
+	TextImg.push_back("          ,@@@#$   $.    .,,.    $$$$@@@@@:,   ..    $$@#,@@@@.");
+	TextImg.push_back("          .@@@@##,. ;###########@@@@@@@..         ##@#.. .@@.");
+	TextImg.push_back("            ..@@@@###@....;@@@@@@@@*....       ####@...   #..");
+	TextImg.push_back("              ..=@@@@@####@$.......     !######@@...      .");
+	TextImg.push_back("                   ,@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+	TextImg.push_back("                         ,@@@@@@@@@@@@@");
+	TextImg.push_back("");
 }

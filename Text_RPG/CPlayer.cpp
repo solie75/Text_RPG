@@ -76,6 +76,11 @@ void CPlayer::ResetDamage()
 	Damage = CharacterDamage;
 }
 
+string CPlayer::GetItemName(ITEM_TYPE _itemType)
+{
+	return Inventory[_itemType]->GetName();
+}
+
 void CPlayer::Heal(int amount)
 {
 	Health += amount;
