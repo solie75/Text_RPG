@@ -86,6 +86,9 @@
     <Filter Include="Source Files\3.Object\4.Item\AttackBoost">
       <UniqueIdentifier>{509abbfc-5c24-4b71-a1ae-ff1a13a811f7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\3.Object\4.Item\MonsterLeather">
+      <UniqueIdentifier>{130487bd-1fef-4383-84f8-ac1a8609c438}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Text_RPG.cpp">
@@ -184,6 +187,9 @@
     </ClCompile>
     <ClCompile Include="CResource.cpp">
       <Filter>Source Files\4.Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterLeather.cpp">
+      <Filter>Source Files\3.Object\4.Item\MonsterLeather</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -295,6 +301,9 @@
     </ClInclude>
     <ClInclude Include="CResource.h">
       <Filter>Source Files\4.Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterLeather.h">
+      <Filter>Source Files\3.Object\4.Item\MonsterLeather</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
