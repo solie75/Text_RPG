@@ -35,5 +35,24 @@ public:
     void PointToChurchRender();
     void PointToShopRender();
     void PointToDungeonRender();
+
+private:
+    bool bChangeStartPart = false;
+    bool bShowNoriceText = false;
+    int iCurStartPart = 1;
+
+    void VillageStartPart0();
+    void VillageStartPart1();
+    void VillageStartPart2();
+    void VillageStartPart3();
+    void VillageStartPart4();
+    void VillageStartPart5();
+    void VillageStartPart6();
+    void VillageStartPart7();
+    void VillageStartPart8();
+    void VillageStartPart9();
+    void VillageStartPart10();
+    void VillageStartPart11();
+    void NoticePart();
 };
 
