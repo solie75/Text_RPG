@@ -32,6 +32,8 @@ public:
 	int GetGold() { return Gold; }
 	int GetMaxHealth() { return MaxHealth; }
 	int GetLevel() { return Level; }
+	map<ITEM_TYPE, CItem*> GetInventory() { return Inventory; }
+	CItem* GetInventory(ITEM_TYPE _itemType) { return Inventory[_itemType]; }
 public:
 	void IncreaseLevel();
 	void Hit(int);

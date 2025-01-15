@@ -19,7 +19,7 @@ void CBattleManager::Battle(CPlayer& player, CMonster& monster, vector<std::pair
 		{
 			if (ItemUseProbabiliity > 75)
 			{
-				if (player.GetInventory()[ITEM_TYPE::HEALTH_POTION]->GetCnt() > 0)
+				if (player.GetInventory(ITEM_TYPE::HEALTH_POTION)->GetCnt() > 0)
 				{
 					player.UseItem(ITEM_TYPE::HEALTH_POTION); // 25% 확률로 회복 아이템 사용
 					_battleLog.push_back(std::make_pair("U", true));
@@ -28,7 +28,7 @@ void CBattleManager::Battle(CPlayer& player, CMonster& monster, vector<std::pair
 			}
 			else if (ItemUseProbabiliity < 25)
 			{
-				if (player.GetInventory()[ITEM_TYPE::ATTACK_BOOST]->GetCnt() > 0)
+				if (player.GetInventory(ITEM_TYPE::ATTACK_BOOST)->GetCnt() > 0)
 				{
 					player.UseItem(ITEM_TYPE::ATTACK_BOOST); // 25% 확률로 회복 아이템 사용
 					_battleLog.push_back(std::make_pair("U", false));

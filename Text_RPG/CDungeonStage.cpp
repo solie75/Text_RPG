@@ -5,9 +5,11 @@
 #include "CTimeManager.h"
 #include "CStageManager.h"
 #include "CVillageStage.h"
+#include "CKeyManager.h"
 
 void CDungeonStage::StageInit()
 {
+	bIsAbleNextStep = false;
 	this->StageRender();
 }
 
@@ -26,19 +28,8 @@ void CDungeonStage::StageTick()
 		{
 			if (bIsProcessOnceDo == false)
 			{
-				if (CBattleManager::GetInst()->GetIsPlayerWinner())
-				{
-					CPlayer::GetInst()->ExpUp(50);
-					Monster->DropItem();
-				}
-				else
-				{
-					CPlayer::GetInst()->ExpDown();
-				}
-				bIsProcessOnceDo = true;
+				FinishStage();
 			}
-
-			//CStageManager::GetInst()->ChangeStage(new CVillageStage());
 		}
 
 		if(bIsProcessOnceDo == false)
@@ -47,6 +38,10 @@ void CDungeonStage::StageTick()
 	else
 	{
 		curTimer += CTimeManager::GetInst()->GetDeltaTime();
+	}
+	if (bIsAbleNextStep && CKeyManager::GetInst()->GetKeyState(KEY_TYPE::SPACE) == KEY_STATE::TAP)
+	{
+		//가야할곳 처리
 	}
 }
 
@@ -118,70 +113,100 @@ void CDungeonStage::StageRender()
 		SpaceMaker(MonsterHitLog[i], Max_TextBoxBlockSpace);
 
 	}
-	for (int i = 0; i < BattleLog.size(); i++)
-	{
-		if (BattleLog[i].first == "P")
-		{
-			if (BattleLog[i].second == true)
-			{
-				PlayerHitLog[PHLIndex] = "  HIT";
-			}
-			else
-			{
-				PlayerHitLog[PHLIndex] = "  MISS";
-			}
-			SpaceMaker(PlayerHitLog[PHLIndex], Max_TextBoxBlockSpace);
-			PHLIndex = (PHLIndex + 1) % MaxHitLogSpace;
 
-			//다시 첫줄부터 썼을때 = 마지막 줄 빼고 모두 지움.
-			if (PHLIndex == 0)
-			{
-				for (int i = 0; i < PlayerHitLog.size() - 1; i++)
-				{
-					PlayerHitLog[i] = "";
-					SpaceMaker(PlayerHitLog[i], Max_TextBoxBlockSpace);
-				}
-			}
-		}
-		else if(BattleLog[i].first == "M")
+	//전투가 종료 or 진행에 따라 HitLog칸에 써야할 메세지가 다름.
+	if (CBattleManager::GetInst()->GetIsEndBattle() == true)
+	{//전투 종료
+		bool isWin = CBattleManager::GetInst()->GetIsPlayerWinner();
+
+		if (isWin)
 		{
-			if (BattleLog[i].second == true)
-			{
-				MonsterHitLog[MHLIndex] = "  HIT";
-			}
-			else
-			{
-				MonsterHitLog[MHLIndex] = "  MISS";
-			}
-			SpaceMaker(MonsterHitLog[MHLIndex], Max_TextBoxBlockSpace);
-			MHLIndex = (MHLIndex + 1) % MaxHitLogSpace;			
+			PlayerHitLog[0] = "  Win!!!";
+			SpaceMaker(PlayerHitLog[0], Max_TextBoxBlockSpace);
+
+			PlayerHitLog[1] = " DropItem : " + dropItemName;
+			SpaceMaker(PlayerHitLog[1], Max_TextBoxBlockSpace);
 			
-			//다시 첫줄부터 썼을때 = 마지막 줄 빼고 모두 지움.
-			if (MHLIndex == 0)
-			{
-				for (int i = 0; i < MonsterHitLog.size() - 1; i++)
-				{
-					MonsterHitLog[i] = "";
-					SpaceMaker(MonsterHitLog[i], Max_TextBoxBlockSpace);
-				}
-			}
 		}
 		else
 		{
-			//물약 사용 : 초기단계는 두가지 뿐,
-			//TODO : 물약 종류가 늘어나면 배틀로그의 second의 타입부터 다시 고려하여 짜야함.
-			if (BattleLog[i].second == true) // 힐링포션
+			PlayerHitLog[0] = "  Lose..";
+			SpaceMaker(PlayerHitLog[0], Max_TextBoxBlockSpace);
+		}
+		
+		MonsterHitLog[0] = " Press Spacebar";
+		MonsterHitLog[1] = "             to continue";
+		SpaceMaker(MonsterHitLog[0], Max_TextBoxBlockSpace);
+		SpaceMaker(MonsterHitLog[1], Max_TextBoxBlockSpace);
+	}
+	else
+	{//전투 진행 중
+		for (int i = 0; i < BattleLog.size(); i++)
+		{
+			if (BattleLog[i].first == "P")
 			{
-				PlayerHitLog[PHLIndex] = "  Use Heal";
+				if (BattleLog[i].second == true)
+				{
+					PlayerHitLog[PHLIndex] = "  HIT";
+				}
+				else
+				{
+					PlayerHitLog[PHLIndex] = "  MISS";
+				}
+				SpaceMaker(PlayerHitLog[PHLIndex], Max_TextBoxBlockSpace);
+				PHLIndex = (PHLIndex + 1) % MaxHitLogSpace;
+
+				//다시 첫줄부터 썼을때 = 마지막 줄 빼고 모두 지움.
+				if (PHLIndex == 0)
+				{
+					for (int i = 0; i < PlayerHitLog.size() - 1; i++)
+					{
+						PlayerHitLog[i] = "";
+						SpaceMaker(PlayerHitLog[i], Max_TextBoxBlockSpace);
+					}
+				}
 			}
-			else // 어택포션
+			else if (BattleLog[i].first == "M")
 			{
-				PlayerHitLog[PHLIndex] = "  Use Damage Up";
+				if (BattleLog[i].second == true)
+				{
+					MonsterHitLog[MHLIndex] = "  HIT";
+				}
+				else
+				{
+					MonsterHitLog[MHLIndex] = "  MISS";
+				}
+				SpaceMaker(MonsterHitLog[MHLIndex], Max_TextBoxBlockSpace);
+				MHLIndex = (MHLIndex + 1) % MaxHitLogSpace;
+
+				//다시 첫줄부터 썼을때 = 마지막 줄 빼고 모두 지움.
+				if (MHLIndex == 0)
+				{
+					for (int i = 0; i < MonsterHitLog.size() - 1; i++)
+					{
+						MonsterHitLog[i] = "";
+						SpaceMaker(MonsterHitLog[i], Max_TextBoxBlockSpace);
+					}
+				}
 			}
-			SpaceMaker(PlayerHitLog[PHLIndex], Max_TextBoxBlockSpace);
-			PHLIndex = (PHLIndex + 1) % MaxHitLogSpace;
+			else
+			{
+				//물약 사용 : 초기단계는 두가지 뿐,
+				//TODO : 물약 종류가 늘어나면 배틀로그의 second의 타입부터 다시 고려하여 짜야함.
+				if (BattleLog[i].second == true) // 힐링포션
+				{
+					PlayerHitLog[PHLIndex] = "  Use Heal";
+				}
+				else // 어택포션
+				{
+					PlayerHitLog[PHLIndex] = "  Use Damage Up";
+				}
+				SpaceMaker(PlayerHitLog[PHLIndex], Max_TextBoxBlockSpace);
+				PHLIndex = (PHLIndex + 1) % MaxHitLogSpace;
+			}
 		}
 	}
+	
 
 	RenderText.push_back("□          :@;    =@,      .$     :@;          @" + PlayerHitLog[0] + ".# ,=  :@@@@@~      #@              !~  $@.  @@;  -@=~@! ;@:  *@*.#@ @@#  ,@=  :@@:    =-" + MonsterHitLog[0] + "@       □\n");
 	RenderText.push_back("□           ;@@:   ,        ;   ~@@;           @" + PlayerHitLog[1] + ".# ,=.            #@               !:   $@.  @@   ,@@*   ;@:  =@,   :@@   ,@=  :@$-    =," + MonsterHitLog[1] + "@       □\n");
@@ -224,6 +249,23 @@ void CDungeonStage::StageRender()
 	{
 		std::cout << it;
 	}
+}
+
+void CDungeonStage::FinishStage()
+{
+	if (CBattleManager::GetInst()->GetIsPlayerWinner())
+	{
+		CPlayer::GetInst()->ExpUp(50);
+	    //Monster->DropItem(); 이용해서 인벤토리에 아이템 넣기 & 해당값을 가지고 로그창에 띄우기
+		// DropItem()이 있는지 체크하고, 분기점으로 네임 넣기
+		//dropItemName = CPlayer::GetInst()->GetInventory(Monster->DropItem())->GetName();
+	}
+	else
+	{
+		CPlayer::GetInst()->ExpDown();
+	}
+	bIsAbleNextStep = true;
+	bIsProcessOnceDo = true;
 }
 
 void CDungeonStage::SpaceMaker(string& _str, int _max)
