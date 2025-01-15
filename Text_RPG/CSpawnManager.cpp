@@ -4,9 +4,12 @@
 
 std::unique_ptr<CMonster> CSpawnManager::GenerateMonster(int level)
 {
-	std::default_random_engine RandomGenerator;
-	std::uniform_int_distribution<int> MonsterDistribution(0, 2);
-	int MonsterIndex = MonsterDistribution(RandomGenerator);
+	// 랜럼 관련 변수들
+	std::random_device RandomDevice; // 시드값을 얻기 위한 random_device 생성
+	std::mt19937 gen(RandomDevice()); // random_device를 통해 난수 생성 엔진을 초기화
+	std::uniform_int_distribution<int> Distribution(0, 2); // 0~100까지 난수열을 생성하귀 위해 균등 분포 정의
+	
+	int MonsterIndex = Distribution(gen); // 몬스터 랜덤 생성
 
 	switch (MonsterIndex)
 	{
