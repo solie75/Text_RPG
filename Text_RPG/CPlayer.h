@@ -25,10 +25,15 @@ private:
 
 	//get, set
 public:
+	string GetName() { return Name; }
 	void SetName(string);
 	int GetDamage() { return Damage; }
 	int GetHealth() { return Health; }
 	int GetGold() { return Gold; }
+	int GetMaxHealth() { return MaxHealth; }
+	int GetLevel() { return Level; }
+	map<ITEM_TYPE, CItem*> GetInventory() { return Inventory; }
+	CItem* GetInventory(ITEM_TYPE _itemType) { return Inventory[_itemType]; }
 public:
 	void IncreaseLevel();
 	void Hit(int);
@@ -36,6 +41,7 @@ public:
 	void IncreaseDamage(int);
 	void UseItem(ITEM_TYPE);
 	void ExpUp(int);
+	void ExpDown();
 	void AddItem(ITEM_TYPE);
 	void BuyItem(ITEM_TYPE);
 	void SellItem(ITEM_TYPE);

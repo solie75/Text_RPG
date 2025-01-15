@@ -34,7 +34,7 @@ int CTroll::GetDamage() const
 
 void CTroll::Hit(int damage)
 {
-	health -= damage;
+	health = health - damage > 0 ? health - damage : 0;
 }
 
 CItem* CTroll::DropItem()

@@ -1,70 +1,278 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "CDungeonStage.h"
+#include "CPlayer.h"
+#include "CBattleManager.h"
+#include "CTimeManager.h"
+#include "CStageManager.h"
+#include "CVillageStage.h"
+#include "CKeyManager.h"
 
 void CDungeonStage::StageInit()
 {
+	bIsAbleNextStep = false;
+	this->StageRender();
 }
 
 void CDungeonStage::StageTick()
 {
-	if (bCallRender)
+	if (tickTimer <= curTimer)
 	{
-		this->StageRender();
-		bCallRender = false;
+		curTimer = 0;
+		// if == true : ë°°í‹€ ì¤‘
+		if (CBattleManager::GetInst()->GetIsEndBattle() == false)
+		{
+			curLogIdx++;
+			CBattleManager::GetInst()->Battle(*CPlayer::GetInst(), *Monster, BattleLog);
+		}
+		else
+		{
+			if (bIsProcessOnceDo == false)
+			{
+				FinishStage();
+			}
+		}
+
+		if(bIsProcessOnceDo == false)
+			this->StageRender();
+	}
+	else
+	{
+		curTimer += CTimeManager::GetInst()->GetDeltaTime();
+	}
+	if (bIsAbleNextStep && CKeyManager::GetInst()->GetKeyState(KEY_TYPE::SPACE) == KEY_STATE::TAP)
+	{
+		//ê°€ì•¼í• ê³³ ì²˜ë¦¬
 	}
 }
 
 void CDungeonStage::StageRender()
 {
+	const int Max_TextBoxBlockSpace = 26;
+	vector<string> RenderText;
+
+	//ì´ˆê¸° í‹€
 	std::cout << "\033[2J\033[H";
-	printf("¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à\n");
-	printf("¡à     Dungeon stage  Test Complete                                                                                                                                                                   ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à                                                                                                                                                                                                    ¡à\n");
-	printf("¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à");
+	RenderText.push_back("â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡\n");
+	RenderText.push_back("â–¡     Dungeon stage                                                                                                                                                                                  â–¡\n");
+	RenderText.push_back("â–¡                 =@@@@@@@@@@!                 @@@@@@@@@@@@@@@@@@@@@@@@@@@@#               ,    @@@$                                ;@@@@-                       =@@@@@@@@@@@@@@@@@@@@@@@@@@@@       â–¡\n");
+	RenderText.push_back("â–¡               *@@###########@=               @                          .#            *@#;$#@@   .#=                          .;@@@@##@@@@,.                   =,                          @       â–¡\n");
+	
+
+	//í”Œë ˆì´ì–´ì™€ ëª¬ìŠ¤í„° ì´ë¦„ ë„£ëŠ” í”Œë¡œìš°
+	string strPlayerName = CPlayer::GetInst()->GetName();
+	SpaceMaker(strPlayerName, Max_TextBoxBlockSpace);
+	string strMonsterName = Monster->GetName();
+	SpaceMaker(strMonsterName, Max_TextBoxBlockSpace);
+
+	RenderText.push_back("â–¡             .*#=,          ,$#=.             @" + strPlayerName + ".#         ...=-    $;    ,$.                        :@@@$$~  ;$$#@@,,                 =," + strMonsterName + "@       â–¡\n");
+	RenderText.push_back("â–¡             !#-              -@*             @                          .#       ,,;!$@-     @,,,,~$=                      ,:@#$:        ,=@@@,                =,                          @       â–¡\n");
+	
+	//í”Œë ˆì´ì–´ì˜ ë ˆë²¨ ë„£ëŠ” í”Œë¡œìš°
+	string strPlayerLevel = "ë ˆë²¨:";
+	strPlayerLevel += std::to_string(CPlayer::GetInst()->GetLevel());
+	SpaceMaker(strPlayerLevel, Max_TextBoxBlockSpace);
+	RenderText.push_back("â–¡            ,=;               ,$=,            @" + strPlayerLevel + ".#      ~$=~.;#;     @====*:$-,                   :@@=:            !=@@-               =,                          @       â–¡\n");
+	RenderText.push_back("â–¡            ;@:  -,        ~-  ~@!            @                          .#     .*;    :#-   ~@    -****;~,               -@@!.               *@@~              =,                          @       â–¡\n");
+
+	//í”Œë ˆì´ì–´ì™€ ëª¬ìŠ¤í„°ì˜ ì²´ë ¥ì„ ë„£ëŠ” í”Œë¡œìš°
+	string strPlayerHealth = "ì²´ë ¥:";
+	strPlayerHealth += std::to_string(CPlayer::GetInst()->GetHealth());
+	SpaceMaker(strPlayerHealth, Max_TextBoxBlockSpace);
+	string strMonsterHealth = "ì²´ë ¥:";
+	strMonsterHealth += std::to_string(Monster->GetHealth());
+	SpaceMaker(strMonsterHealth, Max_TextBoxBlockSpace);
+	RenderText.push_back("â–¡            ;=,-:#*:      ;##~ ~@!            @" + strPlayerHealth + ".#  .::*@;     =!.  @@        ,!!;,              *@*.                 !@@~             =," + strMonsterHealth + "@       â–¡\n");
+	RenderText.push_back("â–¡            ;: *@*;#!    ;@;!#~~@!            @                          .# .;;;;**-    ~#,  ;@;          ;=,            !@#,                   !@$             =,                          @       â–¡\n");
+
+
+	//í”Œë ˆì´ì–´ì™€ ëª¬ìŠ¤í„°ì˜ ê³µê²©ë ¥ì„ ë„£ëŠ” í”Œë¡œìš°
+	string strPlayerDamage = "ê³µê²©ë ¥:";
+	strPlayerDamage += std::to_string(CPlayer::GetInst()->GetDamage());
+	SpaceMaker(strPlayerDamage, Max_TextBoxBlockSpace);
+	string strMonsterDamage = "ê³µê²©ë ¥:";
+	strMonsterDamage += std::to_string(Monster->GetDamage());
+	SpaceMaker(strMonsterDamage, Max_TextBoxBlockSpace);
+	RenderText.push_back("â–¡            ;: *@- ~@!!!!@: ,@=~@!            @" + strPlayerDamage + ".# :=   .!=-    =*.  :@!;        ,=:           ,@#~                    .@@:            =," + strMonsterDamage + "@       â–¡\n");
+	RenderText.push_back("â–¡            ;: *@-  ~@@@@~  ,@=~@!            @                          .# ~=    ,=:    -#*   ~:@**;      ;$-   ~!*    =@~  -*:            !**  :@$   ,;*~     =,                          @       â–¡\n");
+	RenderText.push_back("â–¡            ;: *$,   -~~-   ,@=~@!            @                          .# ,#;    ,;-    -#;   =@~!=      ,=:   =@@=   @# .=$@#*~        !*@@@* .@@; -=@@;     =,                          @       â–¡\n");
+	RenderText.push_back("â–¡            ;::#:            :@$@!            @                          .# ,@@;    !#-    ,$===@, :=       !#-  $@@@= =@, ,@$:$@#~      !@@@-@@* ~@=,$@@@;     =,                          @       â–¡\n");
+	RenderText.push_back("â–¡           :##@;  !.      .* ,#@@@:           @                          .# ,$:@;   .*#-   =@-,,,.$#=       .*~  $@-#@$@@ .#@! .;@#~    !@@-, ,@# ,@@#@*;@=,    =,                          @       â–¡\n");
+	RenderText.push_back("â–¡          :@;..  *@,      .$  ...;@:          @############################ ,= :@;   ,=#####,  ##$...        !~  $@..@@@@ .#@*.;!;@@~   =@-$#  @#  -@@= :@@:    =############################       â–¡\n");
+
+
+
+
+	//ì „íˆ¬ ë¡œê·¸
+	vector<string> PlayerHitLog(MaxHitLogSpace);
+	vector<string> MonsterHitLog(MaxHitLogSpace);
+	int PHLIndex = 0;
+	int MHLIndex = 0;
+	for (int i = 0; i < MaxHitLogSpace; i++)
+	{
+		SpaceMaker(PlayerHitLog[i], Max_TextBoxBlockSpace);
+		SpaceMaker(MonsterHitLog[i], Max_TextBoxBlockSpace);
+
+	}
+
+	//ì „íˆ¬ê°€ ì¢…ë£Œ or ì§„í–‰ì— ë”°ë¼ HitLogì¹¸ì— ì¨ì•¼í•  ë©”ì„¸ì§€ê°€ ë‹¤ë¦„.
+	if (CBattleManager::GetInst()->GetIsEndBattle() == true)
+	{//ì „íˆ¬ ì¢…ë£Œ
+		bool isWin = CBattleManager::GetInst()->GetIsPlayerWinner();
+
+		if (isWin)
+		{
+			PlayerHitLog[0] = "  Win!!!";
+			SpaceMaker(PlayerHitLog[0], Max_TextBoxBlockSpace);
+
+			PlayerHitLog[1] = " DropItem : " + dropItemName;
+			SpaceMaker(PlayerHitLog[1], Max_TextBoxBlockSpace);
+			
+		}
+		else
+		{
+			PlayerHitLog[0] = "  Lose..";
+			SpaceMaker(PlayerHitLog[0], Max_TextBoxBlockSpace);
+		}
+		
+		MonsterHitLog[0] = " Press Spacebar";
+		MonsterHitLog[1] = "             to continue";
+		SpaceMaker(MonsterHitLog[0], Max_TextBoxBlockSpace);
+		SpaceMaker(MonsterHitLog[1], Max_TextBoxBlockSpace);
+	}
+	else
+	{//ì „íˆ¬ ì§„í–‰ ì¤‘
+		for (int i = 0; i < BattleLog.size(); i++)
+		{
+			if (BattleLog[i].first == "P")
+			{
+				if (BattleLog[i].second == true)
+				{
+					PlayerHitLog[PHLIndex] = "  HIT";
+				}
+				else
+				{
+					PlayerHitLog[PHLIndex] = "  MISS";
+				}
+				SpaceMaker(PlayerHitLog[PHLIndex], Max_TextBoxBlockSpace);
+				PHLIndex = (PHLIndex + 1) % MaxHitLogSpace;
+
+				//ë‹¤ì‹œ ì²«ì¤„ë¶€í„° ì¼ì„ë•Œ = ë§ˆì§€ë§‰ ì¤„ ë¹¼ê³  ëª¨ë‘ ì§€ì›€.
+				if (PHLIndex == 0)
+				{
+					for (int i = 0; i < PlayerHitLog.size() - 1; i++)
+					{
+						PlayerHitLog[i] = "";
+						SpaceMaker(PlayerHitLog[i], Max_TextBoxBlockSpace);
+					}
+				}
+			}
+			else if (BattleLog[i].first == "M")
+			{
+				if (BattleLog[i].second == true)
+				{
+					MonsterHitLog[MHLIndex] = "  HIT";
+				}
+				else
+				{
+					MonsterHitLog[MHLIndex] = "  MISS";
+				}
+				SpaceMaker(MonsterHitLog[MHLIndex], Max_TextBoxBlockSpace);
+				MHLIndex = (MHLIndex + 1) % MaxHitLogSpace;
+
+				//ë‹¤ì‹œ ì²«ì¤„ë¶€í„° ì¼ì„ë•Œ = ë§ˆì§€ë§‰ ì¤„ ë¹¼ê³  ëª¨ë‘ ì§€ì›€.
+				if (MHLIndex == 0)
+				{
+					for (int i = 0; i < MonsterHitLog.size() - 1; i++)
+					{
+						MonsterHitLog[i] = "";
+						SpaceMaker(MonsterHitLog[i], Max_TextBoxBlockSpace);
+					}
+				}
+			}
+			else
+			{
+				//ë¬¼ì•½ ì‚¬ìš© : ì´ˆê¸°ë‹¨ê³„ëŠ” ë‘ê°€ì§€ ë¿,
+				//TODO : ë¬¼ì•½ ì¢…ë¥˜ê°€ ëŠ˜ì–´ë‚˜ë©´ ë°°í‹€ë¡œê·¸ì˜ secondì˜ íƒ€ìž…ë¶€í„° ë‹¤ì‹œ ê³ ë ¤í•˜ì—¬ ì§œì•¼í•¨.
+				if (BattleLog[i].second == true) // ížë§í¬ì…˜
+				{
+					PlayerHitLog[PHLIndex] = "  Use Heal";
+				}
+				else // ì–´íƒí¬ì…˜
+				{
+					PlayerHitLog[PHLIndex] = "  Use Damage Up";
+				}
+				SpaceMaker(PlayerHitLog[PHLIndex], Max_TextBoxBlockSpace);
+				PHLIndex = (PHLIndex + 1) % MaxHitLogSpace;
+			}
+		}
+	}
+	
+
+	RenderText.push_back("â–¡          :@;    =@,      .$     :@;          @" + PlayerHitLog[0] + ".# ,=  :@@@@@~      #@              !~  $@.  @@;  -@=~@! ;@:  *@*.#@ @@#  ,@=  :@@:    =-" + MonsterHitLog[0] + "@       â–¡\n");
+	RenderText.push_back("â–¡           ;@@:   ,        ;   ~@@;           @" + PlayerHitLog[1] + ".# ,=.            #@               !:   $@.  @@   ,@@*   ;@:  =@,   :@@   ,@=  :@$-    =," + MonsterHitLog[1] + "@       â–¡\n");
+	RenderText.push_back("â–¡             !:                ~*             @" + PlayerHitLog[2] + ".# ,#;           $@.              ;:    $@.  @@    ,@@*  ;@:  *@-  #@@;   ,@=  :@;     =," + MonsterHitLog[2] + "@       â–¡\n");
+	RenderText.push_back("â–¡             !:                :*             @" + PlayerHitLog[3] + ".# ,#=          =#.             ,!:     $@-  @@     -#@@@@@~   =@@@@#*    ,@@* :@;     =," + MonsterHitLog[3] + "@       â–¡\n");
+	RenderText.push_back("â–¡             !;               ,$*             @" + PlayerHitLog[4] + ".#  :=          =-             ;#:      *@@. @@      -$$$$~    !$$$$      ,#@*.!@;     =," + MonsterHitLog[4] + "@       â–¡\n");
+	RenderText.push_back("â–¡             !@~              -@*             @" + PlayerHitLog[5] + ".#  -$,        ,$,           .;$:        $@~ @@                           .!@=!@#~     =," + MonsterHitLog[5] + "@       â–¡\n");
+	RenderText.push_back("â–¡             ~#~    -~  ~~   .;#:             @" + PlayerHitLog[6] + ".#  ,==,       =@,         .~:!-         !@@~@@                            :@@@#~      =," + MonsterHitLog[6] + "@       â–¡\n");
+	RenderText.push_back("â–¡              !!.   #@::@@   -@*              @" + PlayerHitLog[7] + ".#   ,!;:,     :!.         ;#:            ;@@@@                           .!@@#~       =," + MonsterHitLog[7] + "@       â–¡\n");
+	RenderText.push_back("â–¡              ~$*.  :;;;;;  -!#~              @" + PlayerHitLog[8] + ".#     ,;;;;,            ;;*=              ;;@@   .;;;;;;;;;;;;;;;;;;;:   ,$@$~        =," + MonsterHitLog[8] + "@       â–¡\n");
+	RenderText.push_back("â–¡               -$*;.       !=#~               @" + PlayerHitLog[9] + ".#      ,==;,           .$~-$-               @@   ,@@@@@@@@@@@@@@@@@@@@   ,@@*         =," + MonsterHitLog[9] + "@       â–¡\n");
+	RenderText.push_back("â–¡                -$@*!;  !!*@*-                @" + PlayerHitLog[10] + ".#      :@;              - -@!               @@   ,@@$:*@@@*::$@@@@:;@@   ,@$-         =," + MonsterHitLog[10] + "@       â–¡\n");
+	RenderText.push_back("â–¡                 -#@@@**@@@#.                 @" + PlayerHitLog[11] + ".#      :$-                ,$*               @@    ;@#*$@@@$- =@;#@.=@;   ,@=          =," + MonsterHitLog[11] + "@       â–¡\n");
+	RenderText.push_back("â–¡           ~====, $@~----~@$ ,===:            @" + PlayerHitLog[12] + ".#      :!                  :*               @@~   .!@@@*-*@~;#*.$@=@@.   ,@=          =," + MonsterHitLog[12] + "@       â–¡\n");
+	RenderText.push_back("â–¡   .$$!   .!@!*@#$@@.     @@$$@=;#:   .!$$,   @" + PlayerHitLog[13] + ".#      :;                  -*               ;@$    ~@@@=-;@#@@- $@@@,    ,@=          =," + MonsterHitLog[13] + "@       â–¡\n");
+	RenderText.push_back("â–¡  ##@@@!  :@! ..~#@@#.   #@@$... ;@:  !@@@#!  @" + PlayerHitLog[14] + ".#      :;                  -*                @@     .:@@#@@@@@##@@=,    .#$.          =," + MonsterHitLog[14] + "@       â–¡\n");
+	RenderText.push_back("â–¡ @@$ -@@@@@@;      $@@@@@@=      :@@@@@:  $@. @" + PlayerHitLog[15] + ".#     .!;              .$= -=                @@$       ;@@@@@@@@*.      ,@=           =," + MonsterHitLog[15] + "@       â–¡\n");
+	RenderText.push_back("â–¡ @#   -@*  ;@*,       @@       ~@@!  !@~   $@.@" + PlayerHitLog[16] + ".#     :@;               ,$ -@*                @#                       .@#-           =," + MonsterHitLog[16] + "@       â–¡\n");
+	RenderText.push_back("â–¡@@    -@*   ;@@~              ~@@!   !@-    #.@" + PlayerHitLog[17] + ".#     :@;                  -@*                :@#                     .@@=            =," + MonsterHitLog[17] + "@       â–¡\n");
+	RenderText.push_back("â–¡@@    -@*   ;@@~              ~@@!   !@-    #.@" + PlayerHitLog[18] + ".#     :@;                  -@*                :@#                     .@@=            =," + MonsterHitLog[18] + "@       â–¡\n");
+	RenderText.push_back("â–¡@@    -@*   ;@@~              ~@@!   !@-    #.@" + PlayerHitLog[19] + ".#     :@;                  -@*                :@#                     .@@=            =," + MonsterHitLog[19] + "@       â–¡\n");
+	RenderText.push_back("â–¡@@     ~*     ;@:.          -#@!    ;@~     #@@" + PlayerHitLog[20] + ".#     :$-               .$ ,$*                 #@@$..               .,@@=             =," + MonsterHitLog[20] + "@       â–¡\n");
+	RenderText.push_back("â–¡@@     -#!     ;#@~       .~@$!     !#~     #@@" + PlayerHitLog[21] + ".#     :!                .#. ~*                 .$#@@=,,,,      ,,,,~@@$=              =," + MonsterHitLog[21] + "@       â–¡\n");
+	RenderText.push_back("â–¡@@      ~=.     -*@:-    -#@!      -=:      #@@" + PlayerHitLog[22] + ".#     :!                .@= ~*                   .$@@@@@#;----;#@@@@@=                =," + MonsterHitLog[22] + "@       â–¡\n");
+	RenderText.push_back("â–¡@@      ~@=~~.    ;$@~ .~@*!    .~:$@:      #@@" + PlayerHitLog[23] + ".#    .!!                .@= ~*                 -~~;@@@@@@@@@@@@@@@@@@~~~-             =," + MonsterHitLog[23] + "@       â–¡\n");
+	RenderText.push_back("â–¡@@     .!#*$@:     ~!@:!@!      ~#=*$!.     #@@" + PlayerHitLog[24] + ".#    ~@!                .*= ~$,             ,~:@@@@#****************@@@@#~~-          =," + MonsterHitLog[24] + "@       â–¡\n");
+	RenderText.push_back("â–¡!@:::::*@! -$:       ;@*;      .*=. ;#!:::::@!@" + PlayerHitLog[25] + ".#    ~@!                 ,= ~@!           -:*@@@!!!:.               !!!!@@@$:-        =," + MonsterHitLog[25] + "@       â–¡\n");
+	RenderText.push_back("â–¡ ;*@;;;*@!  ;:        ;.       ,=!  ;@*;;;#!; @" + PlayerHitLog[26] + ".#    ~$-                 ,= ,=!          :$@@;;:                        ;;*@@$~       =," + MonsterHitLog[26] + "@       â–¡\n");
+	RenderText.push_back("â–¡  ~#   .*$!!$:                  :$!!$*,   $,  @" + PlayerHitLog[27] + ".#    ~!                  ,#- :!         ;@@!:                             .:*@#*-     =," + MonsterHitLog[27] + "@       â–¡\n");
+	RenderText.push_back("â–¡  ~#    .!@@*,                  .*@@*.    $,  @" + PlayerHitLog[28] + ".#    ~!                  ,@* ~!        ;@@:.                                .!@@$-    =," + MonsterHitLog[28] + "@       â–¡\n");
+	RenderText.push_back("â–¡  ~#     .--.                    .--.     $,  @" + PlayerHitLog[29] + ".#    ~!                  ,@= ~!       ;@@:                                   .-*@:    =," + MonsterHitLog[29] + "@       â–¡\n");
+	RenderText.push_back("â–¡  ~#                                      $,  @" + PlayerHitLog[30] + ".#   ,=!                   -, ~$-      =@~                                      ;@#~   =," + MonsterHitLog[30] + "@       â–¡\n");
+	RenderText.push_back("â–¡  .#                                      $,  @" + PlayerHitLog[31] + ".#   -@!                      ~@;      .,                                       .,,    =," + MonsterHitLog[31] + "@       â–¡\n");
+	RenderText.push_back("â–¡   .                                      .   @############################    :@######################@*                                                       =###########################@       â–¡\n");
+	RenderText.push_back("â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡");
+
+
+	//ì „ì²´ ì†¡ì¶œ
+	for (string it : RenderText)
+	{
+		std::cout << it;
+	}
+}
+
+void CDungeonStage::FinishStage()
+{
+	if (CBattleManager::GetInst()->GetIsPlayerWinner())
+	{
+		CPlayer::GetInst()->ExpUp(50);
+	    //Monster->DropItem(); ì´ìš©í•´ì„œ ì¸ë²¤í† ë¦¬ì— ì•„ì´í…œ ë„£ê¸° & í•´ë‹¹ê°’ì„ ê°€ì§€ê³  ë¡œê·¸ì°½ì— ë„ìš°ê¸°
+		// DropItem()ì´ ìžˆëŠ”ì§€ ì²´í¬í•˜ê³ , ë¶„ê¸°ì ìœ¼ë¡œ ë„¤ìž„ ë„£ê¸°
+		//dropItemName = CPlayer::GetInst()->GetInventory(Monster->DropItem())->GetName();
+	}
+	else
+	{
+		CPlayer::GetInst()->ExpDown();
+	}
+	bIsAbleNextStep = true;
+	bIsProcessOnceDo = true;
+}
+
+void CDungeonStage::SpaceMaker(string& _str, int _max)
+{
+	int start = _str.size();
+	for (int i = start; i < _max; i++)
+	{
+		_str += " ";
+	}
 }
