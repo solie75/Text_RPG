@@ -36,6 +36,7 @@ public:
 	void IncreaseDamage(int);
 	void UseItem(ITEM_TYPE);
 	void ExpUp(int);
+	void AddItem(ITEM_TYPE);
 	void BuyItem(ITEM_TYPE);
 	void SellItem(ITEM_TYPE);
 	bool CanPayGold(int);
