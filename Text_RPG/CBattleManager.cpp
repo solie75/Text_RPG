@@ -1,77 +1,101 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "CBattleManager.h"
 #include <random>
 
-void CBattleManager::Battle(CPlayer& player, CMonster& monster)
+void CBattleManager::Battle(CPlayer& player, CMonster& monster, vector<std::pair<string, bool>>& _battleLog)
 {
-	// ·£·³ °ü·Ã º¯¼öµé
-	std::random_device RandomDevice; // ½Ãµå°ªÀ» ¾ò±â À§ÇÑ random_device »ı¼º
-	std::mt19937 gen(RandomDevice()); // random_device¸¦ ÅëÇØ ³­¼ö »ı¼º ¿£ÁøÀ» ÃÊ±âÈ­
-	std::uniform_int_distribution<int> Distribution(0, 100); // 0~100±îÁö ³­¼ö¿­À» »ı¼ºÇÏ±Í À§ÇØ ±Õµî ºĞÆ÷ Á¤ÀÇ
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	std::random_device RandomDevice; // ï¿½Ãµå°ªï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ random_device ï¿½ï¿½ï¿½ï¿½
+	std::mt19937 gen(RandomDevice()); // random_deviceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
+	std::uniform_int_distribution<int> Distribution(0, 100); // 0~100ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Õµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-	// ¸ó½ºÅÍ µîÀå ÅØ½ºÆ®
-	while (monster.GetHealth() > 0 && player.GetHealth() > 0) // ÇÃ·¹ÀÌ¾î Ã¼·ÂÀÌ³ª ¸ó½ºÅÍÀÇ Ã¼·ÂÀÌ 0ÀÌµÉ ¶§°¡Áö
+	// [í”Œë ˆì´ì–´ì˜ í„´]
+	// í”Œë ˆì´ì–´ì˜ ì•„ì´í…œ ì‚¬ìš©
+	if (player.GetHealth() > 0 && monster.GetHealth() > 0)
 	{
-		// [ÇÃ·¹ÀÌ¾îÀÇ ÅÏ]
-		// ÇÃ·¹ÀÌ¾îÀÇ ¾ÆÀÌÅÛ »ç¿ë
 		int ItemUseProbabiliity = Distribution(gen);
-		if (ItemUseProbabiliity > 75) 
+		if (_battleLog.empty() || _battleLog.back().first == "M")
 		{
-			player.UseItem(ITEM_TYPE::HEALTH_POTION); // 25% È®·ü·Î È¸º¹ ¾ÆÀÌÅÛ »ç¿ë
-		}
-		else if (ItemUseProbabiliity > 50)
-		{
-			player.UseItem(ITEM_TYPE::ATTACK_BOOST); // 25% È®·ü·Î °ø°İ·Â Áõ°¡ ¾ÆÀÌÅÛ »ç¿ë
-		}
-
-		// ÇÃ·¹ÀÌ¾îÀÇ °ø°İ
-		int PlayerAttackProbability = Distribution(gen);
-		if (PlayerAttackProbability > 50) // 50% È®·ü·Î °ø°İ ¼º°ø
-		{
-			// °ø°İ ¼º°ø
-			monster.Hit(player.GetDamage()); // ¸ó½ºÅÍ µ¥¹ÌÁö ÀÔÀ½
-			// °ø°İ ¼º°ø ÅØ½ºÆ®
-
-			// Áö±İ °ø°İÀ¸·Î ¸ó½ºÅÍ°¡ Á×¾ú´Ù¸é
-			if (monster.GetHealth() <= 0)
+			if (ItemUseProbabiliity > 75)
 			{
-				break; // ¸ó½ºÅÍ ÅÏ ½ºÅµ
+				if (player.GetInventory(ITEM_TYPE::HEALTH_POTION)->GetCnt() > 0)
+				{
+					player.UseItem(ITEM_TYPE::HEALTH_POTION); // 25% í™•ë¥ ë¡œ íšŒë³µ ì•„ì´í…œ ì‚¬ìš©
+					_battleLog.push_back(std::make_pair("U", true));
+					return;
+				}
+			}
+			else if (ItemUseProbabiliity < 25)
+			{
+				if (player.GetInventory(ITEM_TYPE::ATTACK_BOOST)->GetCnt() > 0)
+				{
+					player.UseItem(ITEM_TYPE::ATTACK_BOOST); // 25% í™•ë¥ ë¡œ íšŒë³µ ì•„ì´í…œ ì‚¬ìš©
+					_battleLog.push_back(std::make_pair("U", false));
+					return;
+				};
 			}
 		}
-		else
+
+		// í”Œë ˆì´ì–´ì˜ ê³µê²©
+		int PlayerAttackProbability = Distribution(gen);
+		if (_battleLog.empty() || _battleLog.back().first == "M")
 		{
-			// °ø°İ ½ÇÆĞ
-			// °ø°İ ½ÇÆĞ ÅØ½ºÆ®
+			if (PlayerAttackProbability > 50)
+			{
+				// ê³µê²© ì„±ê³µ
+				monster.Hit(player.GetDamage());
+				_battleLog.push_back(std::make_pair("P", true));
+				return;
+			}
+			else
+			{
+				_battleLog.push_back(std::make_pair("P", false));
+				// ê³µê²© ì‹¤íŒ¨
+				return;
+			}
 		}
 
-		// [¸ó½ºÅÍÀÇ ÅÏ]
-		// ¸ó½ºÅÍÀÇ °ø°İ
+		// [ëª¬ìŠ¤í„°ì˜ í„´]
+		// ëª¬ìŠ¤í„°ì˜ ê³µê²©
 		int MonsterAttackProbability = Distribution(gen);
-		if (MonsterAttackProbability > 50) // 50% È®·ü·Î °ø°İ ¼º°ø
+		if (_battleLog.back().first != "M")
 		{
-			// °ø°İ ¼º°ø
-			player.Hit(monster.GetDamage()); // ÇÃ·¹ÀÌ¾î µ¥¹ÌÁö ÀÔÀ½
-			// °ø°İ ¼º°ø ÅØ½ºÆ®
-		}
-		else
-		{
-			// °ø°İ ½ÇÆĞ
-			// °ø°İ ½ÇÆĞ ÅØ½ºÆ®
+			if (MonsterAttackProbability > 50)
+			{
+				// ê³µê²© ì„±ê³µ
+				player.Hit(monster.GetDamage());
+				_battleLog.push_back(std::make_pair("M", true));
+				return;
+			}
+			else
+			{
+				// ê³µê²© ì‹¤íŒ¨ 
+				_battleLog.push_back(std::make_pair("M", false));
+				return;
+			}
 		}
 	}
-
-	// ½ÂÆĞ °áÁ¤
-	if (monster.GetHealth() <= 0) // ÇÃ·¹ÀÌ¾î°¡ ÀÌ°å´Ù¸é
+	else
 	{
-		IsPlayerWinner = true;
-	}
-	else if (player.GetHealth() <= 0) // ¸ó½ºÅÍ°¡ ÀÌ°å´Ù¸é
-	{
-		IsPlayerWinner = false;
+		IsEndBattle = true;
+		// ìŠ¹íŒ¨ ê²°ì •
+		if (monster.GetHealth() <= 0) // í”Œë ˆì´ì–´ê°€ ì´ê²¼ë‹¤ë©´
+		{
+			IsPlayerWinner = true;
+		}
+		else if (player.GetHealth() <= 0) // ëª¬ìŠ¤í„°ê°€ ì´ê²¼ë‹¤ë©´
+		{
+			IsPlayerWinner = false;
+		}
 	}
 }
 
 bool CBattleManager::GetIsPlayerWinner() const
 {
 	return IsPlayerWinner;
+}
+
+bool CBattleManager::GetIsEndBattle() const
+{
+	return IsEndBattle;
 }

@@ -79,14 +79,12 @@ void CPlayer::IncreaseDamage(int amount)
 
 void CPlayer::UseItem(ITEM_TYPE Item_t)
 {
-	if (Inventory.find(Item_t) != Inventory.end())
-	{
-		Inventory[Item_t]->Use();
-	}
+	Inventory[Item_t]->Use();
 }
 
 void CPlayer::ExpUp(int _up)
 {
+
 	if (Level != MaxLevel) // 만렙 : 경험치 올릴필요 없음
 	{
 		Experience += _up;
@@ -99,6 +97,10 @@ void CPlayer::ExpUp(int _up)
 	}
 }
 
+void CPlayer::ExpDown()
+{
+	Experience /= 30;
+}
 void CPlayer::AddItem(ITEM_TYPE Item_t)
 {
 	Inventory[Item_t]->IncreaseCnt();

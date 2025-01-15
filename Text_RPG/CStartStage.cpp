@@ -73,11 +73,11 @@ void CStartStage::StageRender()
 	std::cout << "\033[2J\033[H";
 	switch (CurScene)
 	{
-	case START_SCENE::START :
+	case START_SCENE::START:
 		StartScene();
 		bCallRender = true;
 		break;
-	case START_SCENE::TUTORIAL :
+	case START_SCENE::TUTORIAL:
 		TutorialScene();
 		bCallRender = true;
 		break;
@@ -833,32 +833,3 @@ void CStartStage::MessivePart14()
 	printf("бр                                                                                                                                                                                                    бр\n"); // 
 	printf("бр                                                                                                                                                                                                    бр\n"); // 
 }
-//             _
-//            /_\
-//  .         )_(         .
-//  |`-._,.-~'|=|`'~--.,-'|
-//  | | ______|=|______ | |
-//  | | |_____|=|_____| | |
-//  | |      /|=|\      | |
-//  | |      ||=||      | |
-//  | |      / . \      | |
-//  | | __  / / \ \ ____| |
-//  | |    / / | \ \    | |
-//   \ \  / /| | |\ \   / /
-//    \ \/_/ | | | \_\_/ /
-//     \/_/__| | |__\_\ /
-//           | | |
-//            \|/
-//                           
-//                                
-//                                
-// _                               
-//|.\  
-// \\\ 
-//  \\\
-//   \\\ /|
-//  __\\V /
-//  \___O/
-//      \/\
-//       \/\ 
-//        (O)
