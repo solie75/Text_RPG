@@ -4,10 +4,10 @@
 
 void CBattleManager::Battle(CPlayer& player, CMonster& monster, vector<std::pair<string, bool>>& _battleLog)
 {
-	// ���� ���� ������
-	std::random_device RandomDevice; // �õ尪�� ��� ���� random_device ����
-	std::mt19937 gen(RandomDevice()); // random_device�� ���� ���� ���� ������ �ʱ�ȭ
-	std::uniform_int_distribution<int> Distribution(0, 100); // 0~100���� �������� �����ϱ� ���� �յ� ���� ����
+	// 랜럼 관련 변수들
+	std::random_device RandomDevice; // // 시드값을 얻기 위한 random_device 생성
+	std::mt19937 gen(RandomDevice()); // random_device를 통해 난수 생성 엔진을 초기화
+	std::uniform_int_distribution<int> Distribution(0, 100); // 0~100까지 난수열을 생성하귀 위해 균등 분포 정의
 
 	// [플레이어의 턴]
 	// 플레이어의 아이템 사용
