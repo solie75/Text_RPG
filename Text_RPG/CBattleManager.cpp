@@ -4,7 +4,8 @@
 
 void CBattleManager::Battle(CPlayer& player, CMonster& monster, vector<std::pair<string, bool>>& _battleLog)
 {
-	std::default_random_engine RandomGenerator;
+	std::random_device rd;
+	std::default_random_engine RandomGenerator(rd());
 	std::uniform_int_distribution<int> ItemUseDistribution(0, 100);
 	std::uniform_int_distribution<int> MonsterAttackDistribution(0, 100);
 	std::uniform_int_distribution<int> PlayerAttackDistribution(0, 100);
