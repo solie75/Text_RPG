@@ -26,7 +26,7 @@ private:
 	//get, set
 public:
 	void SetName(string);
-	int GetDamage(){ return Damage; }
+	int GetDamage() { return Damage; }
 	int GetHealth() { return Health; }
 	int GetGold() { return Gold; }
 public:

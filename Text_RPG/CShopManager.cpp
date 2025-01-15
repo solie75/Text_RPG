@@ -5,6 +5,16 @@
 #include "CMonsterLeather.h"
 #include "CPlayer.h"
 
+CShopManager::CShopManager()
+{
+	ShopCoin = 300;
+	MaxShopCoin = 500;
+	ResalePercent = 0.6f;
+
+	Stuff.insert({ ITEM_TYPE::HEALTH_POTION, new CHealthPotion("Health Potion", 0) });
+	Stuff.insert({ ITEM_TYPE::ATTACK_BOOST, new CAttackBoost("Attack Boost", 0) });
+}
+
 int CShopManager::BuyItem(ITEM_TYPE Item_t)
 {
 	CItem* Item;
@@ -46,7 +56,7 @@ int CShopManager::BuyItem(ITEM_TYPE Item_t)
 	{
 		Item->IncreaseCnt();
 	}
-	
+
 	return SalePrice;
 }
 

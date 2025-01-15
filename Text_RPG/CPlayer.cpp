@@ -3,6 +3,7 @@
 #include "CItem.h"
 #include "CHealthPotion.h"
 #include "CAttackBoost.h"
+#include "CMonsterLeather.h"
 #include "CShopManager.h"
 
 CPlayer::CPlayer()
@@ -16,6 +17,9 @@ CPlayer::CPlayer()
 	MaxExperience = 100;
 	Gold = 0;
 
+	Inventory.insert({ ITEM_TYPE::HEALTH_POTION, new CHealthPotion("Health Potion", 0) });
+	Inventory.insert({ ITEM_TYPE::ATTACK_BOOST, new CAttackBoost("Attack Boost", 0) });
+	Inventory.insert({ITEM_TYPE::MONSTER_LEATHER, new CMonsterLeather("Monster Leather", 0)});
 }
 
 CPlayer::~CPlayer()
@@ -130,7 +134,8 @@ void CPlayer::BuyItem(ITEM_TYPE Item_t)
 
 void CPlayer::SellItem(ITEM_TYPE Item_t)
 {
-	if (Inventory.find(Item_t) == Inventory.end())
+	CItem* Item = Inventory[Item_t];
+	if (Item->GetCnt() == 0)
 	{
 		//doesn't have
 		return;
@@ -143,16 +148,7 @@ void CPlayer::SellItem(ITEM_TYPE Item_t)
 		return;
 	}
 
-	CItem* Item = Inventory[Item_t];
-	if (Item->GetCnt() == 1)
-	{
-		Inventory.erase(Item_t);
-	}
-	else
-	{
-		Item->ReduceCnt();
-	}
-
+	Item->ReduceCnt();
 	ReceiveGold(SalePrice);
 }
 

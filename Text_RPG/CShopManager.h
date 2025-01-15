@@ -4,10 +4,12 @@ class CShopManager :
     public CSingleton<CShopManager>
 {
 private:
-    int ShopCoin = 300;
-    int MaxShopCoin = 500;
-    float ResalePercent = 0.6f;
+    int ShopCoin;
+    int MaxShopCoin;
+    float ResalePercent;
     std::map<ITEM_TYPE, class CItem*> Stuff;
+public:
+    CShopManager();
 public:
     int BuyItem(ITEM_TYPE);
     int SellItem(ITEM_TYPE);
