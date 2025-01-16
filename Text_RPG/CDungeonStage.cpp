@@ -46,9 +46,11 @@ void CDungeonStage::StageRender()
 	SpaceMaker(strMonsterName, Max_TextBoxBlockSpace);
 
 	//플레이어의 레벨만 넣기
-	string strPlayerLevel = "  Level : " + std::to_string(CPlayer::GetInst()->GetLevel());
-	string strPlayerExp = "(" + std::to_string(CPlayer::GetInst()->GetExp()) + " / " + std::to_string(CPlayer::GetInst()->GetMaxExp()) + ")";
-	string strLevelExp = strPlayerLevel + strPlayerExp;
+	string strPlayerLevel = "  Level : " + std::to_string(CPlayer::GetInst()->GetLevel())+ "(";
+	string strCurrentExp = std::to_string(CPlayer::GetInst()->GetExp());
+	string strPlayerExp = " / " + std::to_string(CPlayer::GetInst()->GetMaxExp()) + ")";
+	string strLevelExp = strPlayerLevel + strCurrentExp + strPlayerExp;
+	SpaceMaker(strPlayerExp, Max_TextBoxBlockSpace);
 	SpaceMaker(strLevelExp, Max_TextBoxBlockSpace);
 
 	//플레이어와 몬스터의 현재 체력 넣기
