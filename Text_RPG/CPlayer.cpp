@@ -99,9 +99,10 @@ void CPlayer::ResetDamage()
 	Damage = CharacterDamage;
 }
 
-void CPlayer::Defeat_ResetHealth()
+void CPlayer::Church_Heal()
 {
-	Health = 30;
+	Health += MaxHealth / 3;
+	Gold = Gold * 2 / 3;
 }
 
 string CPlayer::GetItemName(ITEM_TYPE _itemType)
