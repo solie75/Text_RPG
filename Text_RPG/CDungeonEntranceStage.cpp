@@ -113,7 +113,7 @@ void CDungeonEntranceStage::StageRender()
 	{
 		if (bShowArrow)
 		{
-			if (bAccessBoss)
+			if (CPlayer::GetInst()->GetLevel() > 9)
 			{
 				PointToBossAccess();
 			}
