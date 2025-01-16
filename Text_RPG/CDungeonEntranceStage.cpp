@@ -158,7 +158,7 @@ void CDungeonEntranceStage::StageRender()
 	}
 	else if (iCurTextPart > 5)
 	{
-		if (bAccessBoss)
+		if (CPlayer::GetInst()->GetLevel() > 9)
 		{
 			DungeonSelectTextPart2();
 		}
