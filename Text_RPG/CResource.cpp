@@ -731,3 +731,18 @@ RenderText.push_back("□            #@@*       @@                     @@@      
 RenderText.push_back("□           @@@@@@@@@@@@@@                     @@@@@@@@@@@@@@       @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + MonsterRender[46] + "□\n");
 RenderText.push_back("□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□");
 */
+
+
+/*
+	printf("□"); setConsoleColor(6); printf("               \   |   /   "); setConsoleColor(7); printf("                                                                                             -=-                                                                          □\n"); //3
+	printf("□"); setConsoleColor(6); printf("                 .---.     "); setConsoleColor(7); printf("                                                                                         (\\  _  /)                                                                       □\n"); //4
+	printf("□"); setConsoleColor(6); printf("            '-.  |   |  .-'"); setConsoleColor(7); printf("                                                                                         ( \\( )/ )                                                                       □\n"); //5
+	printf("□"); setConsoleColor(6); printf("              ___|   |___  "); setConsoleColor(7); printf("   :.     --.    .... .    @@ @@@@@                                                      (       )                                                                       □\n"); //6
+	printf("□"); setConsoleColor(6); printf("         -=  [           ] "); setConsoleColor(7); printf("  -      +.              @@ @@@ * @-                                                      `>   <'                                                                        □\n"); //7
+	printf("□"); setConsoleColor(6); printf("             `---.   .---' "); setConsoleColor(7); printf("    =          #    .   =@@@@@     @                                                      /     \\                                                                        □\n"); //8
+	printf("□"); setConsoleColor(6); printf("                 |   |     "); setConsoleColor(7); printf(" :    +                   @@+@    @                                                       `-._.-'                                                                        □\n"); //9
+	printf("□"); setConsoleColor(6); printf("                 |   |     "); setConsoleColor(7); printf("  .     =             .   .@   @@@                                                                                                                                       □\n"); //10
+	printf("□"); setConsoleColor(6); printf("                 |   |     "); setConsoleColor(7); printf("   :      =         .    @@    @                                                                                                                                         □\n"); //11
+	printf("□"); setConsoleColor(6); printf("                 |   |     "); setConsoleColor(7); printf(" $  .      ..          @   @=    @;$                                                                                                                                     □\n"); //12
+	printf("□"); setConsoleColor(6); printf("                 `````     "); setConsoleColor(7); printf("     .       -     . #     @ @:    ;@$                                                                                                                                   □\n"); //13
+*/
