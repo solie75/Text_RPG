@@ -172,6 +172,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="CStage.cpp" />
+    <ClCompile Include="CStateStage.cpp" />
     <ClCompile Include="Text_RPG.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -214,6 +215,7 @@
     <ClInclude Include="global.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="CStage.h" />
+    <ClInclude Include="CStateStage.h" />
     <ClInclude Include="struct.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
