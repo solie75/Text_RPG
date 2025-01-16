@@ -26,10 +26,10 @@ void CEndingStage::StageTick()
 
 }
 
-	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::ESC) == KEY_STATE::TAP) //esc 누르면 콘솔 종료
-	{		
-		exit(0);
-	}
+	//if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::ESC) == KEY_STATE::TAP) //esc 누르면 콘솔 종료
+	//{		
+	//	exit(0);
+	//}
 
 	//for (int i = 0; KEY_TYPE::ESC != KEY_STATE::TAP; ++i )
 	//{
@@ -37,7 +37,7 @@ void CEndingStage::StageTick()
 	//	CStageManager::GetInst()->ChangeStage(new CStartStage());
 	//}
 
-}
+
 
 void CEndingStage::StageRender()
 {

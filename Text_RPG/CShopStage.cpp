@@ -207,9 +207,9 @@ void CShopStage::BuyRender()
 	printf("□      | '-----------------' ##       | '-----------------' ##       | '-----------------' ##        ||            MMM     MMMMM    MMMMMM  MMMM |         ####    ######   ######   ######          □\n");
 	printf("□      'YMMMMMMMMMMMMMMMMMMMM#        'YMMMMMMMMMMMMMMMMMMMM#        'YMMMMMMMMMMMMMMMMMMMM#         ||            MMMMMMMMMMMMMMMMMMMMMMMMMMMM# |                                                   □\n");
 	printf("□                                                                                                    ||            Y_____________________________#                                                   □\n");
-	printf("□       [      HP POTION     ]         [    Attack Boost   ]          [  Monster leather   ]         ||                                                                                              □\n");
-	printf("□        ====================           ===================            ====================          ||                  press 'C' button to change BUY ITME MODE or SELL ITEM MODE                  □\n");
-	printf("□       [    10$   / %s   ]         [    15$  / %s   ]          [   You can't buy    ]         ||                                                                                              □\n", zeroBUYPotionCnt.c_str(), zeroBUYBoostCnt.c_str());
+	printf("□       [     HP POTION     ]          [    Attack Boost   ]          [  Monster leather  ]          ||                                                                                              □\n");
+	printf("□        ===================            ===================            ====================          ||                  press 'C' button to change BUY ITME MODE or SELL ITEM MODE                  □\n");
+	printf("□       [    10$  /  %s  ]          [    15$  /  %s  ]          [   You can't buy   ]          ||                                                                                              □\n", zeroBUYPotionCnt.c_str(), zeroBUYBoostCnt.c_str());
 	printf("□                                                                                                    ||                      When you want to go village press the 'ESC' button                      □\n");
 	printf("□       .--------------------.         .--------------------.         .--------------------.         ||                                                                                              □\n");
 	printf("□      | ,-----------------. |        | ,-----------------. |        | ,-----------------. |         ||                                                                                              □\n");
@@ -221,9 +221,9 @@ void CShopStage::BuyRender()
 	printf("□      | '-----------------' |        | '-----------------' |        | '-----------------' |         ||                                                                                              □\n");
 	printf("□       '___________________/          '___________________/          '___________________/          ||                                                                                              □\n");
 	printf("□                                                                                                    ||                                                                                              □\n");
-	printf("□      [                    ]          [                    ]        [                    ]          ||                                                                                              □\n");
-	printf("□       ====================            ====================          ====================           ||                                                                                              □\n");
-	printf("□      [                    ]          [                    ]        [                    ]                                                                                                          □\n");
+	printf("□       [                   ]          [                   ]          [                   ]          ||                                                                                              □\n");
+	printf("□        ===================            ===================            ===================           ||                                                                                              □\n");
+	printf("□       [                   ]          [                   ]          [                   ]                                                                                                          □\n");
 	printf("□                                                                                                                                                                                                    □\n");
 	printf("□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□\n");
 }
@@ -231,9 +231,6 @@ void CShopStage::BuyRender()
 
 void CShopStage::SellRender()
 {
-	//줄 맞추기 용 임시 프린트
-	//printf("□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□\n");
-
 	printf("□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□\n");
 	printf("□                                                                                                                                                                                                    □\n");
 	printf("□                                                                                                                                                                                                    □\n");
@@ -265,9 +262,9 @@ void CShopStage::SellRender()
 	printf("□      | '-----------------' ##       | '-----------------' ##       | '-----------------' ##        ||               #####     ####      ##            MMM    MMMM      MMM      MMM      MM |      □\n");
 	printf("□      'YMMMMMMMMMMMMMMMMMMMM#        'YMMMMMMMMMMMMMMMMMMMM#        'YMMMMMMMMMMMMMMMMMMMM#         ||                                                 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM# |      □\n");
 	printf("□                                                                                                    ||                                                 Y_____________________________________#      □\n");
-	printf("□       [      HP POTION     ]         [    Attack Boost   ]          [  Monster leather   ]         ||                                                                                              □\n");
-	printf("□        ====================           ===================            ====================          ||                  press 'C' button to change BUY ITME MODE or SELL ITEM MODE                  □\n");
-	printf("□       [     6$   / %s   ]         [    9$   / %s   ]          [    5$   / %s    ]         ||                                                                                                □\n", zeroSELLPotionCnt.c_str(), zeroSELLBoostCnt.c_str(), zeroSELLMonLeatherCnt.c_str());
+	printf("□       [     HP POTION     ]          [    Attack Boost   ]          [  Monster leather  ]          ||                                                                                              □\n");
+	printf("□        ====================           ===================            ===================           ||                  press 'C' button to change BUY ITME MODE or SELL ITEM MODE                  □\n");
+	printf("□       [    6$   /  %s  ]          [   9$   /  %s   ]          [    5$   /  %s  ]          ||                                                                                               □\n", zeroSELLPotionCnt.c_str(), zeroSELLBoostCnt.c_str(), zeroSELLMonLeatherCnt.c_str());
 	printf("□                                                                                                    ||                      When you want to go village press the 'ESC' button                      □\n");
 	printf("□       .--------------------.         .--------------------.         .--------------------.         ||                                                                                              □\n");
 	printf("□      | ,-----------------. |        | ,-----------------. |        | ,-----------------. |         ||                                                                                              □\n");
@@ -279,9 +276,9 @@ void CShopStage::SellRender()
 	printf("□      | '-----------------' |        | '-----------------' |        | '-----------------' |         ||                                                                                              □\n");
 	printf("□       '___________________/          '___________________/          '___________________/          ||                                                                                              □\n");
 	printf("□                                                                                                    ||                                                                                              □\n");
-	printf("□      [                    ]          [                    ]        [                    ]          ||                                                                                              □\n");
-	printf("□       ====================            ====================          ====================           ||                                                                                              □\n");
-	printf("□      [                    ]          [                    ]        [                    ]                                                                                                          □\n");
+	printf("□       [                   ]          [                   ]          [                   ]          ||                                                                                              □\n");
+	printf("□        ===================            ===================            ===================           ||                                                                                              □\n");
+	printf("□       [                   ]          [                   ]          [                   ]                                                                                                          □\n");
 	printf("□                                                                                                                                                                                                    □\n");
-	printf("□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□");
+	printf("□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□\n");
 }
