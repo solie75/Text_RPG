@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "CStageManager.h"
 #include "CStage.h"
+#include "CKeyManager.h"
+#include "CPlayer.h"
 
 
 CStageManager::CStageManager()
@@ -23,6 +25,10 @@ void CStageManager::StageManagerInit()
 void CStageManager::StageManagerTick()
 {
 	CurStage->StageTick();
+	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::Z) == KEY_STATE::TAP)
+	{
+		CPlayer::GetInst()->RegisterMaster();
+	}
 }
 
 CStage* CStageManager::GetCurStage()

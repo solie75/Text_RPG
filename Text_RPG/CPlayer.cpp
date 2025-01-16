@@ -65,6 +65,19 @@ void CPlayer::RegisterMaster()
 	Damage = 999;
 	MaxHealth = 999;
 	Health = MaxHealth;
+	Gold = 999;
+	AddItem(ITEM_TYPE::HEALTH_POTION);
+	AddItem(ITEM_TYPE::HEALTH_POTION);
+	AddItem(ITEM_TYPE::HEALTH_POTION);
+	AddItem(ITEM_TYPE::HEALTH_POTION);
+	AddItem(ITEM_TYPE::ATTACK_BOOST);
+	AddItem(ITEM_TYPE::ATTACK_BOOST);
+	AddItem(ITEM_TYPE::ATTACK_BOOST);
+	AddItem(ITEM_TYPE::ATTACK_BOOST);
+	AddItem(ITEM_TYPE::MONSTER_LEATHER);
+	AddItem(ITEM_TYPE::MONSTER_LEATHER);
+	AddItem(ITEM_TYPE::MONSTER_LEATHER);
+	AddItem(ITEM_TYPE::MONSTER_LEATHER);
 }
 
 void CPlayer::IncreaseLevel()
