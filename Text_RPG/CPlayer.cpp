@@ -31,6 +31,10 @@ CPlayer::~CPlayer()
 void CPlayer::SetName(string _str)
 {
 	Name = _str;
+
+	//시연, 테스트용 마스터 계정, level 10, 체력 1000, 공격력 1000
+	if (_str == "master")
+		RegisterMaster();
 }
 
 int CPlayer::GetItemCnt(ITEM_TYPE Item_t)
@@ -52,6 +56,15 @@ unordered_map<ITEM_TYPE, string> CPlayer::GetItemList()
 		list.insert({ it.first, it.second->GetName() });
 	}
 	return list;
+}
+
+void CPlayer::RegisterMaster()
+{
+	Level = 10;
+	MaxExperience = 0;
+	Damage = 1000;
+	MaxHealth = 1000;
+	Health = MaxHealth;
 }
 
 void CPlayer::IncreaseLevel()

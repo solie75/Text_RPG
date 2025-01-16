@@ -36,8 +36,8 @@ public:
 	int GetLevel() { return Level; }
 	int GetItemCnt(ITEM_TYPE);
 	int GetExp() { return Experience; }
-	unordered_map<ITEM_TYPE, string> GetItemList();
-	
+	unordered_map<ITEM_TYPE, string> GetItemList();	
+	void RegisterMaster();
 public:
 	void IncreaseLevel();
 	void Hit(int);
