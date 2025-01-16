@@ -6,6 +6,7 @@
 #include "CVillageStage.h"
 #include "CNormalDungeonStage.h"
 #include "CBossDungeonStage.h"
+#include "CStateStage.h"
 
 void CDungeonEntranceStage::StageTick()
 {
@@ -65,6 +66,14 @@ void CDungeonEntranceStage::StageTick()
 	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::ESC) == KEY_STATE::TAP)
 	{
 		CStageManager::GetInst()->ChangeStage(new CVillageStage);
+	}
+
+	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::UP) == KEY_STATE::TAP)
+	{
+		if (CStageManager::GetInst()->GetIsDoneTutoStage())
+		{
+			CStageManager::GetInst()->ChangeStage(new CStateStage);
+		}
 	}
 }
 

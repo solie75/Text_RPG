@@ -86,6 +86,7 @@ void CPlayer::IncreaseLevel()
 	}
 
 	MaxHealth += 20;
+	Health = MaxHealth;
 	CharacterDamage += 5;
 }
 

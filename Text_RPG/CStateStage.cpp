@@ -47,7 +47,7 @@ void CStateStage::StageTick()
 {
 	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::ESC) == KEY_STATE::TAP)
 	{
-		CStageManager::GetInst()->ChangeStage(CStageManager::GetInst()->GetPrevStage());
+		CStageManager::GetInst()->BackToPrevStage();
 	}
 }
 
