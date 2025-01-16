@@ -37,7 +37,7 @@ void CStateStage::StageInit()
 	PlayerDamage = PlayerInstance->GetDamage();
 	PlayerGold = PlayerInstance->GetGold();
 	PlayerMaxHealth = PlayerInstance->GetMaxHealth();
-	PlayerMaxExperience = PlayerInstance->GetDamage();
+	PlayerMaxExperience = PlayerInstance->GetMaxExp();
 
 	// È­¸é ·»´õ
 	StageRender();
