@@ -3,6 +3,11 @@
 #include "CPlayer.h"
 #include "CKeyManager.h"
 #include "CStageManager.h"
+#include "CVillageStage.h"
+#include "CChurchStage.h"
+#include "CShopStage.h"
+#include "CStartStage.h"
+#include "CDungeonEntranceStage.h"
 
 string CStateStage::SpaceMaker(string myString, int stringSize)
 {
@@ -50,7 +55,22 @@ void CStateStage::StageTick()
 {
 	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::ESC) == KEY_STATE::TAP)
 	{
-		CStageManager::GetInst()->BackToPrevStage();
+		if (dynamic_cast<CVillageStage*>(CStageManager::GetInst()->GetPrevStage()))
+		{
+			CStageManager::GetInst()->ChangeStage(new CVillageStage);
+		}
+		else if (dynamic_cast<CShopStage*>(CStageManager::GetInst()->GetPrevStage()))
+		{
+			CStageManager::GetInst()->ChangeStage(new CShopStage);
+		}
+		else if (dynamic_cast<CChurchStage*>(CStageManager::GetInst()->GetPrevStage()))
+		{
+			CStageManager::GetInst()->ChangeStage(new CChurchStage);
+		}
+		else if (dynamic_cast<CDungeonEntranceStage*>(CStageManager::GetInst()->GetPrevStage()))
+		{
+			CStageManager::GetInst()->ChangeStage(new CDungeonEntranceStage);
+		}
 	}
 }
 
