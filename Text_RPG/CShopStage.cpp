@@ -6,6 +6,7 @@
 #include "CVillageStage.h"
 #include "CItem.h"
 #include "CShopManager.h"
+#include "CStateStage.h"
 #include <Windows.h>
 
 void CShopStage::StageInit()
@@ -33,6 +34,11 @@ void CShopStage::StageTick()
 	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::C) == KEY_STATE::TAP)
 	{
 		CShopStage::ChangeBUYSELL();
+	}
+
+	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::UP) == KEY_STATE::TAP)
+	{
+		CStageManager::GetInst()->ChangeStage(new CStateStage);
 	}
 
 	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::SPACE) == KEY_STATE::TAP)
