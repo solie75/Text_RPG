@@ -4,6 +4,7 @@
 #include "CTimeManager.h"
 #include "CStageManager.h"
 #include "CStartStage.h"
+//#include "CEndingStage.h"
 //#include "CDungeonEntranceStage.h."
 
 CGameInstance::CGameInstance()
@@ -29,6 +30,7 @@ void CGameInstance::GameInstInit()
 	CStageManager::GetInst()->StageManagerInit();
 	CStageManager::GetInst()->ChangeStage(new CStartStage);
 	//CStageManager::GetInst()->ChangeStage(new CDungeonEntranceStage);
+	//CStageManager::GetInst()->ChangeStage(new CEndingStage);
 }
 
 void CGameInstance::GameInstTick()
