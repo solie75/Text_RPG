@@ -83,6 +83,12 @@ void CDungeonStage::StageRender()
 
 		for (auto it : BattleLog) 
 		{
+			// 글자 색상 초기화
+			ColorOfPlayerHP = 7;
+			ColorOfMobHP = 7;
+			ColorOfDropItem = 7;
+			ColorOfDamage = 7;
+
 			// 전투 턴 상황 : 포션마시기, 플레이어 공격, 몬스터 공격 3가지 경우
 			if (it.first == BATTLE_TURN_TYPE::PLAYER_ATTACK) // 플레이어가 공격함
 			{
@@ -183,7 +189,7 @@ void CDungeonStage::StageRender()
 
 	std::cout << "\033[2J\033[H";
 	printf("□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□\n");
-	printf("□     Dungeon stage                                                                                                                                                                                  □\n");
+	printf("□                                                                                                                                                                                                    □\n");
 	printf("□                                  @@.                              @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%s□\n", MonsterRender[0].c_str());
 	printf("□                               @@@@@@@@                            @                            @@                            @%s□\n", MonsterRender[1].c_str());
 	printf("□                            *@@@!     @@@@                         @%s@@%s@%s□\n", strPlayerName.c_str(), strMonsterName.c_str(), MonsterRender[2].c_str());
