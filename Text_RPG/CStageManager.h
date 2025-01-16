@@ -11,7 +11,7 @@ private:
     //vector<CStage*> VecStage;
     CStage* CurStage; // 현재 스테이지
     CStage* PrevStage; // 이전 스테이지
-    bool IsDoneTutorialStage;
+    bool IsDoneTutorialStage = false;
     //CStage* NextStage;
 
 public:

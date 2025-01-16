@@ -11,6 +11,27 @@ void SetConsoleColor(WORD color)
 	SetConsoleTextAttribute(hConsole, color);         // 색상 속성 설정
 }
 
+CChurchStage::CChurchStage()
+{
+	//bool b = CStageManager::GetInst()->GetIsDoneTutoStage();
+	if (CStageManager::GetInst()->GetIsDoneTutoStage())
+	{
+		iCurTextPart = 9;
+	}
+	else
+	{
+		
+	}
+	if (!CPlayer::GetInst()->GetBoolHealAccess())
+	{
+		iCurTextPart = 12;
+	}
+}
+
+CChurchStage::~CChurchStage()
+{
+}
+
 void CChurchStage::StageTick()
 {
 	if (bCallRender)
@@ -21,30 +42,36 @@ void CChurchStage::StageTick()
 
 	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::SPACE) == KEY_STATE::TAP)
 	{
-		if (!CPlayer::GetInst()->GetBoolHealAccess())
-		{
-			return;
-		}
-
-		if (iCurTextPart < 3)
-		{
-			++iCurTextPart;
-			bCallRender = true;
-		}
-		else if (iCurTextPart == 4)
+		if (iCurTextPart == 12)
 		{
 			CStageManager::GetInst()->ChangeStage(new CVillageStage);
 			CPlayer::GetInst()->SetBoolHealAccess(false);
 		}
+
+ 		if (iCurTextPart != 11)
+		{
+			++iCurTextPart;
+			bCallRender = true;
+		}
+
+		
+
+		/*if (!CStageManager::GetInst()->GetIsDoneTutoStage())
+		{
+			if (iCurTextPart < 9)
+			{
+				++iCurTextPart;
+				bCallRender = true;
+			}
+		}*/
 	}
 
-	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::C) == KEY_STATE::TAP && iCurTextPart == 3)
+	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::C) == KEY_STATE::TAP && iCurTextPart == 11)
 	{
 		// 보유 재화 지불 및 회복
 		CPlayer::GetInst()->Church_Heal();
 		++iCurTextPart;
 		bCallRender = true;
-		
 	}
 
 	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::ESC) == KEY_STATE::TAP)
@@ -60,22 +87,31 @@ void CChurchStage::StageInit()
 void CChurchStage::StageRender()
 {
 	std::cout << "\033[2J\033[H";
+
 	printf("□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□\n");
+
+	if (!CStageManager::GetInst()->GetIsDoneTutoStage() && iCurTextPart < 9)
+	{
+		FirstChurchRender();
+		printf("□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□");
+		return;
+	}
+
 	if (CPlayer::GetInst()->GetBoolHealAccess())
 	{
 		BasicRender();
 		switch (iCurTextPart)
 		{
-		case 1:
+		case 9:
 			TextPart1();
 			break;
-		case 2:
+		case 10:
 			TextPart2();
 			break;
-		case 3:
-			TextPart3();
+		case 11:
+ 			TextPart3();
 			break;
-		case 4:
+		case 12:
 			TextPart4();
 			break;
 		}
@@ -86,7 +122,7 @@ void CChurchStage::StageRender()
 		TextPart5();
 	}
 	printf("□                         |\\|  | /|                                                                                                                                   |\\  | |/|                      □\n"); // 44
-	if (iCurTextPart < 3 && CPlayer::GetInst()->GetBoolHealAccess())
+	if (iCurTextPart < 11 && CPlayer::GetInst()->GetBoolHealAccess())
 	{
 		printf("□                         | `---' |                                                                                                           Press Space Bar         | `---' |                      □\n"); // 45
 	}
@@ -147,6 +183,125 @@ void CChurchStage::BasicRender()
 	printf("□                          /  ___                                                                                                                                       ___  \\                       □\n"); // 41
 	printf("□                         |  /   \\                                                                                                                                     /   \\  |                      □\n"); // 42
 	
+}
+
+void CChurchStage::FirstChurchRender()
+{
+	printf("□                                                                                                                                                                                                    □\n"); // 1
+	printf("□                                                                                                                                                                                                    □\n");	// 2
+	printf("□                                                                                                                                                                                                    □\n");	// 3
+	printf("□                                                                                                                                                                                                    □\n");	// 4
+	printf("□                                                                                                                                                                                                    □\n");	// 5
+	printf("□                                                                                                                                                                                                    □\n");	// 6
+	printf("□                                                                                                                                                                                                    □\n");	// 7
+	printf("□                                                                                                                                                                                                    □\n");	// 8
+	printf("□                                                                                                                                                                                                    □\n");	// 9
+	printf("□                                                                                                                                                                                                    □\n");	// 10
+	printf("□                                                                                                                                                                                                    □\n");	// 1
+	printf("□                                                                                                                                                                                                    □\n");	// 2
+	printf("□                                                                                                                                                                                                    □\n");	// 3
+	printf("□                                                                                                                                                                                                    □\n");	// 4
+	printf("□                                                                                                                                                                                                    □\n");	// 5
+	printf("□                                                                                                                                                                                                    □\n");	// 6
+	printf("□                                                                                                                                                                                                    □\n");	// 7
+	printf("□                                                                                                                                                                                                    □\n");	// 8
+	printf("□                                                                                                                                                                                                    □\n");	// 9
+	printf("□                                                                                                                                                                                                    □\n");	// 0
+	printf("□                                                                                                                                                                                                    □\n");	// 1
+	printf("□                                                                                                                                                                                                    □\n");	// 2
+	printf("□                                                                                                                                                                                                    □\n");	// 3
+	switch (iCurTextPart)
+	{
+	case 1:
+		ToChurchTextPart1(); 
+		break;
+	case 2:
+		ToChurchTextPart2();
+		break;
+	case 3:
+		ToChurchTextPart3();
+		break;
+	case 4:
+		ToChurchTextPart4();
+		break;
+	case 5:
+		ToChurchTextPart5();
+		break;
+	case 6:
+		ToChurchTextPart6();
+		break;
+	case 7:
+		ToChurchTextPart7();
+		break;
+	case 8:
+		ToChurchTextPart8();
+		break;
+	}
+
+	printf("□                                                                                                                                                                                                    □\n");	// 5
+	printf("□                                                                                                                                                                                                    □\n");	// 6
+	printf("□                                                                                                                                                                                                    □\n");	// 7
+	printf("□                                                                                                                                                                                                    □\n");	// 8
+	printf("□                                                                                                                                                                                                    □\n");	// 9
+	printf("□                                                                                                                                                                                                    □\n");	// 0
+	printf("□                                                                                                                                                                                                    □\n");	// 1
+	printf("□                                                                                                                                                                                                    □\n");	// 2
+	printf("□                                                                                                                                                                                                    □\n");	// 3
+	printf("□                                                                                                                                                                                                    □\n");	// 4
+	printf("□                                                                                                                                                                                                    □\n");	// 5
+	printf("□                                                                                                                                                                                                    □\n");	// 6
+	printf("□                                                                                                                                                                                                    □\n");	// 7
+	printf("□                                                                                                                                                                                                    □\n");	// 8
+	printf("□                                                                                                                                                                                                    □\n");	// 9
+	printf("□                                                                                                                                                                                                    □\n");	// 0
+	printf("□                                                                                                                                                           Press Space Bar                          □\n");	// 1
+	printf("□                                                                                                                                                                                                    □\n");	// 2
+	printf("□                                                                                                                                                                                                    □\n");	// 3
+	printf("□                                                                                                                                                                                                    □\n");	// 4
+	printf("□                                                                                                                                                                                                    □\n");	// 5
+	printf("□                                                                                                                                                                                                    □\n");	// 6
+	printf("□                                                                                                                                                                                                    □\n");	// 7
+	printf("□                                                                                                                                                                                                    □\n");	// 8
+}
+
+void CChurchStage::ToChurchTextPart1()
+{
+	printf("□                                                                             시야가 점점 흐려진다..... 이렇게 죽게 되는 걸까                                                                        □\n");	// 4
+}
+
+void CChurchStage::ToChurchTextPart2()
+{
+	printf("□                                                              몬스터가 코 앞까지 다가와 무기를 휘두르지만 움직일 힘이 남아있지 않다.                                                                □\n");	// 4
+}
+
+void CChurchStage::ToChurchTextPart3()
+{
+	printf("□                                                            머리가 뭉개지기 바로 직전 세상이 빙글 도는 듯 하더니 주변 환경이 달라져 있었다.                                                         □\n");	// 4
+}
+
+void CChurchStage::ToChurchTextPart4()
+{
+	printf("□                                                                                      아... 이게 그 아티팩트의 효과인가                                                                             □\n");	// 4
+}
+
+void CChurchStage::ToChurchTextPart5()
+{
+	printf("□                                                                  조금 정신을 차리자 멀리서 멧돼지 보다 빠르게 다가오는 사람이 보인다.                                                              □\n");	// 4
+}
+
+void CChurchStage::ToChurchTextPart6()
+{
+	printf("□                                                            그는 다급히 나를 흔들더니 신음소리에 놀라 연신 고개를 숙이고서 이내 업고 뛰기 시작했다.                                                 □\n");	// 4
+}
+
+void CChurchStage::ToChurchTextPart7()
+{
+	printf("□                                                숨을 헐떡이며 뛰는 와중에도 고개를 돌려가며 열심히 소리쳐 대는 모양이었지만 나는 알아듣지 못하고 잠들었다.                                          □\n");	// 4
+}
+
+void CChurchStage::ToChurchTextPart8()
+{
+	printf("□                                                                             용사님! 조금만 참으십쇼! 교회까지 금방 갑니다!!                                                                        □\n");	// 4
 }
 
 void CChurchStage::NoAccessToHealRender()
@@ -220,9 +375,4 @@ void CChurchStage::TextPart4()
 void CChurchStage::TextPart5()
 {
 	printf("□                         | |\\_.  |                                       십자가에서 빛이 나지 않습니다. 나가려면 ESC를 누르세요.                                     |    /| |                      □\n"); // 43
-}
-
-void CChurchStage::TextPart6()
-{
-	
 }
