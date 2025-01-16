@@ -25,7 +25,7 @@ void CEndingStage::StageRender()
 	printf("                                                                                                                                                                                                        \n");
 	printf("                                                                                                                                                                                                        \n");
 	printf("                                                                                                                                                                                                        \n");
-	printf("                                                                                         %s 만세!                                                                                        \n", PlayerName.c_str());
+	printf("                                                                                                %s 만세!                                                                          \n", PlayerName.c_str());
 	printf("                                                                                                                                                                                                        \n");
 	printf("                                                                                                                                                                                                        \n");
 	printf("                                                                                                                                                                                                        \n");
@@ -57,7 +57,7 @@ void CEndingStage::StageRender()
 	printf("                                                                                                                                                                                                        \n");
 	printf("                                                                                          < 중은이 꿈 이뤄조 >                                                                                          \n");
 	printf("                                                                                                                                                                                                        \n");
-	printf("                                                                                               역할  팀장 신중은                                                                                        \n");
+	printf("                                                                         구조 설계 및 스테이지 제작  팀장 신중은                                                                                        \n");
 	printf("                                                                                                                                                                                                        \n");
 	printf("                                                                                               역할  팀원 전보경                                                                                        \n");
 	printf("                                                                                                                                                                                                        \n");
