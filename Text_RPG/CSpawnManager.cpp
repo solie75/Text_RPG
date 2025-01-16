@@ -24,7 +24,6 @@ std::unique_ptr<CMonster> CSpawnManager::GenerateMonster(int level)
 		break;
 	}
 
-	int Level = Cs
 
 	return Factory->CreateMonster(level);
 }
