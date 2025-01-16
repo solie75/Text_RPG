@@ -36,8 +36,9 @@ public:
 	int GetLevel() { return Level; }
 	int GetItemCnt(ITEM_TYPE);
 	int GetExp() { return Experience; }
-	unordered_map<ITEM_TYPE, string> GetItemList();
-	
+	int GetMaxExp() { return MaxExperience; }
+	unordered_map<ITEM_TYPE, string> GetItemList();	
+	void RegisterMaster();
 public:
 	void IncreaseLevel();
 	void Hit(int);
@@ -53,7 +54,7 @@ public:
 	void PayGold(int);
 	void ReceiveGold(int);
 	void ResetDamage();
-	void Defeat_ResetHealth();
+	void Church_Heal();
 	string GetItemName(ITEM_TYPE);
 };
 

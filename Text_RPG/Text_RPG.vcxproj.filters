@@ -92,6 +92,12 @@
     <Filter Include="Source Files\2.Stage\6. DungeonEntranceStage">
       <UniqueIdentifier>{0308dfdf-842a-4677-95b2-edc75700b4fc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\2.Stage\7.ChurchStage">
+      <UniqueIdentifier>{2a71cc60-383e-4777-8219-6522c34df6eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\2.Stage\8.StateStage">
+      <UniqueIdentifier>{34e5443f-bec3-429d-8d2e-7bf233f82ef1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Text_RPG.cpp">
@@ -196,6 +202,12 @@
     </ClCompile>
     <ClCompile Include="CDungeonEntranceStage.cpp">
       <Filter>Source Files\2.Stage\6. DungeonEntranceStage</Filter>
+    </ClCompile>
+    <ClCompile Include="CChurchStage.cpp">
+      <Filter>Source Files\2.Stage\7.ChurchStage</Filter>
+    </ClCompile>
+    <ClCompile Include="CStateStage.cpp">
+      <Filter>Source Files\2.Stage\8.StateStage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -313,6 +325,12 @@
     </ClInclude>
     <ClInclude Include="CDungeonEntranceStage.h">
       <Filter>Source Files\2.Stage\6. DungeonEntranceStage</Filter>
+    </ClInclude>
+    <ClInclude Include="CChurchStage.h">
+      <Filter>Source Files\2.Stage\7.ChurchStage</Filter>
+    </ClInclude>
+    <ClInclude Include="CStateStage.h">
+      <Filter>Source Files\2.Stage\8.StateStage</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

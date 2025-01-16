@@ -15,6 +15,7 @@ void CEndingStage::StageTick()
 
 void CEndingStage::StageRender()
 {
+	std::cout << "\033[2J\033[H";
 	printf("                                                                                                                                                                                                        \n");
 	printf("                                                                                                                                                                                                        \n");
 	printf("                                                                                                                                                                                                        \n");
