@@ -1,6 +1,5 @@
 ﻿#include "pch.h"
 #include "CBattleManager.h"
-#include <random>
 
 void CBattleManager::Battle(CPlayer& player, CMonster& monster, vector<std::pair<BATTLE_TURN_TYPE, BATTLE_RESULT_TYPE>>& _battleLog)
 {

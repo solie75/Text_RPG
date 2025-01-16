@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CSpawnManager.h"
-#include <random>
+#include "CStageManager.h"
 
 std::unique_ptr<CMonster> CSpawnManager::GenerateMonster(int level)
 {
@@ -23,6 +23,9 @@ std::unique_ptr<CMonster> CSpawnManager::GenerateMonster(int level)
 		Factory = std::make_unique<CTrollFactory>();
 		break;
 	}
+
+	int Level = Cs
+
 	return Factory->CreateMonster(level);
 }
 

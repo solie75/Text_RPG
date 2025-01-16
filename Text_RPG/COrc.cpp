@@ -3,7 +3,6 @@
 #include "CHealthPotion.h"
 #include "CAttackBoost.h"
 #include "CMonsterLeather.h"
-#include <random>
 
 COrc::COrc(int level)
 {
