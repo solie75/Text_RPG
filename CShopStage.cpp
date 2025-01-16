@@ -44,31 +44,6 @@ void CShopStage::ChangeBUYSELL()
 	bCallRender = true;
 }
 
-	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::ESC) == KEY_STATE::TAP)
-	{
-		CStageManager::GetInst()->ChangeStage(new CVillageStage());
-	}	
-
-	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::C) == KEY_STATE::TAP)
-	{
-		CShopStage::ChangeBUYSELL();
-	}	
-}
-
-
-void CShopStage::ChangeBUYSELL()
-{
-	if (CurPlayer_Mode == BUYSELL_MODE::BUY)
-	{
-		CurPlayer_Mode = BUYSELL_MODE::SELL;
-	}
-	else if (CurPlayer_Mode == BUYSELL_MODE::SELL)
-	{
-		CurPlayer_Mode = BUYSELL_MODE::BUY;
-	}
-	bCallRender = true;
-}
-
 void CShopStage::StageRender()
 {
 	std::cout << "\033[2J\033[H";
