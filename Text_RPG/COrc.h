@@ -15,4 +15,5 @@ public:
 	virtual int GetDamage() const override;
 	virtual void Hit(int damage) override;
 	virtual ITEM_TYPE DropItem() override;
+	virtual void ImageInit() override;
 };

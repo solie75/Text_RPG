@@ -139,6 +139,7 @@
     <ClCompile Include="CBossDungeonStage.cpp" />
     <ClCompile Include="CBossMonsterFactory.cpp" />
     <ClCompile Include="CBossMonster.cpp" />
+    <ClCompile Include="CDungeonEntranceStage.cpp" />
     <ClCompile Include="CDungeonStage.cpp" />
     <ClCompile Include="CEndingStage.cpp" />
     <ClCompile Include="CGameInstance.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="CBossDungeonStage.h" />
     <ClInclude Include="CBossMonsterFactory.h" />
     <ClInclude Include="CBossMonster.h" />
+    <ClInclude Include="CDungeonEntranceStage.h" />
     <ClInclude Include="CDungeonStage.h" />
     <ClInclude Include="CEndingStage.h" />
     <ClInclude Include="CGameInstance.h" />

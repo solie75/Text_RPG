@@ -15,6 +15,17 @@ CShopManager::CShopManager()
 	Stuff.insert({ ITEM_TYPE::ATTACK_BOOST, new CAttackBoost("Attack Boost", 0) });
 }
 
+int CShopManager::GetItemCnt(ITEM_TYPE Item_t)
+{
+	if (Stuff.find(Item_t) == Stuff.end())
+	{
+		//doesn't have, in list
+		return -1;
+	}
+
+	return Stuff[Item_t]->GetCnt();
+}
+
 int CShopManager::BuyItem(ITEM_TYPE Item_t)
 {
 	CItem* Item;

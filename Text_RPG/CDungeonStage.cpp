@@ -13,141 +13,75 @@ void CDungeonStage::StageInit()
 	this->StageRender();
 }
 
+
 void CDungeonStage::StageTick()
 {
-	if (tickTimer <= curTimer)
-	{
-		curTimer = 0;
-		// if == true : 배틀 중
-		if (CBattleManager::GetInst()->GetIsEndBattle() == false)
-		{
-			curLogIdx++;
-			CBattleManager::GetInst()->Battle(*CPlayer::GetInst(), *Monster, BattleLog);
-		}
-		else
-		{
-			if (bIsProcessOnceDo == false)
-			{
-				FinishStage();
-			}
-		}
-
-		if(bIsProcessOnceDo == false)
-			this->StageRender();
-	}
-	else
-	{
-		curTimer += CTimeManager::GetInst()->GetDeltaTime();
-	}
-	if (bIsAbleNextStep && CKeyManager::GetInst()->GetKeyState(KEY_TYPE::SPACE) == KEY_STATE::TAP)
-	{
-		//가야할곳 처리
-	}
 }
 
 void CDungeonStage::StageRender()
 {
-	const int Max_TextBoxBlockSpace = 26;
+	const int Max_TextBoxBlockSpace = 28;
+	const int Max_MonsterBoxBlockSpace = 69;
 	vector<string> RenderText;
+	vector<string> MonsterRender;
 
-	//초기 틀
-	std::cout << "\033[2J\033[H";
-	RenderText.push_back("□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□\n");
-	RenderText.push_back("□     Dungeon stage                                                                                                                                                                                  □\n");
-	RenderText.push_back("□                 =@@@@@@@@@@!                 @@@@@@@@@@@@@@@@@@@@@@@@@@@@#               ,    @@@$                                ;@@@@-                       =@@@@@@@@@@@@@@@@@@@@@@@@@@@@       □\n");
-	RenderText.push_back("□               *@@###########@=               @                          .#            *@#;$#@@   .#=                          .;@@@@##@@@@,.                   =,                          @       □\n");
-	
+	//몬스터의 랜더용 텍스트를 들고오고, 뒤에 필요한 만큼 공백넣기
+	for (int i = 0; i < Monster->GetTextImgSize(); i++)
+	{
+		MonsterRender.push_back(Monster->GetTextImgLine(i));
+		SpaceMaker(MonsterRender[i], Max_MonsterBoxBlockSpace);
+	}
 
-	//플레이어와 몬스터 이름 넣는 플로우
-	string strPlayerName = CPlayer::GetInst()->GetName();
+	//플레이어와 몬스터의 이름을 넣기
+	string strPlayerName = "  " + CPlayer::GetInst()->GetName();
+	string strMonsterName ="  " + Monster->GetName();
 	SpaceMaker(strPlayerName, Max_TextBoxBlockSpace);
-	string strMonsterName = Monster->GetName();
 	SpaceMaker(strMonsterName, Max_TextBoxBlockSpace);
 
-	RenderText.push_back("□             .*#=,          ,$#=.             @" + strPlayerName + ".#         ...=-    $;    ,$.                        :@@@$$~  ;$$#@@,,                 =," + strMonsterName + "@       □\n");
-	RenderText.push_back("□             !#-              -@*             @                          .#       ,,;!$@-     @,,,,~$=                      ,:@#$:        ,=@@@,                =,                          @       □\n");
-	
-	//플레이어의 레벨 넣는 플로우
-	string strPlayerLevel = "레벨:";
-	strPlayerLevel += std::to_string(CPlayer::GetInst()->GetLevel());
+	//플레이어의 레벨만 넣기
+	string strPlayerLevel = "  Level : " + std::to_string(CPlayer::GetInst()->GetLevel());
 	SpaceMaker(strPlayerLevel, Max_TextBoxBlockSpace);
-	RenderText.push_back("□            ,=;               ,$=,            @" + strPlayerLevel + ".#      ~$=~.;#;     @====*:$-,                   :@@=:            !=@@-               =,                          @       □\n");
-	RenderText.push_back("□            ;@:  -,        ~-  ~@!            @                          .#     .*;    :#-   ~@    -****;~,               -@@!.               *@@~              =,                          @       □\n");
 
-	//플레이어와 몬스터의 체력을 넣는 플로우
-	string strPlayerHealth = "체력:";
-	strPlayerHealth += std::to_string(CPlayer::GetInst()->GetHealth());
+	//플레이어와 몬스터의 현재 체력 넣기
+	string strPlayerHealth ="  Health Point : " + std::to_string(CPlayer::GetInst()->GetHealth());
+	string strMonsterHealth = "  Health Point : " + std::to_string(Monster->GetHealth());
 	SpaceMaker(strPlayerHealth, Max_TextBoxBlockSpace);
-	string strMonsterHealth = "체력:";
-	strMonsterHealth += std::to_string(Monster->GetHealth());
 	SpaceMaker(strMonsterHealth, Max_TextBoxBlockSpace);
-	RenderText.push_back("□            ;=,-:#*:      ;##~ ~@!            @" + strPlayerHealth + ".#  .::*@;     =!.  @@        ,!!;,              *@*.                 !@@~             =," + strMonsterHealth + "@       □\n");
-	RenderText.push_back("□            ;: *@*;#!    ;@;!#~~@!            @                          .# .;;;;**-    ~#,  ;@;          ;=,            !@#,                   !@$             =,                          @       □\n");
 
-
-	//플레이어와 몬스터의 공격력을 넣는 플로우
-	string strPlayerDamage = "공격력:";
-	strPlayerDamage += std::to_string(CPlayer::GetInst()->GetDamage());
+	//플레이어와 몬스터의 공격력 넣기
+	string strPlayerDamage = "  Damage : " + std::to_string(CPlayer::GetInst()->GetDamage());
+	string strMonsterDamage = "  Damage : " + std::to_string(Monster->GetDamage());
 	SpaceMaker(strPlayerDamage, Max_TextBoxBlockSpace);
-	string strMonsterDamage = "공격력:";
-	strMonsterDamage += std::to_string(Monster->GetDamage());
 	SpaceMaker(strMonsterDamage, Max_TextBoxBlockSpace);
-	RenderText.push_back("□            ;: *@- ~@!!!!@: ,@=~@!            @" + strPlayerDamage + ".# :=   .!=-    =*.  :@!;        ,=:           ,@#~                    .@@:            =," + strMonsterDamage + "@       □\n");
-	RenderText.push_back("□            ;: *@-  ~@@@@~  ,@=~@!            @                          .# ~=    ,=:    -#*   ~:@**;      ;$-   ~!*    =@~  -*:            !**  :@$   ,;*~     =,                          @       □\n");
-	RenderText.push_back("□            ;: *$,   -~~-   ,@=~@!            @                          .# ,#;    ,;-    -#;   =@~!=      ,=:   =@@=   @# .=$@#*~        !*@@@* .@@; -=@@;     =,                          @       □\n");
-	RenderText.push_back("□            ;::#:            :@$@!            @                          .# ,@@;    !#-    ,$===@, :=       !#-  $@@@= =@, ,@$:$@#~      !@@@-@@* ~@=,$@@@;     =,                          @       □\n");
-	RenderText.push_back("□           :##@;  !.      .* ,#@@@:           @                          .# ,$:@;   .*#-   =@-,,,.$#=       .*~  $@-#@$@@ .#@! .;@#~    !@@-, ,@# ,@@#@*;@=,    =,                          @       □\n");
-	RenderText.push_back("□          :@;..  *@,      .$  ...;@:          @############################ ,= :@;   ,=#####,  ##$...        !~  $@..@@@@ .#@*.;!;@@~   =@-$#  @#  -@@= :@@:    =############################       □\n");
 
-
-
-
-	//전투 로그
-	vector<string> PlayerHitLog(MaxHitLogSpace);
-	vector<string> MonsterHitLog(MaxHitLogSpace);
+	//전투로그
+	vector<string> PlayerHitLog(MaxHitLogSpace, " ");
+	vector<string> MonsterHitLog(MaxHitLogSpace, " ");
 	int PHLIndex = 0;
 	int MHLIndex = 0;
-	for (int i = 0; i < MaxHitLogSpace; i++)
+
+	//공백 맞추기
+	for (int i = 0; i < PlayerHitLog.size(); i++)
 	{
 		SpaceMaker(PlayerHitLog[i], Max_TextBoxBlockSpace);
+	}
+	for (int i = 0; i < MonsterHitLog.size(); i++)
+	{
 		SpaceMaker(MonsterHitLog[i], Max_TextBoxBlockSpace);
-
 	}
 
-	//전투가 종료 or 진행에 따라 HitLog칸에 써야할 메세지가 다름.
-	if (CBattleManager::GetInst()->GetIsEndBattle() == true)
-	{//전투 종료
-		bool isWin = CBattleManager::GetInst()->GetIsPlayerWinner();
+	//전투가 종료되었는지 확인 - T : 전투종료, F : 전투 진행 중
+	if (CBattleManager::GetInst()->GetIsEndBattle() == false)
+	{// 전투 진행중
 
-		if (isWin)
+		for (auto it : BattleLog) 
 		{
-			PlayerHitLog[0] = "  Win!!!";
-			SpaceMaker(PlayerHitLog[0], Max_TextBoxBlockSpace);
-
-			PlayerHitLog[1] = " DropItem : " + dropItemName;
-			SpaceMaker(PlayerHitLog[1], Max_TextBoxBlockSpace);
-			
-		}
-		else
-		{
-			PlayerHitLog[0] = "  Lose..";
-			SpaceMaker(PlayerHitLog[0], Max_TextBoxBlockSpace);
-		}
-		
-		MonsterHitLog[0] = " Press Spacebar";
-		MonsterHitLog[1] = "             to continue";
-		SpaceMaker(MonsterHitLog[0], Max_TextBoxBlockSpace);
-		SpaceMaker(MonsterHitLog[1], Max_TextBoxBlockSpace);
-	}
-	else
-	{//전투 진행 중
-		for (int i = 0; i < BattleLog.size(); i++)
-		{
-			if (BattleLog[i].first == "P")
+			// 전투 턴 상황 : 포션마시기, 플레이어 공격, 몬스터 공격 3가지 경우
+			if (it.first == BATTLE_TURN_TYPE::PLAYER_ATTACK) // 플레이어가 공격함
 			{
-				if (BattleLog[i].second == true)
+				if (it.second == BATTLE_RESULT_TYPE::ATTACK_SUCCESS)
 				{
-					PlayerHitLog[PHLIndex] = "  HIT";
+					PlayerHitLog[PHLIndex] = "  HIT : " + std::to_string(CPlayer::GetInst()->GetDamage());
 				}
 				else
 				{
@@ -156,7 +90,7 @@ void CDungeonStage::StageRender()
 				SpaceMaker(PlayerHitLog[PHLIndex], Max_TextBoxBlockSpace);
 				PHLIndex = (PHLIndex + 1) % MaxHitLogSpace;
 
-				//다시 첫줄부터 썼을때 = 마지막 줄 빼고 모두 지움.
+				//다시 첫줄부터 써야하는 경우 : 마지막줄 빼고 나머지는 리셋
 				if (PHLIndex == 0)
 				{
 					for (int i = 0; i < PlayerHitLog.size() - 1; i++)
@@ -166,11 +100,11 @@ void CDungeonStage::StageRender()
 					}
 				}
 			}
-			else if (BattleLog[i].first == "M")
+			else if (it.first == BATTLE_TURN_TYPE::MONSTER_ATTACK) // 몬스터가 공격함
 			{
-				if (BattleLog[i].second == true)
+				if (it.second == BATTLE_RESULT_TYPE::ATTACK_SUCCESS)
 				{
-					MonsterHitLog[MHLIndex] = "  HIT";
+					MonsterHitLog[MHLIndex] = "  HIT : " + std::to_string(Monster->GetDamage());
 				}
 				else
 				{
@@ -179,7 +113,7 @@ void CDungeonStage::StageRender()
 				SpaceMaker(MonsterHitLog[MHLIndex], Max_TextBoxBlockSpace);
 				MHLIndex = (MHLIndex + 1) % MaxHitLogSpace;
 
-				//다시 첫줄부터 썼을때 = 마지막 줄 빼고 모두 지움.
+				//다시 첫줄부터 써야하는 경우 : 마지막줄 빼고 나머지는 리셋
 				if (MHLIndex == 0)
 				{
 					for (int i = 0; i < MonsterHitLog.size() - 1; i++)
@@ -189,11 +123,9 @@ void CDungeonStage::StageRender()
 					}
 				}
 			}
-			else
+			else // 아이템을 사용
 			{
-				//물약 사용 : 초기단계는 두가지 뿐,
-				//TODO : 물약 종류가 늘어나면 배틀로그의 second의 타입부터 다시 고려하여 짜야함.
-				if (BattleLog[i].second == true) // 힐링포션
+				if (it.second == BATTLE_RESULT_TYPE::USE_HEALTH_POTION) // 힐링포션
 				{
 					PlayerHitLog[PHLIndex] = "  Use Heal";
 				}
@@ -206,66 +138,90 @@ void CDungeonStage::StageRender()
 			}
 		}
 	}
+	else
+	{//전투 종료
+		bool isWin = CBattleManager::GetInst()->GetIsPlayerWinner();
+
+		if (isWin)
+		{
+			PlayerHitLog[0] = "  Win!!!";
+
+			PlayerHitLog[1] = " DropItem : " + dropItemName;
+
+			SpaceMaker(PlayerHitLog[0], Max_TextBoxBlockSpace);
+			SpaceMaker(PlayerHitLog[1], Max_TextBoxBlockSpace);
+		}
+		else
+		{
+			PlayerHitLog[0] = "  Lose..";
+		}
+
+		MonsterHitLog[0] = " Press Spacebar";
+		MonsterHitLog[1] = "             to continue";
+		SpaceMaker(MonsterHitLog[0], Max_TextBoxBlockSpace);
+		SpaceMaker(MonsterHitLog[1], Max_TextBoxBlockSpace);
+
+	}
+
+	std::cout << "\033[2J\033[H";
+	RenderText.push_back("□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□\n");
+	RenderText.push_back("□     Dungeon stage                                                                                                                                                                                  □\n");
+	RenderText.push_back("□                                  @@.                              @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+ MonsterRender[0] + "□\n");
+	RenderText.push_back("□                               @@@@@@@@                            @                            @@                            @"+ MonsterRender[1] + "□\n");
+	RenderText.push_back("□                            *@@@!     @@@@                         @" + strPlayerName +        "@@" + strMonsterName +       "@" + MonsterRender[2] + "□\n");
+	RenderText.push_back("□                            @@          @@                         @                            @@                            @" + MonsterRender[3] + "□\n");
+	RenderText.push_back("□                            @@ ...,-....@@                         @                            @@                            @" + MonsterRender[4] + "□\n");
+	RenderText.push_back("□                            @@ @#@##@#@#@@                         @" + strPlayerLevel +       "@@                            @" + MonsterRender[5] + "□\n");
+	RenderText.push_back("□                            @@ @ *  # @ @@                         @                            @@                            @" + MonsterRender[6] + "□\n");
+	RenderText.push_back("□                         .  @@,# *  # #,@@                         @                            @@                            @" + MonsterRender[7] + "□\n");
+	RenderText.push_back("□                       ,,@,,$#@-,=  #,;@@$,,,,,                    @" + strPlayerHealth +      "@@" + strMonsterHealth +     "@" + MonsterRender[8] + "□\n");
+	RenderText.push_back("□                    ,,,@$$#@,~@$$@,,@$$@@,@@$#@,,,                 @                            @@                            @" + MonsterRender[9] + "□\n");
+	RenderText.push_back("□                   ,@@$$  ;$@@@  $$$$  @@@$$ ,$$@@,                @                            @@                            @" + MonsterRender[10] + "□\n");
+	RenderText.push_back("□                  -@==      =@@--    --@@=      !=@-               @" + strPlayerDamage +      "@@" + strMonsterDamage +     "@" + MonsterRender[11] + "□\n");
+	RenderText.push_back("□                  @@     --- =@@@----@=@@ ---     @@               @                            @@                            @" + MonsterRender[12] + "□\n");
+	RenderText.push_back("□                 :@@-----@@@-~@===$@== @@-@@@-----$@-              @----------------------------@@----------------------------@" + MonsterRender[13] + "□\n");
+	RenderText.push_back("□                 @@@@@@@@@@@===   ,=   ===@@@@@@@@@@=              @============================@@============================@" + MonsterRender[14] + "□\n");
+	RenderText.push_back("□                 @*******@@@-            -@@@******@~ ,~           @"+ PlayerHitLog[0] +       "@@" + MonsterHitLog[0] +     "@" + MonsterRender[15] + "□\n");
+	RenderText.push_back("□                :@~~~~~~~@@@@~~        ~~#@@@~~~~~~@@~=@~~~        @" + PlayerHitLog[1] +      "@@" + MonsterHitLog[1] +     "@" + MonsterRender[16] + "□\n");
+	RenderText.push_back("□                *@@$@@@@@@@**#@~~    ~~@@***@@**@@@@******@:~~~    @" + PlayerHitLog[2] +      "@@" + MonsterHitLog[2] +     "@" + MonsterRender[17] + "□\n");
+	RenderText.push_back("□                 @@~;!!$@@@  ;!!@::::@@!!  :@@::@!!!      !!!!@::: @" + PlayerHitLog[3] +      "@@" + MonsterHitLog[3] +     "@" + MonsterRender[18] + "□\n");
+	RenderText.push_back("□                 @@::.:=@!@:    !*@@@!!   ~@@@#!!    :::::    !!@@ @" + PlayerHitLog[4] +      "@@" + MonsterHitLog[4] +     "@" + MonsterRender[19] + "□\n");
+	RenderText.push_back("□              :::@!!@!@@!:@@::::::@@@:::::@@!@$      @@!@@      @@ @" + PlayerHitLog[5] +      "@@" + MonsterHitLog[5] +     "@" + MonsterRender[20] + "□\n");
+	RenderText.push_back("□              @@@@:;@@@@:#@@!!!!!@@!@$!!!!@@ @$     .@@ @@      @@ @" + PlayerHitLog[6] +      "@@" + MonsterHitLog[6] +     "@" + MonsterRender[21] + "□\n");
+	RenderText.push_back("□              @@;;;;;@@=;#@@;;;;;@@;@=;;;;@@;@$  ;;;!@@ @@;;;;  @@ @" + PlayerHitLog[7] +      "@@" + MonsterHitLog[7] +     "@" + MonsterRender[22] + "□\n");
+	RenderText.push_back("□              @@     @@=;@;;;;;;;;;;;;;;;;;;@@# ;@;;;;; ;;;;;@; @@ @" + PlayerHitLog[8] +      "@@" + MonsterHitLog[8] +     "@" + MonsterRender[23] + "□\n");
+	RenderText.push_back("□          ;;; @@    !@@@@@;;:            ~;;@@# @@;;;;; ;;;;;@@ @@ @" + PlayerHitLog[9] +      "@@" + MonsterHitLog[9] +     "@" + MonsterRender[24] + "□\n");
+	RenderText.push_back("□         ;@;:;@@;  ;@;;@@@@@#!;;;;;;;;;;;#@@@@@ ;;;;;@@ @@;;;;; @@ @" + PlayerHitLog[10] +     "@@" + MonsterHitLog[10] +    "@" + MonsterRender[25] + "□\n");
+	RenderText.push_back("□         :*!!@::@!!@:  @@::::@@:::@@:::@@::::@@      @@ @@      @@ @" + PlayerHitLog[11] +     "@@" + MonsterHitLog[11] +    "@" + MonsterRender[26] + "□\n");
+	RenderText.push_back("□          ,::@! :::@!! @@    @@   @@   @@    @@      @@ @@     !@@ @" + PlayerHitLog[12] +     "@@" + MonsterHitLog[12] +    "@" + MonsterRender[27] + "□\n");
+	RenderText.push_back("□            !@@!!!!@::!@@    @@   @@   @@    @@!!    !@!@:    !@@: @" + PlayerHitLog[13] +     "@@" + MonsterHitLog[13] +    "@" + MonsterRender[28] + "□\n");
+	RenderText.push_back("□           !@:@@@@@:!!@@@:   @@   @@   @@    ~@@@!!  .:::   !!@:~  @" + PlayerHitLog[14] +     "@@" + MonsterHitLog[14] +    "@" + MonsterRender[29] + "□\n");
+	RenderText.push_back("□          *@~*@~@@~ ~~@@:-   @@   @@   @@     @@~@@*      **@!~    @" + PlayerHitLog[15] +     "@@" + MonsterHitLog[15] +    "@" + MonsterRender[30] + "□\n");
+	RenderText.push_back("□         *@@*@~*@~    @@   . @@   @@   @@     @@,;;@**  ,*@@~.     @" + PlayerHitLog[16] +     "@@" + MonsterHitLog[16] +    "@" + MonsterRender[31] + "□\n");
+	RenderText.push_back("□        *@~@@~*@~ -***@@***=*@@ **@@***@@  ***@@===@@@**=@~~       @" + PlayerHitLog[17] +     "@@" + MonsterHitLog[17] +    "@" + MonsterRender[32] + "□\n");
+	RenderText.push_back("□       =@-=@-=@$  .@@-------@@@ --@@;;:@@ =@-------@@-!@--         @" + PlayerHitLog[18] +     "@@" + MonsterHitLog[18] +    "@" + MonsterRender[33] + "□\n");
+	RenderText.push_back("□      =@-;@-=@#,   -@=      @@@   @@   @@=@@      =@- .-           @" + PlayerHitLog[19] +     "@@" + MonsterHitLog[19] +    "@" + MonsterRender[34] + "□\n");
+	RenderText.push_back("□     =@@=#-=@!,     @@=    =@@@===--===@@@=@=    =@-               @" + PlayerHitLog[20] +     "@@" + MonsterHitLog[20] +    "@" + MonsterRender[35] + "□\n");
+	RenderText.push_back("□    =@-#@-=@*.      @@@====@-@@@-@==@---@@#-@====@@                @" + PlayerHitLog[21] +     "@@" + MonsterHitLog[21] +    "@" + MonsterRender[36] + "□\n");
+	RenderText.push_back("□   $@,!@,=@=.       @@,,,,@@$@,, ,@@~   ,~@$@@,,,,@$               @" + PlayerHitLog[22] +     "@@" + MonsterHitLog[22] +    "@" + MonsterRender[37] + "□\n");
+	RenderText.push_back("□  $@,!@,$@$.       *@@    ,@@,    =,      :@@,    @@               @" + PlayerHitLog[23] +     "@@" + MonsterHitLog[23] +    "@" + MonsterRender[38] + "□\n");
+	RenderText.push_back("□ :@:!@!=@@.        @@,    *@=     .        @@     ,@$              @" + PlayerHitLog[24] +     "@@" + MonsterHitLog[24] +    "@" + MonsterRender[39] + "□\n");
+	RenderText.push_back("□  @#@,@@@,        ;@@     @@.              ,@$     @@              @" + PlayerHitLog[25] +     "@@" + MonsterHitLog[25] +    "@" + MonsterRender[40] + "□\n");
+	RenderText.push_back("□  @@@#@$.         @@.    #@:                @@     *@#             @" + PlayerHitLog[26] +     "@@" + MonsterHitLog[26] +    "@" + MonsterRender[41] + "□\n");
+	RenderText.push_back("□  @@....         :@@     @@                 .@#     @@             @" + PlayerHitLog[27] +     "@@" + MonsterHitLog[27] +    "@" + MonsterRender[42] + "□\n");
+	RenderText.push_back("□  ..            #@@@##  #@.                  @@*  ##@@#;           @" + PlayerHitLog[28] +     "@@" + MonsterHitLog[28] +    "@" + MonsterRender[43] + "□\n");
+	RenderText.push_back("□              @@@   @@@@@@                    @@@@@   @@@          @" + PlayerHitLog[29] +     "@@" + MonsterHitLog[29] +    "@" + MonsterRender[44] + "□\n");
+	RenderText.push_back("□            #@@*       @@                     @@@       @@@        @" + PlayerHitLog[30] +     "@@" + MonsterHitLog[30] +    "@" + MonsterRender[45] + "□\n");
+	RenderText.push_back("□           @@@@@@@@@@@@@@                     @@@@@@@@@@@@@@       @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + MonsterRender[46] + "□\n");
+	RenderText.push_back("□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□");
 	
 
-	RenderText.push_back("□          :@;    =@,      .$     :@;          @" + PlayerHitLog[0] + ".# ,=  :@@@@@~      #@              !~  $@.  @@;  -@=~@! ;@:  *@*.#@ @@#  ,@=  :@@:    =-" + MonsterHitLog[0] + "@       □\n");
-	RenderText.push_back("□           ;@@:   ,        ;   ~@@;           @" + PlayerHitLog[1] + ".# ,=.            #@               !:   $@.  @@   ,@@*   ;@:  =@,   :@@   ,@=  :@$-    =," + MonsterHitLog[1] + "@       □\n");
-	RenderText.push_back("□             !:                ~*             @" + PlayerHitLog[2] + ".# ,#;           $@.              ;:    $@.  @@    ,@@*  ;@:  *@-  #@@;   ,@=  :@;     =," + MonsterHitLog[2] + "@       □\n");
-	RenderText.push_back("□             !:                :*             @" + PlayerHitLog[3] + ".# ,#=          =#.             ,!:     $@-  @@     -#@@@@@~   =@@@@#*    ,@@* :@;     =," + MonsterHitLog[3] + "@       □\n");
-	RenderText.push_back("□             !;               ,$*             @" + PlayerHitLog[4] + ".#  :=          =-             ;#:      *@@. @@      -$$$$~    !$$$$      ,#@*.!@;     =," + MonsterHitLog[4] + "@       □\n");
-	RenderText.push_back("□             !@~              -@*             @" + PlayerHitLog[5] + ".#  -$,        ,$,           .;$:        $@~ @@                           .!@=!@#~     =," + MonsterHitLog[5] + "@       □\n");
-	RenderText.push_back("□             ~#~    -~  ~~   .;#:             @" + PlayerHitLog[6] + ".#  ,==,       =@,         .~:!-         !@@~@@                            :@@@#~      =," + MonsterHitLog[6] + "@       □\n");
-	RenderText.push_back("□              !!.   #@::@@   -@*              @" + PlayerHitLog[7] + ".#   ,!;:,     :!.         ;#:            ;@@@@                           .!@@#~       =," + MonsterHitLog[7] + "@       □\n");
-	RenderText.push_back("□              ~$*.  :;;;;;  -!#~              @" + PlayerHitLog[8] + ".#     ,;;;;,            ;;*=              ;;@@   .;;;;;;;;;;;;;;;;;;;:   ,$@$~        =," + MonsterHitLog[8] + "@       □\n");
-	RenderText.push_back("□               -$*;.       !=#~               @" + PlayerHitLog[9] + ".#      ,==;,           .$~-$-               @@   ,@@@@@@@@@@@@@@@@@@@@   ,@@*         =," + MonsterHitLog[9] + "@       □\n");
-	RenderText.push_back("□                -$@*!;  !!*@*-                @" + PlayerHitLog[10] + ".#      :@;              - -@!               @@   ,@@$:*@@@*::$@@@@:;@@   ,@$-         =," + MonsterHitLog[10] + "@       □\n");
-	RenderText.push_back("□                 -#@@@**@@@#.                 @" + PlayerHitLog[11] + ".#      :$-                ,$*               @@    ;@#*$@@@$- =@;#@.=@;   ,@=          =," + MonsterHitLog[11] + "@       □\n");
-	RenderText.push_back("□           ~====, $@~----~@$ ,===:            @" + PlayerHitLog[12] + ".#      :!                  :*               @@~   .!@@@*-*@~;#*.$@=@@.   ,@=          =," + MonsterHitLog[12] + "@       □\n");
-	RenderText.push_back("□   .$$!   .!@!*@#$@@.     @@$$@=;#:   .!$$,   @" + PlayerHitLog[13] + ".#      :;                  -*               ;@$    ~@@@=-;@#@@- $@@@,    ,@=          =," + MonsterHitLog[13] + "@       □\n");
-	RenderText.push_back("□  ##@@@!  :@! ..~#@@#.   #@@$... ;@:  !@@@#!  @" + PlayerHitLog[14] + ".#      :;                  -*                @@     .:@@#@@@@@##@@=,    .#$.          =," + MonsterHitLog[14] + "@       □\n");
-	RenderText.push_back("□ @@$ -@@@@@@;      $@@@@@@=      :@@@@@:  $@. @" + PlayerHitLog[15] + ".#     .!;              .$= -=                @@$       ;@@@@@@@@*.      ,@=           =," + MonsterHitLog[15] + "@       □\n");
-	RenderText.push_back("□ @#   -@*  ;@*,       @@       ~@@!  !@~   $@.@" + PlayerHitLog[16] + ".#     :@;               ,$ -@*                @#                       .@#-           =," + MonsterHitLog[16] + "@       □\n");
-	RenderText.push_back("□@@    -@*   ;@@~              ~@@!   !@-    #.@" + PlayerHitLog[17] + ".#     :@;                  -@*                :@#                     .@@=            =," + MonsterHitLog[17] + "@       □\n");
-	RenderText.push_back("□@@    -@*   ;@@~              ~@@!   !@-    #.@" + PlayerHitLog[18] + ".#     :@;                  -@*                :@#                     .@@=            =," + MonsterHitLog[18] + "@       □\n");
-	RenderText.push_back("□@@    -@*   ;@@~              ~@@!   !@-    #.@" + PlayerHitLog[19] + ".#     :@;                  -@*                :@#                     .@@=            =," + MonsterHitLog[19] + "@       □\n");
-	RenderText.push_back("□@@     ~*     ;@:.          -#@!    ;@~     #@@" + PlayerHitLog[20] + ".#     :$-               .$ ,$*                 #@@$..               .,@@=             =," + MonsterHitLog[20] + "@       □\n");
-	RenderText.push_back("□@@     -#!     ;#@~       .~@$!     !#~     #@@" + PlayerHitLog[21] + ".#     :!                .#. ~*                 .$#@@=,,,,      ,,,,~@@$=              =," + MonsterHitLog[21] + "@       □\n");
-	RenderText.push_back("□@@      ~=.     -*@:-    -#@!      -=:      #@@" + PlayerHitLog[22] + ".#     :!                .@= ~*                   .$@@@@@#;----;#@@@@@=                =," + MonsterHitLog[22] + "@       □\n");
-	RenderText.push_back("□@@      ~@=~~.    ;$@~ .~@*!    .~:$@:      #@@" + PlayerHitLog[23] + ".#    .!!                .@= ~*                 -~~;@@@@@@@@@@@@@@@@@@~~~-             =," + MonsterHitLog[23] + "@       □\n");
-	RenderText.push_back("□@@     .!#*$@:     ~!@:!@!      ~#=*$!.     #@@" + PlayerHitLog[24] + ".#    ~@!                .*= ~$,             ,~:@@@@#****************@@@@#~~-          =," + MonsterHitLog[24] + "@       □\n");
-	RenderText.push_back("□!@:::::*@! -$:       ;@*;      .*=. ;#!:::::@!@" + PlayerHitLog[25] + ".#    ~@!                 ,= ~@!           -:*@@@!!!:.               !!!!@@@$:-        =," + MonsterHitLog[25] + "@       □\n");
-	RenderText.push_back("□ ;*@;;;*@!  ;:        ;.       ,=!  ;@*;;;#!; @" + PlayerHitLog[26] + ".#    ~$-                 ,= ,=!          :$@@;;:                        ;;*@@$~       =," + MonsterHitLog[26] + "@       □\n");
-	RenderText.push_back("□  ~#   .*$!!$:                  :$!!$*,   $,  @" + PlayerHitLog[27] + ".#    ~!                  ,#- :!         ;@@!:                             .:*@#*-     =," + MonsterHitLog[27] + "@       □\n");
-	RenderText.push_back("□  ~#    .!@@*,                  .*@@*.    $,  @" + PlayerHitLog[28] + ".#    ~!                  ,@* ~!        ;@@:.                                .!@@$-    =," + MonsterHitLog[28] + "@       □\n");
-	RenderText.push_back("□  ~#     .--.                    .--.     $,  @" + PlayerHitLog[29] + ".#    ~!                  ,@= ~!       ;@@:                                   .-*@:    =," + MonsterHitLog[29] + "@       □\n");
-	RenderText.push_back("□  ~#                                      $,  @" + PlayerHitLog[30] + ".#   ,=!                   -, ~$-      =@~                                      ;@#~   =," + MonsterHitLog[30] + "@       □\n");
-	RenderText.push_back("□  .#                                      $,  @" + PlayerHitLog[31] + ".#   -@!                      ~@;      .,                                       .,,    =," + MonsterHitLog[31] + "@       □\n");
-	RenderText.push_back("□   .                                      .   @############################    :@######################@*                                                       =###########################@       □\n");
-	RenderText.push_back("□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□");
 
-
-	//전체 송출
+	//랜더 송출
 	for (string it : RenderText)
 	{
 		std::cout << it;
 	}
-}
-
-void CDungeonStage::FinishStage()
-{
-	if (CBattleManager::GetInst()->GetIsPlayerWinner())
-	{
-		CPlayer::GetInst()->ExpUp(50);
-	    //Monster->DropItem(); 이용해서 인벤토리에 아이템 넣기 & 해당값을 가지고 로그창에 띄우기
-		// DropItem()이 있는지 체크하고, 분기점으로 네임 넣기
-		//dropItemName = CPlayer::GetInst()->GetInventory(Monster->DropItem())->GetName();
-	}
-	else
-	{
-		CPlayer::GetInst()->ExpDown();
-	}
-	bIsAbleNextStep = true;
-	bIsProcessOnceDo = true;
 }
 
 void CDungeonStage::SpaceMaker(string& _str, int _max)

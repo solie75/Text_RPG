@@ -8,6 +8,7 @@
 
 CPlayer::CPlayer()
 {
+	MaxNameLength = 10;
 	Level = 1;
 	MaxHealth = 200;
 	Health = MaxHealth;
@@ -30,6 +31,17 @@ CPlayer::~CPlayer()
 void CPlayer::SetName(string _str)
 {
 	Name = _str;
+}
+
+int CPlayer::GetItemCnt(ITEM_TYPE Item_t)
+{
+	if (Inventory.find(Item_t) == Inventory.end())
+	{
+		//doesn't have, in list
+		return -1;
+	}
+
+	return Inventory[Item_t]->GetCnt();
 }
 
 void CPlayer::IncreaseLevel()
@@ -62,6 +74,11 @@ void CPlayer::Hit(int _damage)
 void CPlayer::ResetDamage()
 {
 	Damage = CharacterDamage;
+}
+
+string CPlayer::GetItemName(ITEM_TYPE _itemType)
+{
+	return Inventory[_itemType]->GetName();
 }
 
 void CPlayer::Heal(int amount)

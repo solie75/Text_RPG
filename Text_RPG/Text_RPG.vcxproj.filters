@@ -89,6 +89,9 @@
     <Filter Include="Source Files\3.Object\4.Item\MonsterLeather">
       <UniqueIdentifier>{130487bd-1fef-4383-84f8-ac1a8609c438}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\2.Stage\6. DungeonEntranceStage">
+      <UniqueIdentifier>{0308dfdf-842a-4677-95b2-edc75700b4fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Text_RPG.cpp">
@@ -190,6 +193,9 @@
     </ClCompile>
     <ClCompile Include="CMonsterLeather.cpp">
       <Filter>Source Files\3.Object\4.Item\MonsterLeather</Filter>
+    </ClCompile>
+    <ClCompile Include="CDungeonEntranceStage.cpp">
+      <Filter>Source Files\2.Stage\6. DungeonEntranceStage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -304,6 +310,9 @@
     </ClInclude>
     <ClInclude Include="CMonsterLeather.h">
       <Filter>Source Files\3.Object\4.Item\MonsterLeather</Filter>
+    </ClInclude>
+    <ClInclude Include="CDungeonEntranceStage.h">
+      <Filter>Source Files\2.Stage\6. DungeonEntranceStage</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

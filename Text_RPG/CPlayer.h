@@ -7,6 +7,7 @@ class CPlayer :
 
 private:
 	string Name;
+	int MaxNameLength;
 
 	int Level;
 	const int MaxLevel = 10;
@@ -27,13 +28,14 @@ private:
 public:
 	string GetName() { return Name; }
 	void SetName(string);
+	int GetMaxNameLength() { return MaxNameLength; }
 	int GetDamage() { return Damage; }
 	int GetHealth() { return Health; }
 	int GetGold() { return Gold; }
 	int GetMaxHealth() { return MaxHealth; }
 	int GetLevel() { return Level; }
-	map<ITEM_TYPE, CItem*> GetInventory() { return Inventory; }
-	CItem* GetInventory(ITEM_TYPE _itemType) { return Inventory[_itemType]; }
+	int GetItemCnt(ITEM_TYPE);
+	int GetExp() { return Experience; }
 public:
 	void IncreaseLevel();
 	void Hit(int);
@@ -49,5 +51,6 @@ public:
 	void PayGold(int);
 	void ReceiveGold(int);
 	void ResetDamage();
+	string GetItemName(ITEM_TYPE);
 };
 

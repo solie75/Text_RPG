@@ -4,7 +4,7 @@
 #include "CTimeManager.h"
 #include "CStageManager.h"
 #include "CStartStage.h"
-#include "CShopStage.h"
+//#include "CDungeonEntranceStage.h."
 
 CGameInstance::CGameInstance()
 	: ConsoleWidth(200)
@@ -27,7 +27,8 @@ void CGameInstance::GameInstInit()
 	CTimeManager::GetInst()->TimeManagerInit();
 	CKeyManager::GetInst()->KeyManagerInit();
 	CStageManager::GetInst()->StageManagerInit();
-	CStageManager::GetInst()->ChangeStage(new CShopStage);
+	CStageManager::GetInst()->ChangeStage(new CStartStage);
+	//CStageManager::GetInst()->ChangeStage(new CDungeonEntranceStage);
 }
 
 void CGameInstance::GameInstTick()
