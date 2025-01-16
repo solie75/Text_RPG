@@ -11,7 +11,13 @@ public:
 public:
 	void BasicRender();
 	bool bCallRender = true;
+	int iCurTextPart = 1;
 
-	//void FirstText
+	void TextPart1();
+	void TextPart2();
+	void TextPart3();
+	void TextPart4();
+	void TextPart5();
+	void TextPart6();
 };
 

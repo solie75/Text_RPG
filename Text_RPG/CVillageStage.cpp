@@ -4,6 +4,7 @@
 #include "CPlayer.h"
 #include "CStageManager.h"
 #include "CShopStage.h"
+#include "CChurchStage.h"
 #include "CDungeonEntranceStage.h"
 
 void CVillageStage::StageInit()
@@ -43,7 +44,7 @@ void CVillageStage::StageTick()
 		}
 		else if (iCurStartPart == 9)
 		{
-
+			CStageManager::GetInst()->ChangeStage(new CChurchStage);
 		}
 		else if (iCurStartPart == 10)
 		{
