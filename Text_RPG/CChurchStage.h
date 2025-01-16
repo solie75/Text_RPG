@@ -10,6 +10,7 @@ public:
 
 public:
 	void BasicRender();
+	void NoAccessToHealRender();
 	bool bCallRender = true;
 	int iCurTextPart = 1;
 
