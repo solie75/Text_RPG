@@ -4,6 +4,7 @@
 #include "CStageManager.h"
 #include "CVillageStage.h"
 #include "CPlayer.h"
+#include "CStateStage.h"
 
 void SetConsoleColor(WORD color)
 {
@@ -77,6 +78,11 @@ void CChurchStage::StageTick()
 	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::ESC) == KEY_STATE::TAP)
 	{
 		CStageManager::GetInst()->ChangeStage(new CVillageStage);
+	}
+
+	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::UP) == KEY_STATE::TAP)
+	{
+		CStageManager::GetInst()->ChangeStage(new CStateStage);
 	}
 }
 
