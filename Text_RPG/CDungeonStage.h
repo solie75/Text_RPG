@@ -8,6 +8,8 @@ class CDungeonStage :
 private:
     int MaxHitLogSpace = 31;
     int StartHitLogSpace = 16;
+    vector<string> TextRenderWin;
+    vector<string> TextRenderLose;
 protected:
     string dropItemName;
     double tickTimer = 1;
@@ -22,5 +24,6 @@ public:
     virtual void StageRender() override;
     virtual void FinishStage() = 0;
     void SpaceMaker(string&, int);
+    void TextRenderInit();
 };
 

@@ -12,6 +12,7 @@ void CDungeonStage::StageInit()
 	bIsAbleNextStep = false;
 	CBattleManager::GetInst()->InitBattleManager();
 	this->StageRender();
+	TextRenderInit();
 }
 
 
@@ -145,22 +146,25 @@ void CDungeonStage::StageRender()
 
 		if (isWin)
 		{
-			PlayerHitLog[0] = "  Win!!!";
-
-			PlayerHitLog[1] = " DropItem : " + dropItemName;
+			PlayerHitLog = TextRenderWin;
 
 			SpaceMaker(PlayerHitLog[1], Max_TextBoxBlockSpace);
+			MonsterHitLog[0] = "Drop Item : " + dropItemName;
 		}
 		else
 		{
-			PlayerHitLog[0] = "  Lose..";
+			PlayerHitLog = TextRenderLose;
+		}
+		MonsterHitLog[1] = " Press Spacebar";
+		MonsterHitLog[2] = "             to continue";
+		for (int i = 0; i < PlayerHitLog.size(); i++)
+		{
+			SpaceMaker(PlayerHitLog[i], Max_TextBoxBlockSpace);
 		}
 
-		MonsterHitLog[0] = " Press Spacebar";
-		MonsterHitLog[1] = "             to continue";
-		SpaceMaker(PlayerHitLog[0], Max_TextBoxBlockSpace);
 		SpaceMaker(MonsterHitLog[0], Max_TextBoxBlockSpace);
 		SpaceMaker(MonsterHitLog[1], Max_TextBoxBlockSpace);
+		SpaceMaker(MonsterHitLog[2], Max_TextBoxBlockSpace);
 
 	}
 
@@ -232,4 +236,84 @@ void CDungeonStage::SpaceMaker(string& _str, int _max)
 	{
 		_str += " ";
 	}
+}
+
+void CDungeonStage::TextRenderInit()
+{
+	TextRenderWin.push_back(" ");
+	TextRenderWin.push_back(" ");
+	TextRenderWin.push_back("  #  $$$         / $$$");
+	TextRenderWin.push_back("  'Y  $$$      |  $$$");
+	TextRenderWin.push_back("   |  $$$ - d$b|  $$$");
+
+	TextRenderWin.push_back("   |  $$$  $$$$$  $$$");
+	TextRenderWin.push_back("   |  $$$V$$# $$bd$$$");
+	TextRenderWin.push_back("   Y.  Y$$$# Y  $$$$P");
+	TextRenderWin.push_back("    'Y  $$P   Y  $$P");
+	TextRenderWin.push_back("      Y__/     Y__/");
+
+	TextRenderWin.push_back(" ");
+	TextRenderWin.push_back("    / $$$$$$$$$$$$$");
+	TextRenderWin.push_back("    |____   $$$___'");
+	TextRenderWin.push_back("         |  $$$");
+	TextRenderWin.push_back("         |  $$$");
+
+	TextRenderWin.push_back("         |  $$$");
+	TextRenderWin.push_back("         |  $$$");
+	TextRenderWin.push_back("         |  $$$");
+	TextRenderWin.push_back("     # $$$$$$$$$$$$$");
+	TextRenderWin.push_back("    |______________/");
+
+	TextRenderWin.push_back(" ");
+	TextRenderWin.push_back("   # $$$,        / $$$");
+	TextRenderWin.push_back("   L  $$$$      | $$$");
+	TextRenderWin.push_back("   'Y  $$$$,    | $$$");
+	TextRenderWin.push_back("    |  $$$$$$$  | $$$");
+
+	TextRenderWin.push_back("   .| $$$Y. $$$$  $$$");
+	TextRenderWin.push_back("  ,#  $$$  Y.  $$$$$$");
+	TextRenderWin.push_back("  #  $$$     Y.  $$$$");
+	TextRenderWin.push_back("  8___/       'Y___/");
+	TextRenderWin.push_back(" ");
+
+	TextRenderWin.push_back(" ");
+
+
+	TextRenderLose.push_back(" ");
+	TextRenderLose.push_back("      # $$b");
+	TextRenderLose.push_back("     |  $$$");
+	TextRenderLose.push_back("     |  $$$");
+	TextRenderLose.push_back("     |  $$$");
+
+	TextRenderLose.push_back("     |  O$$$$$$$$$$$D");
+	TextRenderLose.push_back("     'Y_____________#");
+	TextRenderLose.push_back(" ");
+	TextRenderLose.push_back("        .d$$$$$$$$b");
+	TextRenderLose.push_back("      #d$Y______ '$$b");
+
+	TextRenderLose.push_back("     | O$$     'Y $$$");
+	TextRenderLose.push_back("     | S$B.   ,J J$$B");
+	TextRenderLose.push_back("     |  'Y$$$$$$$$MP'");
+	TextRenderLose.push_back("      'b__________*");
+	TextRenderLose.push_back(" ");
+
+	TextRenderLose.push_back("        d$$$$$$$$$$b");
+	TextRenderLose.push_back("     # $$K       ,'");
+	TextRenderLose.push_back("     ( 'Y$$$$$$$$$b");
+	TextRenderLose.push_back("     'Y________, 'Y$b");
+	TextRenderLose.push_back("               )  ,9$");
+
+	TextRenderLose.push_back("     # 0$$$$$$$$$$$P");
+	TextRenderLose.push_back("     l____________#");
+	TextRenderLose.push_back(" ");
+	TextRenderLose.push_back("     # $$$$$$$$$$$$$$");
+	TextRenderLose.push_back("     | $$$________,'");
+
+	TextRenderLose.push_back("     | $$$$$$$$$$$$$$");
+	TextRenderLose.push_back("     | $$$________,'");
+	TextRenderLose.push_back("     | $$$");
+	TextRenderLose.push_back("     | $$$$$$$$$$$$$$");
+	TextRenderLose.push_back("     Y_____________,'");
+
+	TextRenderLose.push_back("");
 }
