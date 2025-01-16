@@ -12,6 +12,9 @@ void CShopStage::StageInit()
 {
 	ItemList = CShopManager::GetInst()->GetItemList();
 	CurrItem = static_cast<int>(ITEM_TYPE::HEALTH_POTION);
+	ColorOfNotify = 6;
+	Notification = "";
+	SpaceMaker(Notification, 60);
 }
 
 void CShopStage::StageTick()
@@ -30,6 +33,39 @@ void CShopStage::StageTick()
 	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::C) == KEY_STATE::TAP)
 	{
 		CShopStage::ChangeBUYSELL();
+	}
+
+	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::SPACE) == KEY_STATE::TAP)
+	{
+		if (CurPlayer_Mode == BUYSELL_MODE::BUY)
+		{
+			Notification = CPlayer::GetInst()->BuyItem(static_cast<ITEM_TYPE>(CurrItem));
+			if (Notification.size() == 0)
+			{
+				ColorOfNotify = 6;
+				Notification = "Your purchase was successful !";
+			}
+			else
+			{
+				ColorOfNotify = 4;
+			}
+		}
+		else
+		{
+			Notification = CPlayer::GetInst()->SellItem(static_cast<ITEM_TYPE>(CurrItem));
+			if (Notification.size() == 0)
+			{
+				ColorOfNotify = 6;
+				Notification = "Your sale has been successful !";
+			}
+			else
+			{
+				ColorOfNotify = 4;
+			}
+		}
+
+		SpaceMaker(Notification, 60);
+		bCallRender = true;
 	}
 
 	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::RIGHT) == KEY_STATE::TAP)
@@ -112,9 +148,37 @@ void CShopStage::ChangeBUYSELL()
 	bCallRender = true;
 }
 
+void CShopStage::SpaceMaker(string& _str, int _max)
+{
+	int start = _str.size();
+	for (int i = start; i < _max; i++)
+	{
+		_str += " ";
+	}
+}
+
+void CShopStage::InitVariables()
+{
+	Notification = "";
+	SpaceMaker(Notification, 60);
+	PlayerGold = CPlayer::GetInst()->GetGold();
+	PlayerGoldforPrint = std::to_string(PlayerGold) + " \$";
+	SpaceMaker(PlayerGoldforPrint, 42);
+}
+
 void CShopStage::StageRender()
 {
 	std::cout << "\033[2J\033[H";
+
+	shopPotionCnt = CShopManager::GetInst()->GetItemCnt(ITEM_TYPE::HEALTH_POTION);
+	shopBoostCnt = CShopManager::GetInst()->GetItemCnt(ITEM_TYPE::ATTACK_BOOST);
+	PlayerPotionCnt = CPlayer::GetInst()->GetItemCnt(ITEM_TYPE::HEALTH_POTION);
+	PlayerBoostCnt = CPlayer::GetInst()->GetItemCnt(ITEM_TYPE::ATTACK_BOOST);
+	PlayerMonLeatherCnt = CPlayer::GetInst()->GetItemCnt(ITEM_TYPE::MONSTER_LEATHER);
+
+	PlayerGold = CPlayer::GetInst()->GetGold();
+	PlayerGoldforPrint = std::to_string(PlayerGold) + " \$";
+	SpaceMaker(PlayerGoldforPrint, 42);
 
 	switch (std::to_string(shopPotionCnt).size())
 	{
@@ -268,24 +332,26 @@ void CShopStage::BuyRenderPotion() //바이 HP포션 랜더
 	printf("□      'YMMMMMMMMMMMMMMMMMMMM#        'YMMMMMMMMMMMMMMMMMMMM#        'YMMMMMMMMMMMMMMMMMMMM#         ||            MMMMMMMMMMMMMMMMMMMMMMMMMMMM# |                                                   □\n");
 	printf("□                                                                                                    ||            Y_____________________________#                                                   □\n");
 	printf("□       [     HP POTION     ]          [    Attack Boost   ]          [  Monster leather  ]          ||                                                                                              □\n");
-	printf("□        ===================            ===================            ===================           ||                  press 'C' button to change BUY ITME MODE or SELL ITEM MODE                  □\n");
+	printf("□        ===================            ===================            ===================           ||                                      "); setConsoleColor(6); printf("Player Gold : % s", PlayerGoldforPrint.c_str()); setConsoleColor(7); printf("□\n");
 	printf("□       [    10$  /  %s  ]          [   15$  /  %s   ]          [   You can't buy   ]          ||                                                                                              □\n", zeroBUYPotionCnt.c_str(), zeroBUYBoostCnt.c_str());
-	printf("□                                                                                                    ||                      When you want to go village press the 'ESC' button                      □\n");
-	printf("□       .--------------------.         .--------------------.         .--------------------.         ||                                                                                              □\n");
+	printf("□                                                                                                    ||                  Press 'C' button to change BUY ITME MODE or SELL ITEM MODE                  □\n");
+	printf("□       .--------------------.         .--------------------.         .--------------------.         ||                        Press the '←' and '→' keys to select an item                        □\n");
 	printf("□      | ,-----------------. |        | ,-----------------. |        | ,-----------------. |         ||                                                                                              □\n");
 	printf("□      | |                 | |        | |                 | |        | |                 | |         ||                                                                                              □\n");
 	printf("□      | |                 | |        | |                 | |        | |                 | |         ||                                                                                              □\n");
-	printf("□      | |      EMPTY      | |        | |      EMPTY      | |        | |      EMPTY      | |         ||                                                                                              □\n");
+	printf("□      | |      EMPTY      | |        | |      EMPTY      | |        | |      EMPTY      | |         ||                                Press Space Bar to BUY the item                               □\n");
 	printf("□      | |                 | |        | |                 | |        | |                 | |         ||                                                                                              □\n");
-	printf("□      | |                 | |        | |                 | |        | |                 | |         ||                                                                                              □\n");
+	printf("□      | |                 | |        | |                 | |        | |                 | |         ||                                  "); setConsoleColor(ColorOfNotify); printf("%s", Notification.c_str()); setConsoleColor(7); printf("□\n");
 	printf("□      | '-----------------' |        | '-----------------' |        | '-----------------' |         ||                                                                                              □\n");
-	printf("□       '___________________/          '___________________/          '___________________/          ||                                                                                              □\n");
+	printf("□       '___________________/          '___________________/          '___________________/          ||                      When you want to go village press the 'ESC' button                      □\n");
 	printf("□                                                                                                    ||                                                                                              □\n");
 	printf("□       [                   ]          [                   ]          [                   ]          ||                                                                                              □\n");
 	printf("□        ===================            ===================            ===================           ||                                                                                              □\n");
 	printf("□       [                   ]          [                   ]          [                   ]                                                                                                          □\n");
 	printf("□                                                                                                                                                                                                    □\n");
 	printf("□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□");
+	Notification = "";
+	SpaceMaker(Notification, 60);
 }
 
 void CShopStage::BuyRenderBooster() //바이 공격력부스터 랜더
@@ -325,24 +391,26 @@ void CShopStage::BuyRenderBooster() //바이 공격력부스터 랜더
 	printf("□      'YMMMMMMMMMMMMMMMMMMMM#        'YMMMMMMMMMMMMMMMMMMMM#        'YMMMMMMMMMMMMMMMMMMMM#         ||            MMMMMMMMMMMMMMMMMMMMMMMMMMMM# |                                                   □\n");
 	printf("□                                                                                                    ||            Y_____________________________#                                                   □\n");
 	printf("□       [     HP POTION     ]          [    Attack Boost   ]          [  Monster leather  ]          ||                                                                                              □\n");
-	printf("□        ===================            ===================            ===================           ||                  press 'C' button to change BUY ITME MODE or SELL ITEM MODE                  □\n");
+	printf("□        ===================            ===================            ===================           ||                                      "); setConsoleColor(6); printf("Player Gold : % s", PlayerGoldforPrint.c_str()); setConsoleColor(7); printf("□\n");
 	printf("□       [    10$  /  %s  ]          [   15$  /  %s   ]          [   You can't buy   ]          ||                                                                                              □\n", zeroBUYPotionCnt.c_str(), zeroBUYBoostCnt.c_str());
-	printf("□                                                                                                    ||                      When you want to go village press the 'ESC' button                      □\n");
-	printf("□       .--------------------.         .--------------------.         .--------------------.         ||                                                                                              □\n");
+	printf("□                                                                                                    ||                  Press 'C' button to change BUY ITME MODE or SELL ITEM MODE                  □\n");
+	printf("□       .--------------------.         .--------------------.         .--------------------.         ||                        Press the '←' and '→' keys to select an item                        □\n");
 	printf("□      | ,-----------------. |        | ,-----------------. |        | ,-----------------. |         ||                                                                                              □\n");
 	printf("□      | |                 | |        | |                 | |        | |                 | |         ||                                                                                              □\n");
 	printf("□      | |                 | |        | |                 | |        | |                 | |         ||                                                                                              □\n");
-	printf("□      | |      EMPTY      | |        | |      EMPTY      | |        | |      EMPTY      | |         ||                                                                                              □\n");
+	printf("□      | |      EMPTY      | |        | |      EMPTY      | |        | |      EMPTY      | |         ||                                Press Space Bar to BUY the item                               □\n");
 	printf("□      | |                 | |        | |                 | |        | |                 | |         ||                                                                                              □\n");
-	printf("□      | |                 | |        | |                 | |        | |                 | |         ||                                                                                              □\n");
+	printf("□      | |                 | |        | |                 | |        | |                 | |         ||                                  "); setConsoleColor(ColorOfNotify); printf("%s", Notification.c_str()); setConsoleColor(7); printf("□\n");
 	printf("□      | '-----------------' |        | '-----------------' |        | '-----------------' |         ||                                                                                              □\n");
-	printf("□       '___________________/          '___________________/          '___________________/          ||                                                                                              □\n");
+	printf("□       '___________________/          '___________________/          '___________________/          ||                      When you want to go village press the 'ESC' button                      □\n");
 	printf("□                                                                                                    ||                                                                                              □\n");
 	printf("□       [                   ]          [                   ]          [                   ]          ||                                                                                              □\n");
 	printf("□        ===================            ===================            ===================           ||                                                                                              □\n");
 	printf("□       [                   ]          [                   ]          [                   ]                                                                                                          □\n");
 	printf("□                                                                                                                                                                                                    □\n");
 	printf("□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□");
+	Notification = "";
+	SpaceMaker(Notification, 60);
 }
 
 
@@ -380,24 +448,26 @@ void CShopStage::SellRenderPotion() // 셀 HP포션 랜더
 	printf("□      'YMMMMMMMMMMMMMMMMMMMM#        'YMMMMMMMMMMMMMMMMMMMM#        'YMMMMMMMMMMMMMMMMMMMM#         ||                                                 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM# |      □\n");
 	printf("□                                                                                                    ||                                                 Y_____________________________________#      □\n");
 	printf("□       [     HP POTION     ]          [    Attack Boost   ]          [  Monster leather  ]          ||                                                                                              □\n");
-	printf("□        ===================            ===================            ===================           ||                  press 'C' button to change BUY ITME MODE or SELL ITEM MODE                  □\n");
-	printf("□       [    6$   /  %s  ]          [   9$   /  %s   ]          [    5$   /  %s  ]          ||                                                                                              □\n", zeroSELLPotionCnt.c_str(), zeroSELLBoostCnt.c_str(), zeroSELLMonLeatherCnt.c_str());
-	printf("□                                                                                                    ||                      When you want to go village press the 'ESC' button                      □\n");
-	printf("□       .--------------------.         .--------------------.         .--------------------.         ||                                                                                              □\n");
+	printf("□        ===================            ===================            ===================           ||                                      "); setConsoleColor(6); printf("Player Gold : % s", PlayerGoldforPrint.c_str()); setConsoleColor(7); printf("□\n");
+	printf("□       [    6$   /  %s  ]          [   9$   /  %s   ]          [    5$   /  %s  ]          ||                                                                                              □\n", zeroBUYPotionCnt.c_str(), zeroBUYBoostCnt.c_str(), zeroSELLMonLeatherCnt.c_str());
+	printf("□                                                                                                    ||                  Press 'C' button to change BUY ITME MODE or SELL ITEM MODE                  □\n");
+	printf("□       .--------------------.         .--------------------.         .--------------------.         ||                        Press the '←' and '→' keys to select an item                        □\n");
 	printf("□      | ,-----------------. |        | ,-----------------. |        | ,-----------------. |         ||                                                                                              □\n");
 	printf("□      | |                 | |        | |                 | |        | |                 | |         ||                                                                                              □\n");
 	printf("□      | |                 | |        | |                 | |        | |                 | |         ||                                                                                              □\n");
-	printf("□      | |      EMPTY      | |        | |      EMPTY      | |        | |      EMPTY      | |         ||                                                                                              □\n");
+	printf("□      | |      EMPTY      | |        | |      EMPTY      | |        | |      EMPTY      | |         ||                               Press Space Bar to SELL the item                               □\n");
 	printf("□      | |                 | |        | |                 | |        | |                 | |         ||                                                                                              □\n");
-	printf("□      | |                 | |        | |                 | |        | |                 | |         ||                                                                                              □\n");
+	printf("□      | |                 | |        | |                 | |        | |                 | |         ||                                  "); setConsoleColor(ColorOfNotify); printf("%s", Notification.c_str()); setConsoleColor(7); printf("□\n");
 	printf("□      | '-----------------' |        | '-----------------' |        | '-----------------' |         ||                                                                                              □\n");
-	printf("□       '___________________/          '___________________/          '___________________/          ||                                                                                              □\n");
+	printf("□       '___________________/          '___________________/          '___________________/          ||                      When you want to go village press the 'ESC' button                      □\n");
 	printf("□                                                                                                    ||                                                                                              □\n");
 	printf("□       [                   ]          [                   ]          [                   ]          ||                                                                                              □\n");
 	printf("□        ===================            ===================            ===================           ||                                                                                              □\n");
 	printf("□       [                   ]          [                   ]          [                   ]                                                                                                          □\n");
 	printf("□                                                                                                                                                                                                    □\n");
 	printf("□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□");
+	Notification = "";
+	SpaceMaker(Notification, 60);
 }
 
 void CShopStage::SellRenderBooster() // 셀 공격력 부스터 랜더
@@ -434,24 +504,26 @@ void CShopStage::SellRenderBooster() // 셀 공격력 부스터 랜더
 	printf("□      'YMMMMMMMMMMMMMMMMMMMM#        'YMMMMMMMMMMMMMMMMMMMM#        'YMMMMMMMMMMMMMMMMMMMM#         ||                                                 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM# |      □\n");
 	printf("□                                                                                                    ||                                                 Y_____________________________________#      □\n");
 	printf("□       [     HP POTION     ]          [    Attack Boost   ]          [  Monster leather  ]          ||                                                                                              □\n");
-	printf("□        ===================            ===================            ===================           ||                  press 'C' button to change BUY ITME MODE or SELL ITEM MODE                  □\n");
-	printf("□       [    6$   /  %s  ]          [   9$   /  %s   ]          [    5$   /  %s  ]          ||                                                                                              □\n", zeroSELLPotionCnt.c_str(), zeroSELLBoostCnt.c_str(), zeroSELLMonLeatherCnt.c_str());
-	printf("□                                                                                                    ||                      When you want to go village press the 'ESC' button                      □\n");
-	printf("□       .--------------------.         .--------------------.         .--------------------.         ||                                                                                              □\n");
+	printf("□        ===================            ===================            ===================           ||                                      "); setConsoleColor(6); printf("Player Gold : % s", PlayerGoldforPrint.c_str()); setConsoleColor(7); printf("□\n");
+	printf("□       [    6$   /  %s  ]          [   9$   /  %s   ]          [    5$   /  %s  ]          ||                                                                                              □\n", zeroBUYPotionCnt.c_str(), zeroBUYBoostCnt.c_str(), zeroSELLMonLeatherCnt.c_str());
+	printf("□                                                                                                    ||                  Press 'C' button to change BUY ITME MODE or SELL ITEM MODE                  □\n");
+	printf("□       .--------------------.         .--------------------.         .--------------------.         ||                        Press the '←' and '→' keys to select an item                        □\n");
 	printf("□      | ,-----------------. |        | ,-----------------. |        | ,-----------------. |         ||                                                                                              □\n");
 	printf("□      | |                 | |        | |                 | |        | |                 | |         ||                                                                                              □\n");
 	printf("□      | |                 | |        | |                 | |        | |                 | |         ||                                                                                              □\n");
-	printf("□      | |      EMPTY      | |        | |      EMPTY      | |        | |      EMPTY      | |         ||                                                                                              □\n");
+	printf("□      | |      EMPTY      | |        | |      EMPTY      | |        | |      EMPTY      | |         ||                               Press Space Bar to SELL the item                               □\n");
 	printf("□      | |                 | |        | |                 | |        | |                 | |         ||                                                                                              □\n");
-	printf("□      | |                 | |        | |                 | |        | |                 | |         ||                                                                                              □\n");
+	printf("□      | |                 | |        | |                 | |        | |                 | |         ||                                  "); setConsoleColor(ColorOfNotify); printf("%s", Notification.c_str()); setConsoleColor(7); printf("□\n");
 	printf("□      | '-----------------' |        | '-----------------' |        | '-----------------' |         ||                                                                                              □\n");
-	printf("□       '___________________/          '___________________/          '___________________/          ||                                                                                              □\n");
+	printf("□       '___________________/          '___________________/          '___________________/          ||                      When you want to go village press the 'ESC' button                      □\n");
 	printf("□                                                                                                    ||                                                                                              □\n");
 	printf("□       [                   ]          [                   ]          [                   ]          ||                                                                                              □\n");
 	printf("□        ===================            ===================            ===================           ||                                                                                              □\n");
 	printf("□       [                   ]          [                   ]          [                   ]                                                                                                          □\n");
 	printf("□                                                                                                                                                                                                    □\n");
 	printf("□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□");
+	Notification = "";
+	SpaceMaker(Notification, 60);
 }
 
 
@@ -490,22 +562,24 @@ void CShopStage::SellRenderMonLeather() // 셀 몬스터가죽 랜더
 	printf("□      'YMMMMMMMMMMMMMMMMMMMM#        'YMMMMMMMMMMMMMMMMMMMM#        'YMMMMMMMMMMMMMMMMMMMM#         ||                                                 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM# |      □\n");
 	printf("□                                                                                                    ||                                                 Y_____________________________________#      □\n");
 	printf("□       [     HP POTION     ]          [    Attack Boost   ]          [  Monster leather  ]          ||                                                                                              □\n");
-	printf("□        ===================            ===================            ===================           ||                  press 'C' button to change BUY ITME MODE or SELL ITEM MODE                  □\n");
-	printf("□       [    6$   /  %s  ]          [   9$   /  %s   ]          [    5$   /  %s  ]          ||                                                                                              □\n", zeroSELLPotionCnt.c_str(), zeroSELLBoostCnt.c_str(), zeroSELLMonLeatherCnt.c_str());
-	printf("□                                                                                                    ||                      When you want to go village press the 'ESC' button                      □\n");
-	printf("□       .--------------------.         .--------------------.         .--------------------.         ||                                                                                              □\n");
+	printf("□        ===================            ===================            ===================           ||                                      "); setConsoleColor(6); printf("Player Gold : % s", PlayerGoldforPrint.c_str()); setConsoleColor(7); printf("□\n");
+	printf("□       [    6$   /  %s  ]          [   9$   /  %s   ]          [    5$   /  %s  ]          ||                                                                                              □\n", zeroBUYPotionCnt.c_str(), zeroBUYBoostCnt.c_str(), zeroSELLMonLeatherCnt.c_str());
+	printf("□                                                                                                    ||                  Press 'C' button to change BUY ITME MODE or SELL ITEM MODE                  □\n");
+	printf("□       .--------------------.         .--------------------.         .--------------------.         ||                        Press the '←' and '→' keys to select an item                        □\n");
 	printf("□      | ,-----------------. |        | ,-----------------. |        | ,-----------------. |         ||                                                                                              □\n");
 	printf("□      | |                 | |        | |                 | |        | |                 | |         ||                                                                                              □\n");
 	printf("□      | |                 | |        | |                 | |        | |                 | |         ||                                                                                              □\n");
-	printf("□      | |      EMPTY      | |        | |      EMPTY      | |        | |      EMPTY      | |         ||                                                                                              □\n");
+	printf("□      | |      EMPTY      | |        | |      EMPTY      | |        | |      EMPTY      | |         ||                               Press Space Bar to SELL the item                               □\n");
 	printf("□      | |                 | |        | |                 | |        | |                 | |         ||                                                                                              □\n");
-	printf("□      | |                 | |        | |                 | |        | |                 | |         ||                                                                                              □\n");
+	printf("□      | |                 | |        | |                 | |        | |                 | |         ||                                  "); setConsoleColor(ColorOfNotify); printf("%s", Notification.c_str()); setConsoleColor(7); printf("□\n");
 	printf("□      | '-----------------' |        | '-----------------' |        | '-----------------' |         ||                                                                                              □\n");
-	printf("□       '___________________/          '___________________/          '___________________/          ||                                                                                              □\n");
+	printf("□       '___________________/          '___________________/          '___________________/          ||                      When you want to go village press the 'ESC' button                      □\n");
 	printf("□                                                                                                    ||                                                                                              □\n");
 	printf("□       [                   ]          [                   ]          [                   ]          ||                                                                                              □\n");
 	printf("□        ===================            ===================            ===================           ||                                                                                              □\n");
 	printf("□       [                   ]          [                   ]          [                   ]                                                                                                          □\n");
 	printf("□                                                                                                                                                                                                    □\n");
 	printf("□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□");
+	Notification = "";
+	SpaceMaker(Notification, 60);
 }

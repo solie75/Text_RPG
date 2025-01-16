@@ -8,12 +8,16 @@
 
 CShopManager::CShopManager()
 {
+	CShopManagerInit();
+}
+
+void CShopManager::CShopManagerInit()
+{
 	ShopCoin = 300;
-	MaxShopCoin = 500;
 	ResalePercent = 0.6f;
 
-	Stuff.insert({ ITEM_TYPE::HEALTH_POTION, new CHealthPotion("Health Potion", 0) });
-	Stuff.insert({ ITEM_TYPE::ATTACK_BOOST, new CAttackBoost("Attack Boost", 0) });
+	Stuff.insert({ ITEM_TYPE::HEALTH_POTION, new CHealthPotion("Health Potion", 5) });
+	Stuff.insert({ ITEM_TYPE::ATTACK_BOOST, new CAttackBoost("Attack Boost", 5) });
 }
 
 int CShopManager::GetItemCnt(ITEM_TYPE Item_t)
@@ -25,6 +29,17 @@ int CShopManager::GetItemCnt(ITEM_TYPE Item_t)
 	}
 
 	return Stuff[Item_t]->GetCnt();
+}
+
+int CShopManager::GetItemPrice(ITEM_TYPE Item_t)
+{
+	if (Stuff.find(Item_t) == Stuff.end())
+	{
+		//doesn't have, in list
+		return -1;
+	}
+
+	return Stuff[Item_t]->GetPrice();
 }
 
 unordered_map<ITEM_TYPE, string> CShopManager::GetItemList()
@@ -82,35 +97,17 @@ int CShopManager::BuyItem(ITEM_TYPE Item_t)
 	return SalePrice;
 }
 
-int CShopManager::SellItem(ITEM_TYPE Item_t)
+bool CShopManager::SellItem(ITEM_TYPE Item_t)
 {
-	if (Stuff.find(Item_t) == Stuff.end())
-	{
-		//non type
-		return 0;
-	}
-
 	CItem* Item = Stuff[Item_t];
 	if (Item->GetCnt() == 0)
 	{
 		//out of stock
-		return 0;
+		return false;
 	}
 
-	if (!CPlayer::GetInst()->CanPayGold(Item->GetPrice()))
-	{
-		//player doesn't have gold
-		return 0;
-	}
-
-	int temp = ShopCoin + Item->GetPrice();
-	if (temp > MaxShopCoin)
-	{
-		//no more sell
-		return 0;
-	}
-
-	ShopCoin = temp;
+	ShopCoin += Item->GetPrice();
 	Item->ReduceCnt();
-	return Item->GetPrice();
+
+	return true;
 }

@@ -22,12 +22,16 @@ private:
     int PlayerPotionCnt = CPlayer::GetInst()->GetItemCnt(ITEM_TYPE::HEALTH_POTION);
     int PlayerBoostCnt = CPlayer::GetInst()->GetItemCnt(ITEM_TYPE::ATTACK_BOOST);
     int PlayerMonLeatherCnt = CPlayer::GetInst()->GetItemCnt(ITEM_TYPE::MONSTER_LEATHER);
+    int PlayerGold = CPlayer::GetInst()->GetGold();
     string zeroSELLPotionCnt; // just zero for print, sell potion
     string zeroSELLBoostCnt; // just zero for print, sell boost
     string zeroSELLMonLeatherCnt; //just zero for print, sell monster leather
+    string PlayerGoldforPrint; //just zero for print, player gold
+    string Notification; // buy&sell result phrase
 
     unordered_map<ITEM_TYPE, string> ItemList;
     int CurrItem;
+    int ColorOfNotify;
 
 public:
     virtual void StageInit() override;
@@ -39,6 +43,8 @@ private:
 
     void CurrItemRender();
     void ChangeBUYSELL();
+    void SpaceMaker(string&, int);
+    void InitVariables();
 
     void BuyRenderPotion();
     void BuyRenderBooster();

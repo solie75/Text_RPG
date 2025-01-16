@@ -16,7 +16,7 @@ CPlayer::CPlayer()
 	Damage = CharacterDamage;
 	Experience = 0;
 	MaxExperience = 100;
-	Gold = 0;
+	Gold = 10;
 
 	Inventory.insert({ ITEM_TYPE::HEALTH_POTION, new CHealthPotion("Health Potion", 0) });
 	Inventory.insert({ ITEM_TYPE::ATTACK_BOOST, new CAttackBoost("Attack Boost", 0) });
@@ -152,37 +152,47 @@ void CPlayer::AddItem(ITEM_TYPE Item_t)
 	Inventory[Item_t]->IncreaseCnt();
 }
 
-void CPlayer::BuyItem(ITEM_TYPE Item_t)
+string CPlayer::BuyItem(ITEM_TYPE Item_t)
 {
-	int ItemPrice = CShopManager::GetInst()->SellItem(Item_t);
-	if (ItemPrice == 0)
+	//int ItemPrice = CShopManager::GetInst()->SellItem(Item_t);
+	int ItemPrice = CShopManager::GetInst()->GetItemPrice(Item_t);
+
+	if (Gold - ItemPrice < 0)
 	{
 		//not enough money
-		return;
+		return "You don't have enough gold !";
+	}
+
+	bool SellResult = CShopManager::GetInst()->SellItem(Item_t);
+	if (!SellResult)
+	{
+		return "That item is out of stock !";
 	}
 
 	AddItem(Item_t);
 	PayGold(ItemPrice);
+	return "";
 }
 
-void CPlayer::SellItem(ITEM_TYPE Item_t)
+string CPlayer::SellItem(ITEM_TYPE Item_t)
 {
 	CItem* Item = Inventory[Item_t];
 	if (Item->GetCnt() == 0)
 	{
 		//doesn't have
-		return;
+		return "You don't have that item !";
 	}
 
 	int SalePrice = CShopManager::GetInst()->BuyItem(Item_t);
 	if (SalePrice == 0)
 	{
 		//can not sell(shop problem)
-		return;
+		return "You can't sell any more !";
 	}
 
 	Item->ReduceCnt();
 	ReceiveGold(SalePrice);
+	return "";
 }
 
 bool CPlayer::CanPayGold(int Price)

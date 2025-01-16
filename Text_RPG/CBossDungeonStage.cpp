@@ -8,6 +8,7 @@
 #include "CStageManager.h"
 #include "CEndingStage.h"
 #include "CVillageStage.h"
+#include "CShopManager.h"
 
 void CBossDungeonStage::StageInit()
 {
@@ -71,4 +72,5 @@ void CBossDungeonStage::FinishStage()
 	}
 	bIsAbleNextStep = true;
 	bIsProcessOnceDo = true;
+	CShopManager::GetInst()->CShopManagerInit();
 }

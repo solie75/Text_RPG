@@ -48,8 +48,8 @@ public:
 	void ExpUp(int);
 	void ExpDown();
 	void AddItem(ITEM_TYPE);
-	void BuyItem(ITEM_TYPE);
-	void SellItem(ITEM_TYPE);
+	string BuyItem(ITEM_TYPE);
+	string SellItem(ITEM_TYPE);
 	bool CanPayGold(int);
 	void PayGold(int);
 	void ReceiveGold(int);

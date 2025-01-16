@@ -7,6 +7,7 @@
 #include "CKeyManager.h"
 #include "CStageManager.h"
 #include "CVillageStage.h"
+#include "CShopManager.h"
 
 void CNormalDungeonStage::StageInit()
 {
@@ -79,4 +80,5 @@ void CNormalDungeonStage::FinishStage()
 	CPlayer::GetInst()->ResetDamage();
 	bIsAbleNextStep = true;
 	bIsProcessOnceDo = true;
+	CShopManager::GetInst()->CShopManagerInit();
 }
