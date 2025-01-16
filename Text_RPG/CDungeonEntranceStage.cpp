@@ -65,7 +65,10 @@ void CDungeonEntranceStage::StageTick()
 
 	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::ESC) == KEY_STATE::TAP)
 	{
-		CStageManager::GetInst()->ChangeStage(new CVillageStage);
+		if (CStageManager::GetInst()->GetIsDoneTutoStage())
+		{
+			CStageManager::GetInst()->ChangeStage(new CVillageStage);
+		}
 	}
 
 	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::UP) == KEY_STATE::TAP)
@@ -172,7 +175,15 @@ void CDungeonEntranceStage::StageRender()
 	}
 	else
 	{
-		printf("□                         |\\|  | /|                                다른 던전을 입장하려면 -> 를 누르세요. 마을로 돌아가려면 ESC 를 누르세요               |\\          |\\  | |/|                      □\n"); // 44
+		if (CStageManager::GetInst()->GetIsDoneTutoStage())
+		{
+			printf("□                         |\\|  | /|                                다른 던전을 입장하려면 -> 를 누르세요. 마을로 돌아가려면 ESC 를 누르세요               |\\          |\\  | |/|                      □\n"); // 44
+		}
+		else
+		{
+			printf("□                         |\\|  | /|                                                 다른 던전을 입장하려면 -> 를 누르세요.                                |\\          |\\  | |/|                      □\n"); // 44
+		}
+		
 		printf("□                         | `---' |                   _/                                                                                                  / \\         | `---' |                      □\n"); // 45
 	}
 
