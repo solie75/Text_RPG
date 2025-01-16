@@ -19,4 +19,7 @@ private:
 	int PlayerGold;
 	int PlayerMaxHealth;
 	int PlayerMaxExperience;
+	int PlayerHealthPotionCnt;
+	int PlayerAttackBoostCnt;
+	int PlayerMonsterLeatherCnt;
 };

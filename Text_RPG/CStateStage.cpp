@@ -38,6 +38,9 @@ void CStateStage::StageInit()
 	PlayerGold = PlayerInstance->GetGold();
 	PlayerMaxHealth = PlayerInstance->GetMaxHealth();
 	PlayerMaxExperience = PlayerInstance->GetMaxExp();
+	PlayerHealthPotionCnt = PlayerInstance->GetItemCnt(ITEM_TYPE::HEALTH_POTION);
+	PlayerAttackBoostCnt = PlayerInstance->GetItemCnt(ITEM_TYPE::ATTACK_BOOST);
+	PlayerMonsterLeatherCnt = PlayerInstance->GetItemCnt(ITEM_TYPE::MONSTER_LEATHER);
 
 	// 화면 렌더
 	StageRender();
@@ -86,11 +89,11 @@ void CStateStage::StageRender()
 	printf("                                                           |                                                                               |.\n");
 	printf("                                                           |                                                                               |.\n");
 	printf("                                                           |                                                                               |.\n");
+	printf("                                                           |            아이템 : Health Potion : %s 개                                     |.\n", SpaceMaker(std::to_string(PlayerHealthPotionCnt), 2).c_str());
 	printf("                                                           |                                                                               |.\n");
+	printf("                                                           |                     Attack Boost : %s 개                                      |.\n", SpaceMaker(std::to_string(PlayerAttackBoostCnt), 2).c_str());
 	printf("                                                           |                                                                               |.\n");
-	printf("                                                           |                                                                               |.\n");
-	printf("                                                           |                                                                               |.\n");
-	printf("                                                           |                                                                               |.\n");
+	printf("                                                           |                     Monster Leather : %s 개                                   |.\n", SpaceMaker(std::to_string(PlayerMonsterLeatherCnt), 2).c_str());
 	printf("                                                           |                                                                               |.\n");
 	printf("                                                           |                                                                               |.\n");
 	printf("                                                           |                                                                               |.\n");
