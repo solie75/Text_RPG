@@ -76,13 +76,13 @@ void CNormalDungeonStage::FinishStage()
 		{
 			CPlayer::GetInst()->AddItem(Dropping);
 			CPlayer::GetInst()->ReceiveGold(Gold);
-			dropItemName = CPlayer::GetInst()->GetItemName(Dropping);
+			dropItemName = CPlayer::GetInst()->GetItemName(Dropping) + ", ";
 		}
-		else
+		/*else
 		{
 			dropItemName = "Nope";
-		}
-		dropItemName += " & " + std::to_string(Gold) + "$";
+		}*/
+		dropItemName += std::to_string(Gold) + "$";
 	}
 	else
 	{
