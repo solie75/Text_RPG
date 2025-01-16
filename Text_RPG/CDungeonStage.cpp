@@ -47,7 +47,9 @@ void CDungeonStage::StageRender()
 
 	//플레이어의 레벨만 넣기
 	string strPlayerLevel = "  Level : " + std::to_string(CPlayer::GetInst()->GetLevel());
-	SpaceMaker(strPlayerLevel, Max_TextBoxBlockSpace);
+	string strPlayerExp = "(" + std::to_string(CPlayer::GetInst()->GetExp()) + " / " + std::to_string(CPlayer::GetInst()->GetMaxExp()) + ")";
+	string strLevelExp = strPlayerLevel + strPlayerExp;
+	SpaceMaker(strLevelExp, Max_TextBoxBlockSpace);
 
 	//플레이어와 몬스터의 현재 체력 넣기
 	string strPlayerHealth = std::to_string(CPlayer::GetInst()->GetHealth());
@@ -195,7 +197,7 @@ void CDungeonStage::StageRender()
 	printf("□                            *@@@!     @@@@                         @%s@@%s@%s□\n", strPlayerName.c_str(), strMonsterName.c_str(), MonsterRender[2].c_str());
 	printf("□                            @@          @@                         @                            @@                            @%s□\n", MonsterRender[3].c_str());
 	printf("□                            @@ ...,-....@@                         @                            @@                            @%s□\n", MonsterRender[4].c_str());
-	printf("□                            @@ @#@##@#@#@@                         @%s@@                            @%s□\n", strPlayerLevel.c_str(), MonsterRender[5].c_str());
+	printf("□                            @@ @#@##@#@#@@                         @%s@@                            @%s□\n", strLevelExp.c_str(), MonsterRender[5].c_str());
 	printf("□                            @@ @ *  # @ @@                         @                            @@                            @%s□\n", MonsterRender[6].c_str());
 	printf("□                         .  @@,# *  # #,@@                         @                            @@                            @%s□\n", MonsterRender[7].c_str());
 	printf("□                       ,,@,,$#@-,=  #,;@@$,,,,,                    @  Health Point : "); setConsoleColor(ColorOfPlayerHP); printf("%s", strPlayerHealth.c_str()); setConsoleColor(7); printf("@@  Health Point : "); setConsoleColor(ColorOfMobHP); printf("%s", strMonsterHealth.c_str()); setConsoleColor(7); printf("@%s□\n", MonsterRender[8].c_str());
