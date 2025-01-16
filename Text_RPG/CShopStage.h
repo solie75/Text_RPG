@@ -36,4 +36,3 @@ public:
     void BuyRender();
     void SellRender();
 };
-
