@@ -65,7 +65,7 @@ void CPlayer::RegisterMaster()
 	Damage = 999;
 	MaxHealth = 999;
 	Health = MaxHealth;
-	Gold = 999;
+	Gold = 500;
 	AddItem(ITEM_TYPE::HEALTH_POTION);
 	AddItem(ITEM_TYPE::HEALTH_POTION);
 	AddItem(ITEM_TYPE::HEALTH_POTION);
