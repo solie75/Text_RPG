@@ -102,6 +102,10 @@ void CPlayer::ResetDamage()
 void CPlayer::Church_Heal()
 {
 	Health += (MaxHealth / 3);
+	if (Health > MaxHealth)
+	{
+		Health = MaxHealth;
+	}
 	Gold = Gold - (Gold / 3);
 }
 
