@@ -651,7 +651,7 @@ RenderText.push_back("□                 @@~;!!$@@@  ;!!@::::@@!!  :@@::@!!!   
 RenderText.push_back("□                 @@::.:=@!@:    !*@@@!!   ~@@@#!!    :::::    !!@@ @"   |  $$$ - d$b|  $$$     "@@" + MonsterHitLog[4] + "@" + MonsterRender[19] + "□\n");
 RenderText.push_back("□              :::@!!@!@@!:@@::::::@@@:::::@@!@$      @@!@@      @@ @"   |  $$$  $$$$$  $$$     "@@" + MonsterHitLog[5] + "@" + MonsterRender[20] + "□\n");
 RenderText.push_back("□              @@@@:;@@@@:#@@!!!!!@@!@$!!!!@@ @$     .@@ @@      @@ @"   |  $$$V$$# $$bd$$$     "@@" + MonsterHitLog[6] + "@" + MonsterRender[21] + "□\n");
-RenderText.push_back("□              @@;;;;;@@=;#@@;;;;;@@;@=;;;;@@;@$  ;;;!@@ @@;;;;  @@ @"   Y.  Y$$$# Y  $$$$P      "@@" + MonsterHitLog[7] + "@" + MonsterRender[22] + "□\n");
+RenderText.push_back("□              @@;;;;;@@=;#@@;;;;;@@;@=;;;;@@;@$  ;;;!@@ @@;;;;  @@ @"   Y.  Y$$$# Y  $$$$P     "@@" + MonsterHitLog[7] + "@" + MonsterRender[22] + "□\n");
 RenderText.push_back("□              @@     @@=;@;;;;;;;;;;;;;;;;;;@@# ;@;;;;; ;;;;;@; @@ @"    'Y  $$P   Y  $$P      "@@" + MonsterHitLog[8] + "@" + MonsterRender[23] + "□\n");
 RenderText.push_back("□          ;;; @@    !@@@@@;;:            ~;;@@# @@;;;;; ;;;;;@@ @@ @"      Y__/     Y__/       "@@" + MonsterHitLog[9] + "@" + MonsterRender[24] + "□\n");
 RenderText.push_back("□         ;@;:;@@;  ;@;;@@@@@#!;;;;;;;;;;;#@@@@@ ;;;;;@@ @@;;;;; @@ @"                          "@@" + MonsterHitLog[10] + "@" + MonsterRender[25] + "□\n");
@@ -705,7 +705,7 @@ RenderText.push_back("□                 @@::.:=@!@:    !*@@@!!   ~@@@#!!    ::
 RenderText.push_back("□              :::@!!@!@@!:@@::::::@@@:::::@@!@$      @@!@@      @@ @"     |  O$$$$$$$$$$$D     "@@" + MonsterHitLog[5] + "@" + MonsterRender[20] + "□\n");
 RenderText.push_back("□              @@@@:;@@@@:#@@!!!!!@@!@$!!!!@@ @$     .@@ @@      @@ @"     'Y_____________#     "@@" + MonsterHitLog[6] + "@" + MonsterRender[21] + "□\n");
 RenderText.push_back("□              @@;;;;;@@=;#@@;;;;;@@;@=;;;;@@;@$  ;;;!@@ @@;;;;  @@ @"                          "@@" + MonsterHitLog[7] + "@" + MonsterRender[22] + "□\n");
-RenderText.push_back("□              @@     @@=;@;;;;;;;;;;;;;;;;;;@@# ;@;;;;; ;;;;;@; @@ @"       .d$$$$$$$$b        "@@" + MonsterHitLog[8] + "@" + MonsterRender[23] + "□\n");
+RenderText.push_back("□              @@     @@=;@;;;;;;;;;;;;;;;;;;@@# ;@;;;;; ;;;;;@; @@ @"        .d$$$$$$$$b        "@@" + MonsterHitLog[8] + "@" + MonsterRender[23] + "□\n");
 RenderText.push_back("□          ;;; @@    !@@@@@;;:            ~;;@@# @@;;;;; ;;;;;@@ @@ @"      #d$Y______ '$$b     "@@" + MonsterHitLog[9] + "@" + MonsterRender[24] + "□\n");
 RenderText.push_back("□         ;@;:;@@;  ;@;;@@@@@#!;;;;;;;;;;;#@@@@@ ;;;;;@@ @@;;;;; @@ @"     | O$$     'Y $$$     "@@" + MonsterHitLog[10] + "@" + MonsterRender[25] + "□\n");
 RenderText.push_back("□         :*!!@::@!!@:  @@::::@@:::@@:::@@::::@@      @@ @@      @@ @"     | S$B.   ,J J$$B     "@@" + MonsterHitLog[11] + "@" + MonsterRender[26] + "□\n");
