@@ -25,5 +25,8 @@ public:
     virtual void FinishStage() = 0;
     void SpaceMaker(string&, int);
     void TextRenderInit();
+
+private:
+    void setConsoleColor(WORD);
 };
 
