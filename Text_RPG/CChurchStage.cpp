@@ -43,28 +43,20 @@ void CChurchStage::StageTick()
 
 	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::SPACE) == KEY_STATE::TAP)
 	{
+		if (iCurTextPart == 11)
+		{
+			return;
+		}
+
 		if (iCurTextPart == 12)
 		{
-			CStageManager::GetInst()->ChangeStage(new CVillageStage);
 			CPlayer::GetInst()->SetBoolHealAccess(false);
+			return;
 		}
 
- 		if (iCurTextPart != 11)
-		{
-			++iCurTextPart;
-			bCallRender = true;
-		}
+		++iCurTextPart;
+		bCallRender = true;
 
-		
-
-		/*if (!CStageManager::GetInst()->GetIsDoneTutoStage())
-		{
-			if (iCurTextPart < 9)
-			{
-				++iCurTextPart;
-				bCallRender = true;
-			}
-		}*/
 	}
 
 	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::C) == KEY_STATE::TAP && iCurTextPart == 11)
@@ -389,7 +381,7 @@ void CChurchStage::TextPart3()
 void CChurchStage::TextPart4()
 {
 	int playerHp = CPlayer::GetInst()->GetHealth();
-	printf("□                         | |\\_.  |                                   치유되었습니다! 현재 체력 : ");  printf("%d", playerHp); printf(", 마을로 돌아가려면 Space를 누르세요."); playerHp < 100 ? printf("  ") : printf(" "); printf("                           |    /| |                      □\n"); // 43
+	printf("□                         | |\\_.  |                                   치유되었습니다! 현재 체력 : ");  printf("%d", playerHp); printf(", 마을로 돌아가려면 ESC를 누르세요."); playerHp < 100 ? printf("  ") : printf(" "); printf("                             |    /| |                      □\n"); // 43
 }
 
 void CChurchStage::TextPart5()
