@@ -70,13 +70,13 @@ void CDungeonEntranceStage::StageTick()
 
 void CDungeonEntranceStage::StageInit()
 {
-	if (CPlayer::GetInst()->GetLevel() == 1 && CPlayer::GetInst()->GetExp() == 0)
+	if (CStageManager::GetInst()->GetIsDoneTutoStage())
 	{
-		iCurTextPart = 1;
+		iCurTextPart = 5;
 	}
 	else
 	{
-		iCurTextPart = 5;
+		iCurTextPart = 1;
 	}
 }
 

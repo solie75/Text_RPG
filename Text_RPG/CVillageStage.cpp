@@ -2,16 +2,20 @@
 #include "CVillageStage.h"
 #include "CKeyManager.h"
 #include "CPlayer.h"
+#include "CStageManager.h"
+#include "CShopStage.h"
+#include "CDungeonEntranceStage.h"
 
 void CVillageStage::StageInit()
 {
-	if (CPlayer::GetInst()->GetLevel() == 1 && CPlayer::GetInst()->GetExp() == 0)
+	if (CStageManager::GetInst()->GetIsDoneTutoStage())
 	{
-		iCurStartPart = 1;
+		iCurStartPart = 9;
+		ChangeDestination();
 	}
 	else
 	{
-		iCurStartPart = 9;
+		iCurStartPart = 1;
 	}
 }
 
@@ -34,7 +38,20 @@ void CVillageStage::StageTick()
 		{
 			++iCurStartPart;
 			bCallRender = true;
+			CStageManager::GetInst()->SetIsDoneTutoStage(true);
 			ChangeDestination();
+		}
+		else if (iCurStartPart == 9)
+		{
+
+		}
+		else if (iCurStartPart == 10)
+		{
+			CStageManager::GetInst()->ChangeStage(new CShopStage);
+		}
+		else if (iCurStartPart == 11)
+		{
+			CStageManager::GetInst()->ChangeStage(new CDungeonEntranceStage);
 		}
 	}
 

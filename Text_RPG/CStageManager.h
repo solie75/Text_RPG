@@ -10,15 +10,15 @@ class CStageManager :
 private:
     //vector<CStage*> VecStage;
     CStage* CurStage;
-    bool bIsDoneTutorialStage;
+    bool IsDoneTutorialStage;
     //CStage* NextStage;
 
 public:
     void StageManagerInit();
     void StageManagerTick();
 
-    bool GetIsDoneTutoStage() { return bIsDoneTutorialStage; }
-    void SetIsDoneTutoStage(bool b) { bIsDoneTutorialStage = b; }
+    bool GetIsDoneTutoStage() { return IsDoneTutorialStage; }
+    void SetIsDoneTutoStage(bool b) { IsDoneTutorialStage = b; }
 
     CStage* GetCurStage();
     void ChangeStage(CStage* _nextStage);
