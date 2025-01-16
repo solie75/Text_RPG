@@ -24,8 +24,13 @@ std::unique_ptr<CMonster> CSpawnManager::GenerateMonster(int level)
 		break;
 	}
 
-
-	return Factory->CreateMonster(level);
+	if(CStageManager::GetInst()->GetIsDoneTutoStage())
+		return Factory->CreateMonster(level);
+	else
+	{
+		CStageManager::GetInst()->SetIsDoneTutoStage(true);
+		return Factory->CreateMonster(1000);
+	}
 }
 
 std::unique_ptr<CBossMonster> CSpawnManager::GenerateBossMonster(int level)

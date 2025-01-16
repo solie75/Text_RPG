@@ -148,7 +148,6 @@ void CDungeonStage::StageRender()
 
 			PlayerHitLog[1] = " DropItem : " + dropItemName;
 
-			SpaceMaker(PlayerHitLog[0], Max_TextBoxBlockSpace);
 			SpaceMaker(PlayerHitLog[1], Max_TextBoxBlockSpace);
 		}
 		else
@@ -158,6 +157,7 @@ void CDungeonStage::StageRender()
 
 		MonsterHitLog[0] = " Press Spacebar";
 		MonsterHitLog[1] = "             to continue";
+		SpaceMaker(PlayerHitLog[0], Max_TextBoxBlockSpace);
 		SpaceMaker(MonsterHitLog[0], Max_TextBoxBlockSpace);
 		SpaceMaker(MonsterHitLog[1], Max_TextBoxBlockSpace);
 

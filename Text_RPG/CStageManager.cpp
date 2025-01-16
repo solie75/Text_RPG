@@ -16,6 +16,7 @@ CStageManager::~CStageManager()
 void CStageManager::StageManagerInit()
 {
 	CurStage = nullptr;
+	bIsDoneTutorialStage = false;
 }
 
 void CStageManager::StageManagerTick()
