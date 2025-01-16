@@ -30,9 +30,9 @@ void CGameInstance::GameInstInit()
 	CTimeManager::GetInst()->TimeManagerInit();
 	CKeyManager::GetInst()->KeyManagerInit();
 	CStageManager::GetInst()->StageManagerInit();
-	//CStageManager::GetInst()->ChangeStage(new CStartStage);
+	CStageManager::GetInst()->ChangeStage(new CStartStage);
 	//CStageManager::GetInst()->ChangeStage(new CStateStage);
-	CStageManager::GetInst()->ChangeStage(new CChurchStage);
+	//CStageManager::GetInst()->ChangeStage(new CChurchStage);
 	//CStageManager::GetInst()->ChangeStage(new CDungeonEntranceStage);
 	//CStageManager::GetInst()->ChangeStage(new CEndingStage);
 }

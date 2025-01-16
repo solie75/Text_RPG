@@ -39,11 +39,30 @@ void CStageManager::ChangeStage(CStage* _nextStage)
 {
 	if (nullptr != CurStage)
 	{
+		if (nullptr != PrevStage)
+		{
+			delete PrevStage;
+			PrevStage = nullptr;
+		}
+
 		PrevStage = CurStage;
-		delete CurStage;
 		CurStage = nullptr;
 	}
 
 	CurStage = _nextStage;
+	if (nullptr != CurStage)
+	{
+		CurStage->StageInit();
+	}
+}
+
+void CStageManager::BackToPrevStage()
+{
+	CStage* TempStage;
+	TempStage = PrevStage;
+	PrevStage = CurStage;
+	CurStage = TempStage;
 	CurStage->StageInit();
+
+	TempStage = nullptr;
 }

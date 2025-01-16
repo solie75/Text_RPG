@@ -24,4 +24,5 @@ public:
     CStage* GetCurStage();
     CStage* GetPrevStage();
     void ChangeStage(CStage* _nextStage);
+    void BackToPrevStage();
 };
