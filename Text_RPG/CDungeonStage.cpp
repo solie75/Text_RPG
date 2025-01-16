@@ -167,7 +167,7 @@ void CDungeonStage::StageRender()
 			PlayerHitLog = TextRenderWin;
 
 			SpaceMaker(PlayerHitLog[1], Max_TextBoxBlockSpace);
-			MonsterHitLog[0] = " Drop Item : " + dropItemName;
+			MonsterHitLog[0] = " Get : " + dropItemName + " !";
 			ColorOfDropItem = 6;
 		}
 		else
