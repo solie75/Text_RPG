@@ -8,6 +8,7 @@
 #include "CStageManager.h"
 #include "CVillageStage.h"
 #include "CShopManager.h"
+#include "CChurchStage.h"
 
 void CNormalDungeonStage::StageInit()
 {
@@ -44,11 +45,15 @@ void CNormalDungeonStage::StageTick()
 
 	if (bIsAbleNextStep && CKeyManager::GetInst()->GetKeyState(KEY_TYPE::SPACE) == KEY_STATE::TAP)
 	{
-		if (CBattleManager::GetInst()->GetIsPlayerWinner() == false)
+		if (CBattleManager::GetInst()->GetIsPlayerWinner())
 		{
-			CPlayer::GetInst()->Church_Heal();
+			CStageManager::GetInst()->ChangeStage(new CVillageStage());
 		}
-		CStageManager::GetInst()->ChangeStage(new CVillageStage());
+		else
+		{
+			CStageManager::GetInst()->ChangeStage(new CChurchStage());
+		}
+		
 	}
 }
 

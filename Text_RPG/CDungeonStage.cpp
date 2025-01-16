@@ -143,6 +143,7 @@ void CDungeonStage::StageRender()
 	else
 	{//전투 종료
 		bool isWin = CBattleManager::GetInst()->GetIsPlayerWinner();
+		CPlayer::GetInst()->SetBoolHealAccess(true);
 
 		if (isWin)
 		{

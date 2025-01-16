@@ -24,6 +24,8 @@ private:
 	int Gold;
 	unordered_map<ITEM_TYPE, class CItem*> Inventory;
 
+	bool bHealAccess = true;
+
 	//get, set
 public:
 	string GetName() { return Name; }
@@ -39,6 +41,8 @@ public:
 	int GetMaxExp() { return MaxExperience; }
 	unordered_map<ITEM_TYPE, string> GetItemList();	
 	void RegisterMaster();
+	void SetBoolHealAccess(bool _b) { bHealAccess = _b; }
+	bool GetBoolHealAccess() { return bHealAccess; }
 public:
 	void IncreaseLevel();
 	void Hit(int);

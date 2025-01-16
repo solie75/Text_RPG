@@ -7,7 +7,7 @@
 #include "CKeyManager.h"
 #include "CStageManager.h"
 #include "CEndingStage.h"
-#include "CVillageStage.h"
+#include "CChurchStage.h"
 #include "CShopManager.h"
 
 void CBossDungeonStage::StageInit()
@@ -50,7 +50,7 @@ void CBossDungeonStage::StageTick()
 		}
 		else
 		{
-			CStageManager::GetInst()->ChangeStage(new CVillageStage());
+			CStageManager::GetInst()->ChangeStage(new CChurchStage());
 		}
 	}
 }

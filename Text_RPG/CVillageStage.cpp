@@ -393,12 +393,12 @@ void CVillageStage::VillageStartPart0()
 
 void CVillageStage::VillageStartPart1()
 {
-	printf("□                         | |\\_.  |                                                       마을에 도착했습니다.                                                        |    /| |                      □\n"); // 43
+	printf("□                         | |\\_.  |                                             교회를 나서자 한 노인이 팔을 덥석 잡았다.                                             |    /| |                      □\n"); // 43
 }
 
 void CVillageStage::VillageStartPart2()
 {
-	printf("□                         | |\\_.  |                                                용사님! 마을에 오신 것을 환영합니다!                                               |    /| |                      □\n"); // 43
+	printf("□                         | |\\_.  |                                                 용사님! 무사하셨군요! 다행입니다....                                              |    /| |                      □\n"); // 43
 }
 
 void CVillageStage::VillageStartPart3()
@@ -408,7 +408,7 @@ void CVillageStage::VillageStartPart3()
 
 void CVillageStage::VillageStartPart4()
 {
-	printf("□                         | |\\_.  |                     공격은 못하지만 빠르고 은신이 능한 자라 용사님이 어디에서 쓰러지셔도 마을로 모셔올 것입니다.                  |    /| |                      □\n"); // 43
+	printf("□                         | |\\_.  |                 공격은 못하지만 주변 지리에 빠삭하고 은신이 능한 자라 용사님이 어디에 계시든 마을로 모셔올 것입니다.              |    /| |                      □\n"); // 43
 }
 
 void CVillageStage::VillageStartPart5()
@@ -418,12 +418,12 @@ void CVillageStage::VillageStartPart5()
 
 void CVillageStage::VillageStartPart6()
 {
-	printf("□                         | |\\_.  |                        상점에서는 물건을 사고 팔 수 있고 교회에서는 미약하게나마 치료를 받으실 수 있습니다.                       |    /| |                      □\n"); // 43
+	printf("□                         | |\\_.  |                          상점에서는 물건을 사고 팔 수 있고 교회에서는 미약하게나마 치료를 받으실 수 있죠.                         |    /| |                      □\n"); // 43
 }
 
 void CVillageStage::VillageStartPart7()
 {
-	printf("□                         | |\\_.  |                              레벨이 10 이 되면 마을 옆 던전의 보스 몬스터의 방에 들어갈 수 있습니다.                              |    /| |                      □\n"); // 43
+	printf("□                         | |\\_.  |                          마을 옆 던전의 보스 몬스터의 방에 들어가려면 레벨이 10은 되어야 한다고 하더군요                          |    /| |                      □\n"); // 43
 }
 
 void CVillageStage::VillageStartPart8()

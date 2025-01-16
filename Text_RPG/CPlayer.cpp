@@ -62,8 +62,8 @@ void CPlayer::RegisterMaster()
 {
 	Level = 10;
 	MaxExperience = 0;
-	Damage = 1000;
-	MaxHealth = 1000;
+	Damage = 999;
+	MaxHealth = 999;
 	Health = MaxHealth;
 }
 

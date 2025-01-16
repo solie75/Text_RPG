@@ -21,6 +21,11 @@ void CChurchStage::StageTick()
 
 	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::SPACE) == KEY_STATE::TAP)
 	{
+		if (!CPlayer::GetInst()->GetBoolHealAccess())
+		{
+			return;
+		}
+
 		if (iCurTextPart < 3)
 		{
 			++iCurTextPart;
@@ -29,6 +34,7 @@ void CChurchStage::StageTick()
 		else if (iCurTextPart == 4)
 		{
 			CStageManager::GetInst()->ChangeStage(new CVillageStage);
+			CPlayer::GetInst()->SetBoolHealAccess(false);
 		}
 	}
 
@@ -38,6 +44,12 @@ void CChurchStage::StageTick()
 		CPlayer::GetInst()->Church_Heal();
 		++iCurTextPart;
 		bCallRender = true;
+		
+	}
+
+	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::ESC) == KEY_STATE::TAP)
+	{
+		CStageManager::GetInst()->ChangeStage(new CVillageStage);
 	}
 }
 
@@ -50,20 +62,27 @@ void CChurchStage::StageRender()
 	std::cout << "\033[2J\033[H";
 	printf("□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□\n");
 	BasicRender();
-	switch (iCurTextPart)
+	if (CPlayer::GetInst()->GetBoolHealAccess())
 	{
-	case 1:
-		TextPart1();
-		break;
-	case 2:
-		TextPart2();
-		break;
-	case 3:
-		TextPart3();
-		break;
-	case 4:
-		TextPart4();
-		break;
+		switch (iCurTextPart)
+		{
+		case 1:
+			TextPart1();
+			break;
+		case 2:
+			TextPart2();
+			break;
+		case 3:
+			TextPart3();
+			break;
+		case 4:
+			TextPart4();
+			break;
+		}
+	}
+	else
+	{
+		TextPart5();
 	}
 	printf("□                         |\\|  | /|                                                                                                                                   |\\  | |/|                      □\n"); // 44
 	if (iCurTextPart < 3)
@@ -152,6 +171,7 @@ void CChurchStage::TextPart4()
 
 void CChurchStage::TextPart5()
 {
+	printf("□                         | |\\_.  |                                       십자가에서 빛이 나지 않습니다. 나가려면 ESC를 누르세요.                                     |    /| |                      □\n"); // 43
 }
 
 void CChurchStage::TextPart6()
