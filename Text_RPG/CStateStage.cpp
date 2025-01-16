@@ -43,12 +43,6 @@ void CStateStage::StageInit()
 
 void CStateStage::StageTick()
 {
-	if (test)
-	{
-		StageRender();
-		test = false;
-	}
-	
 }
 
 void CStateStage::StageRender()
