@@ -9,7 +9,8 @@ class CStageManager :
 
 private:
     //vector<CStage*> VecStage;
-    CStage* CurStage;
+    CStage* CurStage; // 현재 스테이지
+    CStage* PrevStage; // 이전 스테이지
     bool IsDoneTutorialStage;
     //CStage* NextStage;
 
@@ -21,5 +22,6 @@ public:
     void SetIsDoneTutoStage(bool b) { IsDoneTutorialStage = b; }
 
     CStage* GetCurStage();
+    CStage* GetPrevStage();
     void ChangeStage(CStage* _nextStage);
 };

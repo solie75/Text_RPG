@@ -30,10 +30,16 @@ CStage* CStageManager::GetCurStage()
 	return CurStage;
 }
 
+CStage* CStageManager::GetPrevStage()
+{
+	return PrevStage;
+}
+
 void CStageManager::ChangeStage(CStage* _nextStage)
 {
 	if (nullptr != CurStage)
 	{
+		PrevStage = CurStage;
 		delete CurStage;
 		CurStage = nullptr;
 	}
