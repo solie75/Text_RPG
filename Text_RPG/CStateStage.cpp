@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "CStateStage.h"
 #include "CPlayer.h"
+#include "CKeyManager.h"
+#include "CStageManager.h"
 
 string CStateStage::SpaceMaker(string myString, int stringSize)
 {
@@ -43,6 +45,10 @@ void CStateStage::StageInit()
 
 void CStateStage::StageTick()
 {
+	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::ESC) == KEY_STATE::TAP)
+	{
+		CStageManager::GetInst()->ChangeStage(CStageManager::GetInst()->GetPrevStage());
+	}
 }
 
 void CStateStage::StageRender()
