@@ -6,6 +6,7 @@
 #include "CShopStage.h"
 #include "CChurchStage.h"
 #include "CDungeonEntranceStage.h"
+#include "CStateStage.h"
 
 void CVillageStage::StageInit()
 {
@@ -64,6 +65,14 @@ void CVillageStage::StageTick()
 			iCurStartPart = 9;
 		}
 		ChangeDestination();
+	}
+
+	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::UP) == KEY_STATE::TAP)
+	{
+		if (CStageManager::GetInst()->GetIsDoneTutoStage())
+		{
+			CStageManager::GetInst()->ChangeStage(new CStateStage);
+		}
 	}
 
 	fAccumulatedTime += GlobalData.DeltaTime;
