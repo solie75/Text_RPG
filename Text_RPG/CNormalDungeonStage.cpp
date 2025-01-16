@@ -64,6 +64,10 @@ void CNormalDungeonStage::StageRender()
 
 void CNormalDungeonStage::FinishStage()
 {
+	std::random_device RandomDevice; // 시드값을 얻기 위한 random_device 생성
+	std::mt19937 gen(RandomDevice()); // random_device를 통해 난수 생성 엔진을 초기화
+	std::uniform_int_distribution<int> GoldDistribution(10, 20);
+	int Gold = GoldDistribution(gen);
 	if (CBattleManager::GetInst()->GetIsPlayerWinner())
 	{
 		CPlayer::GetInst()->ExpUp(50);
@@ -71,7 +75,8 @@ void CNormalDungeonStage::FinishStage()
 		if (Dropping != ITEM_TYPE::NONE)
 		{
 			CPlayer::GetInst()->AddItem(Dropping);
-			dropItemName = CPlayer::GetInst()->GetItemName(Dropping);
+			CPlayer::GetInst()->ReceiveGold(Gold);
+			dropItemName = CPlayer::GetInst()->GetItemName(Dropping) + ", " + std::to_string(Gold) + "$";
 		}
 		else
 		{
