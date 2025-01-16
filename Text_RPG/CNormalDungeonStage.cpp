@@ -45,7 +45,7 @@ void CNormalDungeonStage::StageTick()
 	{
 		if (CBattleManager::GetInst()->GetIsPlayerWinner() == false)
 		{
-			CPlayer::GetInst()->Church_ReHealth();
+			CPlayer::GetInst()->Church_Heal();
 		}
 		CStageManager::GetInst()->ChangeStage(new CVillageStage());
 	}
