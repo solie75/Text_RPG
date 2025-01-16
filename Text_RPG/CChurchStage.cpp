@@ -77,7 +77,10 @@ void CChurchStage::StageTick()
 
 	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::ESC) == KEY_STATE::TAP)
 	{
-		CStageManager::GetInst()->ChangeStage(new CVillageStage);
+		if (CStageManager::GetInst()->GetIsDoneTutoStage() || iCurTextPart > 11)
+		{
+			CStageManager::GetInst()->ChangeStage(new CVillageStage);
+		}
 	}
 
 	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::UP) == KEY_STATE::TAP)
@@ -369,7 +372,15 @@ void CChurchStage::TextPart2()
 
 void CChurchStage::TextPart3()
 {
-	printf("□                         | |\\_.  |               현재 보유한 재화의 3할을 바치면 체력이 3할만큼 회복 됩니다. 회복하려면 C 를, 나가려면 ESC를 누르세요.               |    /| |                      □\n"); // 43
+	if (CStageManager::GetInst()->GetIsDoneTutoStage())
+	{
+		printf("□                         | |\\_.  |               현재 보유한 재화의 3할을 바치면 체력이 3할만큼 회복 됩니다. 회복하려면 C 를, 나가려면 ESC를 누르세요.               |    /| |                      □\n"); // 43
+	}
+	else
+	{
+		printf("□                         | |\\_.  |                         현재 보유한 재화의 3할을 바치면 체력이 3할만큼 회복 됩니다. 회복하려면 C  를 누르세요.                    |    /| |                      □\n"); // 43
+	}
+	
 }
 
 void CChurchStage::TextPart4()
