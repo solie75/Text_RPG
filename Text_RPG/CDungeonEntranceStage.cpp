@@ -55,7 +55,7 @@ void CDungeonEntranceStage::StageTick()
 			{
 				CStageManager::GetInst()->ChangeStage(new CNormalDungeonStage);
 			}
-			else if (iCurTextPart == 6)
+			else if (iCurTextPart == 6 && CPlayer::GetInst()->GetLevel() > 9)
 			{
 				CStageManager::GetInst()->ChangeStage(new CBossDungeonStage);
 			}
