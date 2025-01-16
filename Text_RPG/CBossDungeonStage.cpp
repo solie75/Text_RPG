@@ -30,10 +30,11 @@ void CBossDungeonStage::StageTick()
 			if (bIsProcessOnceDo == false)
 			{
 				FinishStage();
+				StageRender();
 			}
 		}
 
-		if (bIsProcessOnceDo == false)
+		if (bIsProcessOnceDo == false && CBattleManager::GetInst()->GetIsEndBattle() == false)
 			StageRender();
 	}
 	else
@@ -62,6 +63,7 @@ void CBossDungeonStage::FinishStage()
 {
 	if (CBattleManager::GetInst()->GetIsPlayerWinner())
 	{
+		dropItemName = "Nope";
 	}
 	else
 	{
