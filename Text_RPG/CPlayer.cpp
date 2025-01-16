@@ -101,8 +101,8 @@ void CPlayer::ResetDamage()
 
 void CPlayer::Church_Heal()
 {
-	Health += MaxHealth / 3;
-	Gold = Gold * 2 / 3;
+	Health += (MaxHealth / 3);
+	Gold = Gold - (Gold / 3);
 }
 
 string CPlayer::GetItemName(ITEM_TYPE _itemType)
@@ -145,7 +145,7 @@ void CPlayer::ExpUp(int _up)
 
 void CPlayer::ExpDown()
 {
-	Experience /= 30;
+	Experience = Experience  -(Experience / 3);
 }
 void CPlayer::AddItem(ITEM_TYPE Item_t)
 {

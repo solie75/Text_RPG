@@ -19,5 +19,4 @@ private:
 	int PlayerGold;
 	int PlayerMaxHealth;
 	int PlayerMaxExperience;
-	bool test = true;
 };
