@@ -51,6 +51,7 @@ public:
 	void PayGold(int);
 	void ReceiveGold(int);
 	void ResetDamage();
+	void Defeat_ResetHealth();
 	string GetItemName(ITEM_TYPE);
 };
 

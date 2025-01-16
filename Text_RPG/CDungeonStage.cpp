@@ -10,6 +10,7 @@
 void CDungeonStage::StageInit()
 {
 	bIsAbleNextStep = false;
+	CBattleManager::GetInst()->InitBattleManager();
 	this->StageRender();
 }
 

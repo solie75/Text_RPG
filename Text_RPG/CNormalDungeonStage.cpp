@@ -29,10 +29,11 @@ void CNormalDungeonStage::StageTick()
 			if (bIsProcessOnceDo == false)
 			{
 				FinishStage();
+				StageRender();
 			}
 		}
 
-		if (bIsProcessOnceDo == false)
+		if (bIsProcessOnceDo == false && CBattleManager::GetInst()->GetIsEndBattle() == false)
 			StageRender();
 	}
 	else
@@ -42,6 +43,10 @@ void CNormalDungeonStage::StageTick()
 
 	if (bIsAbleNextStep && CKeyManager::GetInst()->GetKeyState(KEY_TYPE::SPACE) == KEY_STATE::TAP)
 	{
+		if (CBattleManager::GetInst()->GetIsPlayerWinner() == false)
+		{
+			CPlayer::GetInst()->Defeat_ResetHealth();
+		}
 		CStageManager::GetInst()->ChangeStage(new CVillageStage());
 	}
 }
@@ -66,14 +71,12 @@ void CNormalDungeonStage::FinishStage()
 		{
 			dropItemName = "Nope";
 		}
-		//Monster->DropItem(); 이용해서 인벤토리에 아이템 넣기 & 해당값을 가지고 로그창에 띄우기
-		// DropItem()이 있는지 체크하고, 분기점으로 네임 넣기
-		//dropItemName = CPlayer::GetInst()->GetInventory(Monster->DropItem())->GetName();
 	}
 	else
 	{
 		CPlayer::GetInst()->ExpDown();
 	}
+	CPlayer::GetInst()->ResetDamage();
 	bIsAbleNextStep = true;
 	bIsProcessOnceDo = true;
 }
