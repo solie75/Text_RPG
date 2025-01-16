@@ -5,10 +5,11 @@
 #include <iostream>
 #include <map>
 #include <random>
+#include <unordered_map>
 
 using std::vector;
 using std::string;
-using std::map;
+using std::unordered_map;
 
 #include <Windows.h>
 

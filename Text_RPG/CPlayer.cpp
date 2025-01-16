@@ -44,6 +44,16 @@ int CPlayer::GetItemCnt(ITEM_TYPE Item_t)
 	return Inventory[Item_t]->GetCnt();
 }
 
+unordered_map<ITEM_TYPE, string> CPlayer::GetItemList()
+{
+	unordered_map<ITEM_TYPE, string> list;
+	for (auto it : Inventory)
+	{
+		list.insert({ it.first, it.second->GetName() });
+	}
+	return list;
+}
+
 void CPlayer::IncreaseLevel()
 {
 	if (Level == MaxLevel) // 나중에 포션 등으로 레벨 올렸을 경우 대비.

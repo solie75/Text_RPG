@@ -5,6 +5,7 @@
 #include "CMonsterLeather.h"
 #include "CPlayer.h"
 
+
 CShopManager::CShopManager()
 {
 	ShopCoin = 300;
@@ -24,6 +25,16 @@ int CShopManager::GetItemCnt(ITEM_TYPE Item_t)
 	}
 
 	return Stuff[Item_t]->GetCnt();
+}
+
+unordered_map<ITEM_TYPE, string> CShopManager::GetItemList()
+{
+	unordered_map<ITEM_TYPE, string> list;
+	for (auto it : Stuff)
+	{
+		list.insert({ it.first, it.second->GetName() });
+	}
+	return list;
 }
 
 int CShopManager::BuyItem(ITEM_TYPE Item_t)

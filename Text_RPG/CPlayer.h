@@ -22,7 +22,7 @@ private:
 	int Damage;
 
 	int Gold;
-	std::map<ITEM_TYPE, class CItem*> Inventory;
+	unordered_map<ITEM_TYPE, class CItem*> Inventory;
 
 	//get, set
 public:
@@ -36,6 +36,8 @@ public:
 	int GetLevel() { return Level; }
 	int GetItemCnt(ITEM_TYPE);
 	int GetExp() { return Experience; }
+	unordered_map<ITEM_TYPE, string> GetItemList();
+	
 public:
 	void IncreaseLevel();
 	void Hit(int);
