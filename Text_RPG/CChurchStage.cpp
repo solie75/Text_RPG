@@ -82,7 +82,10 @@ void CChurchStage::StageTick()
 
 	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::UP) == KEY_STATE::TAP)
 	{
-		CStageManager::GetInst()->ChangeStage(new CStateStage);
+		if (CStageManager::GetInst()->GetIsDoneTutoStage())
+		{
+			CStageManager::GetInst()->ChangeStage(new CStateStage);
+		}
 	}
 }
 
