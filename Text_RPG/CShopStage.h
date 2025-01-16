@@ -44,7 +44,6 @@ private:
     void CurrItemRender();
     void ChangeBUYSELL();
     void SpaceMaker(string&, int);
-    void InitVariables();
 
     void BuyRenderPotion();
     void BuyRenderBooster();

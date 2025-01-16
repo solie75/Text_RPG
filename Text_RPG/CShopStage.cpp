@@ -157,15 +157,6 @@ void CShopStage::SpaceMaker(string& _str, int _max)
 	}
 }
 
-void CShopStage::InitVariables()
-{
-	Notification = "";
-	SpaceMaker(Notification, 60);
-	PlayerGold = CPlayer::GetInst()->GetGold();
-	PlayerGoldforPrint = std::to_string(PlayerGold) + " \$";
-	SpaceMaker(PlayerGoldforPrint, 42);
-}
-
 void CShopStage::StageRender()
 {
 	std::cout << "\033[2J\033[H";
@@ -449,7 +440,7 @@ void CShopStage::SellRenderPotion() // 셀 HP포션 랜더
 	printf("□                                                                                                    ||                                                 Y_____________________________________#      □\n");
 	printf("□       [     HP POTION     ]          [    Attack Boost   ]          [  Monster leather  ]          ||                                                                                              □\n");
 	printf("□        ===================            ===================            ===================           ||                                      "); setConsoleColor(6); printf("Player Gold : % s", PlayerGoldforPrint.c_str()); setConsoleColor(7); printf("□\n");
-	printf("□       [    6$   /  %s  ]          [   9$   /  %s   ]          [    5$   /  %s  ]          ||                                                                                              □\n", zeroBUYPotionCnt.c_str(), zeroBUYBoostCnt.c_str(), zeroSELLMonLeatherCnt.c_str());
+	printf("□       [    6$   /  %s  ]          [   9$   /  %s   ]          [    5$   /  %s  ]          ||                                                                                              □\n", zeroSELLPotionCnt.c_str(), zeroSELLBoostCnt.c_str(), zeroSELLMonLeatherCnt.c_str());
 	printf("□                                                                                                    ||                  Press 'C' button to change BUY ITME MODE or SELL ITEM MODE                  □\n");
 	printf("□       .--------------------.         .--------------------.         .--------------------.         ||                        Press the '←' and '→' keys to select an item                        □\n");
 	printf("□      | ,-----------------. |        | ,-----------------. |        | ,-----------------. |         ||                                                                                              □\n");
@@ -505,7 +496,7 @@ void CShopStage::SellRenderBooster() // 셀 공격력 부스터 랜더
 	printf("□                                                                                                    ||                                                 Y_____________________________________#      □\n");
 	printf("□       [     HP POTION     ]          [    Attack Boost   ]          [  Monster leather  ]          ||                                                                                              □\n");
 	printf("□        ===================            ===================            ===================           ||                                      "); setConsoleColor(6); printf("Player Gold : % s", PlayerGoldforPrint.c_str()); setConsoleColor(7); printf("□\n");
-	printf("□       [    6$   /  %s  ]          [   9$   /  %s   ]          [    5$   /  %s  ]          ||                                                                                              □\n", zeroBUYPotionCnt.c_str(), zeroBUYBoostCnt.c_str(), zeroSELLMonLeatherCnt.c_str());
+	printf("□       [    6$   /  %s  ]          [   9$   /  %s   ]          [    5$   /  %s  ]          ||                                                                                              □\n", zeroSELLPotionCnt.c_str(), zeroSELLBoostCnt.c_str(), zeroSELLMonLeatherCnt.c_str());
 	printf("□                                                                                                    ||                  Press 'C' button to change BUY ITME MODE or SELL ITEM MODE                  □\n");
 	printf("□       .--------------------.         .--------------------.         .--------------------.         ||                        Press the '←' and '→' keys to select an item                        □\n");
 	printf("□      | ,-----------------. |        | ,-----------------. |        | ,-----------------. |         ||                                                                                              □\n");
@@ -563,7 +554,7 @@ void CShopStage::SellRenderMonLeather() // 셀 몬스터가죽 랜더
 	printf("□                                                                                                    ||                                                 Y_____________________________________#      □\n");
 	printf("□       [     HP POTION     ]          [    Attack Boost   ]          [  Monster leather  ]          ||                                                                                              □\n");
 	printf("□        ===================            ===================            ===================           ||                                      "); setConsoleColor(6); printf("Player Gold : % s", PlayerGoldforPrint.c_str()); setConsoleColor(7); printf("□\n");
-	printf("□       [    6$   /  %s  ]          [   9$   /  %s   ]          [    5$   /  %s  ]          ||                                                                                              □\n", zeroBUYPotionCnt.c_str(), zeroBUYBoostCnt.c_str(), zeroSELLMonLeatherCnt.c_str());
+	printf("□       [    6$   /  %s  ]          [   9$   /  %s   ]          [    5$   /  %s  ]          ||                                                                                              □\n", zeroSELLPotionCnt.c_str(), zeroSELLBoostCnt.c_str(), zeroSELLMonLeatherCnt.c_str());
 	printf("□                                                                                                    ||                  Press 'C' button to change BUY ITME MODE or SELL ITEM MODE                  □\n");
 	printf("□       .--------------------.         .--------------------.         .--------------------.         ||                        Press the '←' and '→' keys to select an item                        □\n");
 	printf("□      | ,-----------------. |        | ,-----------------. |        | ,-----------------. |         ||                                                                                              □\n");
