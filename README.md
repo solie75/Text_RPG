@@ -71,6 +71,10 @@
 ## 관련 링크
 * [팀 노션 링크](https://teamsparta.notion.site/1-14-4a713f7f889144f099875472d2bd38ed)
 
+## 회고
+
+https://github.com/solie75/Text_RPG/blob/main/KPT%20(%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%ED%9A%8C%EA%B3%A0).md
+
 ## 팀원
 |이름|역할|작업기능|
 |--------|--------|---------------|
