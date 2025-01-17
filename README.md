@@ -5,7 +5,7 @@
 ## 프로젝트 소개
 
 ### 프롤로그
-![Prolouge](https://github.com/solie75/Text_RPG/blob/main/Prolouge.jpg)
+![Prolouge](https://github.com/solie75/Text_RPG/blob/main/ReadMeImage/Prolouge.jpg)
 > 현재 공국은 마왕의 흉악한 주술로 인해 몬스터가 창궐하여, 각 성과 도시, 촌락에 근심이 그칠 날이 없다. 이에 본국은 몬스터를 토벌하고, 마왕을 소멸시키기 위해 용사를 선발하고자 한다. 당신은 던전에 도전에 영웅의 자격을 증명하려고 한다. 그대의 도전이 공국에 평화를 가져다주기를!
 
 
@@ -16,7 +16,7 @@
 
 ### Text RPG란?
 레벨업과 전략적 아이템 관리를 통해 보스를 물리치는 텍스트 기반 로그라이크 RPG 게임 입니다.
-![GameStructureDiagram](https://github.com/solie75/Text_RPG/blob/main/Game%20Structure%20Diagram.png)
+![GameStructureDiagram](https://github.com/solie75/Text_RPG/blob/main/ReadMeImage/Game%20Structure%20Diagram.png)
 게임을 시작하면 환영 문구와 함께 플레이어의 이름을 입력받습니다.
 
 
@@ -67,3 +67,7 @@
 |김채영|팀원|몬스터 생성 및 배틀|
 |장진우|팀원|던전 및 캐릭터|
 |장세희|팀원|아이템 및 상점|
+
+## 회고
+
+https://github.com/solie75/Text_RPG/blob/main/KPT%20(%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%ED%9A%8C%EA%B3%A0).md
