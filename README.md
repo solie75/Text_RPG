@@ -77,9 +77,9 @@ https://github.com/solie75/Text_RPG/blob/main/KPT%20(%ED%94%84%EB%A1%9C%EC%A0%9D
 
 ## 팀원
 |이름|역할|작업기능|
-|--------|--------|---------------|---------------|
-|신중은|팀장|구조 설계 및 스테이지 제작 등|[TEST](https://github.com/solie75)|
-|전보경|팀원|상점 화면 구성 및 코드 보조 등|[TEST](https://github.com/solie75)|
-|김채영|팀원|몬스터 생성 및 배틀 등|[TEST](https://github.com/solie75)|
-|장진우|팀원|던전 및 캐릭터 등|[TEST](https://github.com/solie75)|
-|장세희|팀원|아이템 및 상점 등|[TEST](https://github.com/solie75)|
+|--------|--------|---------------|
+|[신중은](https://github.com/solie75)|팀장|구조 설계 및 스테이지 제작 등|
+|[전보경](https://github.com/vaevic)|팀원|상점 화면 구성 및 코드 보조 등|
+|[김채영](https://github.com/iiblueblue)|팀원|몬스터 생성 및 배틀 등|
+|[장진우](https://github.com/Junk-Bear)|팀원|던전 및 캐릭터 등|
+|[장세희](https://github.com/sehee-jj)|팀원|아이템 및 상점 등|
