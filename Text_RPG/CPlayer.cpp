@@ -172,8 +172,7 @@ void CPlayer::AddItem(ITEM_TYPE Item_t)
 
 string CPlayer::BuyItem(ITEM_TYPE Item_t)
 {
-	//int ItemPrice = CShopManager::GetInst()->SellItem(Item_t);
-	int ItemPrice = CShopManager::GetInst()->GetItemPrice(Item_t);
+	int ItemPrice = Inventory[Item_t]->GetPrice();
 
 	if (Gold - ItemPrice < 0)
 	{

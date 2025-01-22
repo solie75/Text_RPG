@@ -15,9 +15,18 @@ void CShopManager::CShopManagerInit()
 {
 	ShopCoin = 300;
 	ResalePercent = 0.6f;
+	ItemCnt = 5;
 
-	Stuff.insert({ ITEM_TYPE::HEALTH_POTION, new CHealthPotion("Health Potion", 5) });
-	Stuff.insert({ ITEM_TYPE::ATTACK_BOOST, new CAttackBoost("Attack Boost", 5) });
+	if(Stuff.empty())
+	{
+		Stuff.insert({ ITEM_TYPE::HEALTH_POTION, new CHealthPotion("Health Potion", ItemCnt) });
+		Stuff.insert({ ITEM_TYPE::ATTACK_BOOST, new CAttackBoost("Attack Boost", ItemCnt) });
+	}
+
+	for (auto item : Stuff)
+	{
+		item.second->SetCnt(ItemCnt);
+	}
 }
 
 int CShopManager::GetItemCnt(ITEM_TYPE Item_t)
@@ -29,17 +38,6 @@ int CShopManager::GetItemCnt(ITEM_TYPE Item_t)
 	}
 
 	return Stuff[Item_t]->GetCnt();
-}
-
-int CShopManager::GetItemPrice(ITEM_TYPE Item_t)
-{
-	if (Stuff.find(Item_t) == Stuff.end())
-	{
-		//doesn't have, in list
-		return -1;
-	}
-
-	return Stuff[Item_t]->GetPrice();
 }
 
 unordered_map<ITEM_TYPE, string> CShopManager::GetItemList()
@@ -72,6 +70,7 @@ int CShopManager::BuyItem(ITEM_TYPE Item_t)
 			return 0;
 		}
 		SalePrice = Item->GetPrice();
+		delete Item;
 	}
 	//items sold in shop
 	//resale percent of pirce

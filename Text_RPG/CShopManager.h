@@ -5,6 +5,7 @@ class CShopManager :
 {
 private:
     int ShopCoin;
+    int ItemCnt;
     float ResalePercent;
     unordered_map<ITEM_TYPE, class CItem*> Stuff;
 public:
@@ -13,7 +14,6 @@ public:
     void CShopManagerInit();
 
     int GetItemCnt(ITEM_TYPE);
-    int GetItemPrice(ITEM_TYPE);
     unordered_map<ITEM_TYPE, string> GetItemList();
 
 public:

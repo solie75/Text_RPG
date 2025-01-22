@@ -13,6 +13,7 @@ public:
 	int GetPrice();
 	int GetCnt();
 	void SetPrice(int);
+	void SetCnt(int);
 
 public:
 	void ReduceCnt();

@@ -21,6 +21,11 @@ void CItem::SetPrice(int _Price)
     Price = _Price;
 }
 
+void CItem::SetCnt(int _Cnt)
+{
+    Cnt = _Cnt;
+}
+
 void CItem::ReduceCnt()
 {
     Cnt--;

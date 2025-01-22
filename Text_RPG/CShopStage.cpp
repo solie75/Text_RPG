@@ -41,6 +41,7 @@ void CShopStage::StageTick()
 		CStageManager::GetInst()->ChangeStage(new CStateStage);
 	}
 
+	// 스페이스바를 눌러 판매/구매를 시도했을 때
 	if (CKeyManager::GetInst()->GetKeyState(KEY_TYPE::SPACE) == KEY_STATE::TAP)
 	{
 		if (CurPlayer_Mode == BUYSELL_MODE::BUY)
