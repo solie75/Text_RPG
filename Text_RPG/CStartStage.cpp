@@ -260,7 +260,7 @@ string CStartStage::GetInputID()
 		switch (c)
 		{
 		case 3: // exit
-			return "exit";
+			_exit(0);
 		case 13: // press enter
 			return ID;
 		default:
